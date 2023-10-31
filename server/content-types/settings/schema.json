@@ -1,0 +1,61 @@
+{
+  "kind": "collectionType",
+  "collectionName": "setting",
+  "info": {
+    "singularName": "settings",
+    "pluralName": "setting",
+    "displayName": "Settings"
+  },
+  "options": {
+    "draftAndPublish": false,
+    "comment": ""
+  },
+  "pluginOptions": {
+    "content-manager": {
+      "visible": false
+    },
+    "content-type-builder": {
+      "visible": false
+    }
+ },
+  "attributes": {
+    "License Key": {
+      "type": "string",
+      "required": true
+    },
+    "Icon Position": {
+      "type": "enumeration",
+      "enum": [
+        "top_left",
+        "top_center",
+        "top_right",
+        "middle_left",
+        "middle_right",
+        "bottom_left",
+        "bottom_center",
+        "bottom_right"
+      ]
+    },
+    "Icon Type": {
+      "type": "enumeration",
+      "enum": [
+        "aioa-icon-type-1",
+        "aioa-icon-type-2",
+        "aioa-icon-type-3"
+      ]
+    },
+    "Icon Size": {
+      "type": "enumeration",
+      "enum": [
+        "aioa-big-icon",
+        "aioa-medium-icon",
+        "aioa-default-icon",
+        "aioa-small-icon",
+        "aioa-extra-small-icon"
+      ]
+    },
+    "Color Code": {
+      "type": "string"
+    }
+  }
+}
