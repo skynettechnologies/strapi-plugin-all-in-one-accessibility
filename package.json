@@ -1,5 +1,5 @@
 {
-  "name": "@strapi/all-in-one-accessibility",
+  "name": "strapi-plugin-all-in-one-accessibility",
   "version": "1.0.0",
   "description": "Website accessibility widget for improving WCAG 2.0, 2.1, 2.2 and ADA compliance!",
   "strapi": {
