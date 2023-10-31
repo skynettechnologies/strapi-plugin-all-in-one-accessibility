@@ -27,6 +27,8 @@ const HomePage = () => {
 
   const [settingList, setSetting] = useState({});
   const [isChanged, setIsChanged] = useState(false);
+  // Step 1: Define a state variable to track the success message.
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
   useEffect(() => {
     console.log("settingList (outside): ", settingList);
@@ -83,7 +85,7 @@ const HomePage = () => {
       "Icon Type": data.icontype,
       "Icon Size": data.iconsize
     })
-//    Fetchsettings()
+    //    Fetchsettings()
   }
 
   async function addsetting(data) {
@@ -135,6 +137,13 @@ const HomePage = () => {
       .then(response => response.json())
       .then(async response => {
         console.log("response Save Data", response);
+        setShowSuccessMessage(true);
+
+        // Optionally, you can reset the success message after a certain time period.
+        setTimeout(() => {
+          setShowSuccessMessage(false);
+        }, 3000); // Reset message after 3 seconds
+
       })
       .catch(error => console.log('error', error));
   }
@@ -191,7 +200,7 @@ const HomePage = () => {
 
               // setParameters({ licenseKey: settingList["License Key"], hexaColor: settingList["Color Code"], position: settingList["Icon Position"], icontype: settingList["Icon Type"], iconsize: settingList["Icon Size"] })
             }
-      
+
           }
         } else {
         }
@@ -253,7 +262,7 @@ const HomePage = () => {
       <meta charSet="utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <title>All In One Accessibility Strapi</title>
-      <meta name="description" content="Shopify App - Subscription Plan" />
+      <meta name="description" content="Strapi App" />
 
       <div style={elementStyle}>
 
@@ -270,7 +279,7 @@ const HomePage = () => {
                       type='text'
                       onChange={checkLicenseKey}
                     />
-                    <div className={`form-text ${isValid ? "d-none" : null}`}>  Please <a href="https://ada.skynettechnologies.us/trial-subscription?utm_source=strapi&utm_medium=strapi&utm_campaign=trial-subscription" target="_blank">Upgrade</a> to full version of All in One Accessibility Pro.
+                    <div className={`form-text ${isValid ? "d-none" : null}`}>  Please <a href="https://www.skynettechnologies.com/add-ons/cart/?add-to-cart=116&variation_id=117&quantity=1&utm_medium=strapi-app&utm_campaign=purchase-plan" target="_blank">Upgrade</a> to full version of All in One Accessibility Pro.
                     </div>
                     <div className='form-text text-danger'>{message}</div>
                   </div>
@@ -286,7 +295,7 @@ const HomePage = () => {
                     />
                   </div>
                   <div className="col-sm-3"></div>
-                  <div className="form-text col-sm-9">You can cutomize the ADA Widget color. For example: FF5733</div>
+                  <div className="form-text col-sm-9">You can customize the ADA Widget color. For example: FF5733</div>
                 </Form.Group>
 
                 <Form.Group className={`mb-30 row`}>
@@ -435,17 +444,17 @@ const HomePage = () => {
                     </div>
                   </div>
                 </Form.Group>
-
                 <div className="save-changes-btn">
-
                   <Button variant="primary" size="lg"
                     id="submit"
                     onClick={onSaveChanges}
                     className="btn btn-primary">
                     Save Changes
                   </Button>
+                  <Form.Group className={`mt-30 row`}>
+                    {showSuccessMessage && <div className="success-message">Settings successfully saved!</div>}
+                  </Form.Group>
                 </div>
-
               </Form>
             </div>
           </div>
