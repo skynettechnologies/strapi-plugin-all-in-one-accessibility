@@ -1,5 +1,5 @@
 {
-  "name": "all-in-one-accessibility",
+  "name": "@strapi/all-in-one-accessibility",
   "version": "1.0.0",
   "description": "Website accessibility widget for improving WCAG 2.0, 2.1, 2.2 and ADA compliance!",
   "strapi": {
@@ -7,6 +7,10 @@
     "description": "Website accessibility widget for improving WCAG 2.0, 2.1, 2.2 and ADA compliance!",
     "kind": "plugin",
     "displayName": "All In One Accessibility"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/skynettechnologies/strapi-plugin-all-in-one-accessibility.git"
   },
   "dependencies": {
     "@strapi/design-system": "^1.6.3",
