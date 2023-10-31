@@ -1,6 +1,6 @@
 {
   "name": "all-in-one-accessibility",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Website accessibility widget for improving WCAG 2.0, 2.1, 2.2 and ADA compliance!",
   "strapi": {
     "name": "All in One Accessibility",
