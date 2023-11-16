@@ -58,4 +58,12 @@ module.exports = [
       policies: [],
     },
   },
+  {
+    method: "GET",
+    path: "/getScript",
+    handler: "settings.getScript",
+    config: {
+      policies: [],
+    },
+  },
 ];

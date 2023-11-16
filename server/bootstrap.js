@@ -6,4 +6,7 @@ module.exports = async ({ strapi }) => {
  // console.log("homepage.content :",homepage.content);
  await strapi.plugin("all-in-one-accessibility").service("settings").addScript();
 
+// await strapi.plugin("all-in-one-accessibility").controller("settings").getScript();
+
+
 };

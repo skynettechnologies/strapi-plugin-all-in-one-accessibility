@@ -10,7 +10,7 @@ import { Switch, Route } from 'react-router-dom';
 import { AnErrorOccurred } from '@strapi/helper-plugin';
 import pluginId from '../../pluginId';
 import HomePage from '../HomePage';
-require('../../../../assets/css/bootstrap.min.css');
+// require('../../../../assets/css/bootstrap.min.css');
 require('../../../../assets/css/style.css');
 
 const App = () => {

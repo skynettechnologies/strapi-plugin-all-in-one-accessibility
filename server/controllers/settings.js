@@ -91,4 +91,38 @@ module.exports={
         console.error('Error triggering the script:', err);
       }
     },
+    getScript: async (ctx) => {
+      strapi.db.query('plugin::all-in-one-accessibility.settings')
+      const q = strapi.entityService.findMany("plugin::all-in-one-accessibility.settings",);
+    
+      const settings = await q;
+      console.log("settings: ", settings);
+      var hexaColorCode = "420083", licensekey = "", IconPosition = "bottom_right", IconType = "aioa-icon-type-1", IconSize = "aioa-default-icon";
+    
+      if (settings.length > 0) {
+        if (Object.keys(settings[0]).length !== 0) {
+    
+          console.log("License Key", settings[0]["License Key"]);
+          console.log("Color Code", settings[0]["Color Code"]);
+          console.log("Icon Position", settings[0]["Icon Position"]);
+          console.log("Icon Type", settings[0]["Icon Type"]);
+          console.log("Icon Size", settings[0]["Icon Size"]);
+    
+          hexaColorCode = settings[0]["Color Code"];
+          licensekey = settings[0]["License Key"];
+          IconPosition = settings[0]["Icon Position"];
+          IconType = settings[0]["Icon Type"];
+          IconSize = settings[0]["Icon Size"];
+    
+        }
+      }
+      // const { hexaColorCode, licensekey, IconPosition, IconType, IconSize } = ctx.query;
+  
+      // Construct the script URL with the parameters
+      const scriptUrl = `https://www.skynettechnologies.com/accessibility/js/all-in-one-accessibility-js-widget-minify.js?colorcode=${hexaColorCode}&token=${licensekey}&position=${IconPosition}.${IconType}.${IconSize}`;
+  
+      // Respond with the script code
+      ctx.type = 'application/javascript';
+      ctx.body = `document.write('<script src="${scriptUrl}"></script>');`;
+    },
 };

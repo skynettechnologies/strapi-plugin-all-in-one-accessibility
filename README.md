@@ -1,6 +1,6 @@
 # Strapi-plugin-all-in-one-accessibility
 
-A lightweight & feature-rich Gatsby Strapi to easily add [All in One Accessibility](https://www.skynettechnologies.com/all-in-one-accessibility)
+A lightweight & feature-rich Strapi to easily add [All in One Accessibility](https://www.skynettechnologies.com/all-in-one-accessibility)
 to your site.
 
 ## Features
