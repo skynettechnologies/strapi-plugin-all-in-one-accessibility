@@ -107,7 +107,7 @@ In your ./config/plugins.js file:
 'all-in-one-accessibility': {
     // my-plugin is going to be the internal name used for this plugin
     enabled: true,
-    resolve: './src/plugins/all-in-one-accessibility',
+    resolve: './node_modules/strapi-plugin-all-in-one-accessibility',
     config: {
       // user plugin config goes here
     },
