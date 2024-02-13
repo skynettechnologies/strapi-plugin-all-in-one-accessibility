@@ -1,7 +1,25 @@
 # Strapi-plugin-all-in-one-accessibility
 
-A lightweight & feature-rich Strapi to easily add [All in One Accessibility](https://www.skynettechnologies.com/all-in-one-accessibility)
-to your site.
+[All in One Accessibility](https://www.skynettechnologies.com/all-in-one-accessibility) AI Widget Supports 140 Languages, Screen Reader, Voice Navigation, Dictionary, Virtual Keyboard, Accessibility Profiles, Sign language Libras (Brazilian Portuguese) Custom Widget Color, Icon size, Position, GA4 Tracking and custom accessibility statement link are some of the top features. 
+
+
+Our AI automatically remediates images Alternative text and uses the accessibility interface which handles UI and design related adjustments. All in One Accessibility app enhances your strapi website accessibility to people with hearing or vision impairments, motor impaired, color blind, dyslexia, cognitive & learning impairments, seizure and epileptic, and ADHD problems. 
+
+
+It improves strapi website ADA compliance and browser experience for ADA, WCAG 2.1 & 2.2, Section 508, California Unruh Act, Australian DDA, European EAA EN 301 549, UK Equality Act (EA), Israeli Standard 5568, Ontario AODA, Canada ACA, German BITV, France RGAA, Brazilian Inclusion Law (LBI 13.146/2015), Spain UNE 139803:2012, JIS X 8341 (Japan), Italian Stanca Act and Switzerland DDA Standards. 
+
+
+Follows the best industry security, SEO practices and standards ISO 9001:2015 & ISO 27001:2013 and complies with GDPR, COPPA regulations. Member of W3C and International Association of Accessibility Professionals (IAAP). It is a flexible & lightweight widget that can be changed according to law and reduces the risk of time-consuming accessibility lawsuits. 
+
+
+Following features can be added as an addon  
+-    White Label service  
+-    Custom Branding  
+-    Live Site translates  
+-    Customize Accessibility Menu/widget  
+-    Accessibility Monitoring  
+-    PDF / Word Document Remediation 
+
 
 ## Features
 #### Skip Links
@@ -35,23 +53,23 @@ to your site.
 - Choose Application Position
 - Multi Language
 
-#### Supports 40 languages
-- English
-- Spanish
-- German
-- Arabic
-- Slovak
-- Portuguese
-- French
+#### Supports 140+ languages
+- English(US)
 - Italian
-- Polish
-- Turkish
-- Japanese
-- Finnish
+- French
+- German
 - Russian
+- Spanish
+- Finnish
+- Portuguese
+- Arab
+- Polish
 - Hungarian
-- Latin
+- Slovak
+- Japanese
+- Turkish
 - Greek
+- Latin
 - Hebrew
 - Bulgarian
 - Catalan
@@ -62,7 +80,6 @@ to your site.
 - Hindi
 - Indonesian
 - Korean
-- Lithuanian
 - Malay
 - Norwegian
 - Romanian
@@ -72,10 +89,37 @@ to your site.
 - Ukrainian
 - Vietnamese
 - Bengali
+- Lithuanian
 - Sinhala
 - Amharic
 - Hmong
-- Myanmar (Burmese)
+- Burmese
+- Latvian
+- Estonian
+- Serbian
+- Portuguese (Brazil)
+- Chinese Traditional
+- Croatian
+- Georgian
+- Hawaiian
+- Welsh
+- Cebuano
+- Samoan
+- Haitian Creole
+- Faroese
+- Montenegrin
+- Australian
+- Azeri
+- Basque
+- Canada
+- Filipino
+- Galician
+- Norwegian
+- Persian
+- Punjabi
+- Spanish (Mexico)
+- English(United Kingdom)
+
 
 ## Installation
 
@@ -105,14 +149,33 @@ In your ./config/plugins.js file:
 
 ```javascript
 'all-in-one-accessibility': {
-    // my-plugin is going to be the internal name used for this plugin
     enabled: true,
-    resolve: './src/plugins/all-in-one-accessibility',
+    resolve: './node_modules/strapi-plugin-all-in-one-accessibility',
     config: {
-      // user plugin config goes here
     },
   },
 ```
 
-### For Any queries
-For any kind of queries please Email us at [Skynet Technologies Support](mailto:hello@skynettechnologies.com)
+## Screenshots
+
+![App Screenshot](https://raw.githubusercontent.com/skynettechnologies/umbraco-allinoneaccessibility/main/Screenshot-3.jpg)
+
+![App Screenshot](https://raw.githubusercontent.com/skynettechnologies/umbraco-allinoneaccessibility/main/Screenshot-1.jpg)
+
+![App Screenshot](https://raw.githubusercontent.com/skynettechnologies/umbraco-allinoneaccessibility/main/Screenshot-2.jpg)
+
+![App Screenshot](https://raw.githubusercontent.com/skynettechnologies/umbraco-allinoneaccessibility/main/Screenshot-4.jpg)
+
+
+## Acknowledgements
+
+- [Strapi All in One Accessibility](https://www.skynettechnologies.com/strapi-website-accessibility)
+- [Strapi All in One Accessibility Extension installation steps blog](https://www.skynettechnologies.com/blog/strapi-web-accessibility-widget-installation)
+
+## Documentation
+
+[All in One Accessibility - User Guide](https://www.skynettechnologies.com/sites/default/files/accessibility-widget-features-list.pdf)
+
+## Support
+
+For any kind of queries/support please Email us at [Skynet Technologies Support](mailto:hello@skynettechnologies.com)

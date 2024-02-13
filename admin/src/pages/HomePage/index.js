@@ -123,7 +123,7 @@ const HomePage = () => {
   const saveData = (data) => {
     var formdata = new FormData();
     console.log("window.location.origin : ", window.location.origin);
-    formdata.append("u", "classiconline2.bitrix24.shop");
+    formdata.append("u", window.location.origin);
     formdata.append("widget_position", data.position);
     formdata.append("widget_color_code", data.hexaColor);
     formdata.append("widget_icon_type", data.icontype);
