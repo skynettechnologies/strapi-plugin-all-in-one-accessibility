@@ -294,7 +294,7 @@ const HomePage = () => {
                             {" "}
                             Please{" "}
                             <a
-                              href="https://www.skynettechnologies.com/add-ons/cart/?add-to-cart=116&variation_id=117&quantity=1&utm_medium=strapi-app&utm_campaign=purchase-plan"
+                              href="https://ada.skynettechnologies.us/trial-subscription"
                               target="_blank">
                               Upgrade
                             </a>{" "}

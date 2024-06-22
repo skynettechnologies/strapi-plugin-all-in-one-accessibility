@@ -61,8 +61,8 @@ Add the following code in your ./config/plugins.js file:
 
 ## Configuration
 
-To configure the widget, access the Admin Panel and head to the All in One Accessibility menu in the dashboard. From there, you can register.
-
+To configure the widget, access the Admin Panel and head to the All in One Accessibility menu in the dashboard. From there, you can register [here](https://ada.skynettechnologies.us/trial-subscription) with 10 Days free trial.
+After registration, you will receive an License Key. Enter the License Key in the configuration page.
 
 ## Screenshots
 
