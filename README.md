@@ -62,21 +62,21 @@ Add the following code in your ./config/plugins.js file:
 ## Configuration
 
 To configure the widget, access the Admin Panel and head to the All in One Accessibility menu in the dashboard. From there, you can register [here](https://ada.skynettechnologies.us/trial-subscription) with 10 Days free trial.
-After registration, you will receive an License Key. Enter the License Key in the configuration page.
+After registration, you will receive an License Key via Email. Enter the License Key in the configuration page.
 
 ## Screenshots
 
-![App Screenshot](https://www.skynettechnologies.com/sites/default/files/ScreenShot%201.jpg)
+![App Screenshot](https://www.skynettechnologies.com/sites/default/files/strapi/Screenshot-1.jpg)
 
-![App Screenshot](https://www.skynettechnologies.com/sites/default/files/ScreenShot%202.jpg)
+![App Screenshot](https://www.skynettechnologies.com/sites/default/files/strapi/Screenshot-2.jpg)
 
-![App Screenshot](https://www.skynettechnologies.com/sites/default/files/ScreenShot%203.jpg)
+![App Screenshot](https://www.skynettechnologies.com/sites/default/files/strapi/Screenshot-3.jpg)
 
-![App Screenshot](https://www.skynettechnologies.com/sites/default/files/ScreenShot%204.jpg)
+![App Screenshot](https://www.skynettechnologies.com/sites/default/files/strapi/Screenshot-4.jpg)
 
-![App Screenshot](https://www.skynettechnologies.com/sites/default/files/ScreenShot%205.jpg)
+![App Screenshot](https://www.skynettechnologies.com/sites/default/files/strapi/Screenshot-5.jpg)
 
-![App Screenshot](https://www.skynettechnologies.com/sites/default/files/ScreenShot%206.jpg)
+![App Screenshot](https://www.skynettechnologies.com/sites/default/files/strapi/Screenshot-6.jpg)
 
 ## Video
 
