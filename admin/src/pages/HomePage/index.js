@@ -32,17 +32,17 @@ const HomePage = () => {
   useEffect(() => {
     console.log("settingList (outside): ", settingList);
     if (Object.keys(settingList).length !== 0) {
-      console.log("License Key", settingList["License Key"]);
-      console.log("Color Code", settingList["Color Code"]);
-      console.log("Icon Position", settingList["Icon Position"]);
-      console.log("Icon Type", settingList["Icon Type"]);
-      console.log("Icon Size", settingList["Icon Size"]);
+      console.log("License Key", settingList["License_Key"]);
+      console.log("Color Code", settingList["Color_Code"]);
+      console.log("Icon Position", settingList["Icon_Position"]);
+      console.log("Icon Type", settingList["Icon_Type"]);
+      console.log("Icon Size", settingList["Icon_Size"]);
 
-      if (settingList["License Key"].length > 0) {
+      if (settingList["License_Key"].length > 0) {
         setIsValid(true);
       }
       setParameters({
-        licenseKey: settingList["License Key"],
+        licenseKey: settingList["License_Key"],
         hexaColor: settingList["Color Code"],
         position: settingList["Icon Position"],
         icontype: settingList["Icon Type"],
@@ -175,28 +175,28 @@ const HomePage = () => {
             console.log("response Get Data", response["Data"]["widget_icon_type"]);
             console.log("response Get Data", response["Data"]["widget_icon_size"]);
 
-            console.log("License Key", settingList["License Key"]);
-            console.log("Color Code", settingList["Color Code"]);
-            console.log("Icon Position", settingList["Icon Position"]);
-            console.log("Icon Type", settingList["Icon Type"]);
-            console.log("Icon Size", settingList["Icon Size"]);
+            console.log("License Key", settingList["License_Key"]);
+            console.log("Color Code", settingList["Color_Code"]);
+            console.log("Icon Position", settingList["Icon_Position"]);
+            console.log("Icon Type", settingList["Icon_Type"]);
+            console.log("Icon Size", settingList["Icon_Size"]);
 
-            if (response["Data"]["widget_position"] !== settingList["Icon Position"]) {
+            if (response["Data"]["widget_position"] !== settingList["Icon_Position"]) {
               setIsChanged(true);
             }
-            if (response["Data"]["widget_color_code"] !== settingList["Color Code"]) {
+            if (response["Data"]["widget_color_code"] !== settingList["Color_Code"]) {
               setIsChanged(true);
             }
-            if (response["Data"]["widget_icon_type"] !== settingList["Icon Type"]) {
+            if (response["Data"]["widget_icon_type"] !== settingList["Icon_Type"]) {
               setIsChanged(true);
             }
-            if (response["Data"]["widget_icon_size"] !== settingList["Icon Size"]) {
+            if (response["Data"]["widget_icon_size"] !== settingList["Icon_Size"]) {
               setIsChanged(true);
             }
 
             if (isChanged == true) {
               setParameters({
-                licenseKey: settingList["License Key"],
+                licenseKey: settingList["License_Key"],
                 hexaColor: response["Data"]["widget_color_code"],
                 position: response["Data"]["widget_position"],
                 icontype: response["Data"]["widget_icon_type"],
@@ -204,11 +204,11 @@ const HomePage = () => {
               });
 
               SettingsApiHandler.editSettings(settingList.id, {
-                "License Key": settingList["License Key"],
-                "Color Code": response["Data"]["widget_color_code"],
-                "Icon Position": response["Data"]["widget_position"],
-                "Icon Type": response["Data"]["widget_icon_type"],
-                "Icon Size": response["Data"]["widget_icon_size"],
+                "License_Key": settingList["License_Key"],
+                "Color_Code": response["Data"]["widget_color_code"],
+                "Icon_Position": response["Data"]["widget_position"],
+                "Icon_Type": response["Data"]["widget_icon_type"],
+                "Icon_Size": response["Data"]["widget_icon_size"],
               });
 
               // setParameters({ licenseKey: settingList["License Key"], hexaColor: settingList["Color Code"], position: settingList["Icon Position"], icontype: settingList["Icon Type"], iconsize: settingList["Icon Size"] })

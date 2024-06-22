@@ -1,6 +1,6 @@
 {
   "name": "strapi-plugin-all-in-one-accessibility",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Website accessibility widget for improving WCAG 2.0, 2.1, 2.2 and ADA compliance!",
   "strapi": {
     "name": "all-in-one-accessibility",
@@ -13,26 +13,26 @@
     "url": "https://github.com/skynettechnologies/strapi-plugin-all-in-one-accessibility.git"
   },
   "dependencies": {
-    "@strapi/design-system": "^1.6.3",
-    "@strapi/helper-plugin": "^4.20.0",
-    "@strapi/icons": "^1.6.3",
-    "prop-types": "^15.7.2",
-    "bootstrap": "^5.3.2",
-    "react-bootstrap": "^2.9.0"
+    "@strapi/design-system": "^1.19.0",
+    "@strapi/helper-plugin": "^4.25.1",
+    "@strapi/icons": "^1.19.0",
+    "prop-types": "^15.8.1",
+    "bootstrap": "^5.3.3",
+    "react-bootstrap": "^2.10.3"
   },
   "devDependencies": {
-    "@strapi/strapi": "4.20.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^5.3.4",
-    "styled-components": "^5.3.6"
+    "@strapi/strapi": "4.25.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.23.1",
+    "styled-components": "^6.1.11"
   },
   "peerDependencies": {
-    "@strapi/strapi": "^4.4.0",
+    "@strapi/strapi": "^4.25.1",
     "react": "^17.0.0 || ^18.0.0",
     "react-dom": "^17.0.0 || ^18.0.0",
-    "react-router-dom": "^5.3.4",
-    "styled-components": "^5.3.6"
+    "react-router-dom": "^6.23.1",
+    "styled-components": "^6.1.11"
   },
   "author": {
     "name": "Rajesh Bhimani"

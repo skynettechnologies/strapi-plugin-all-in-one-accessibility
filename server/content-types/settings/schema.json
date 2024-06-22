@@ -19,11 +19,11 @@
     }
  },
   "attributes": {
-    "License Key": {
+    "License_Key": {
       "type": "string",
       "required": true
     },
-    "Icon Position": {
+    "Icon_Position": {
       "type": "enumeration",
       "enum": [
         "top_left",
@@ -36,7 +36,7 @@
         "bottom_right"
       ]
     },
-    "Icon Type": {
+    "Icon_Type": {
       "type": "enumeration",
       "enum": [
         "aioa-icon-type-1",
@@ -44,7 +44,7 @@
         "aioa-icon-type-3"
       ]
     },
-    "Icon Size": {
+    "Icon_Size": {
       "type": "enumeration",
       "enum": [
         "aioa-big-icon",
@@ -54,7 +54,7 @@
         "aioa-extra-small-icon"
       ]
     },
-    "Color Code": {
+    "Color_Code": {
       "type": "string"
     }
   }
