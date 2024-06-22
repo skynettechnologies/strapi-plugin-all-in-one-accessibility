@@ -4,7 +4,8 @@
 	http://jedwatson.github.io/classnames
 */
 
-/** @license React v16.14.0
+/**
+ * @license React
  * react-jsx-runtime.production.min.js
  *
  * Copyright (c) Facebook, Inc. and its affiliates.

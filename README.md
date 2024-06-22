@@ -1,4 +1,4 @@
-# Strapi-plugin-all-in-one-accessibility
+# All in One Accessibility™: Strapi Plugin
 
 ## Description
 All in One Accessibility AI Widget Supports 140 Languages and includes 70+ features. Screen Reader, Talk & Type, Voice Navigation, Dictionary, Virtual Keyboard, Accessibility Profiles, Sign language Libras (Brazilian Portuguese) Custom Widget Color, Icon size, Position, Talk & Type, GA4 Tracking and custom accessibility statement link are some of the top features.
@@ -66,17 +66,17 @@ To configure the widget, access the Admin Panel and head to the All in One Acces
 
 ## Screenshots
 
-![App Screenshot](images/ScreenShot%201.jpg)
+![App Screenshot](https://www.skynettechnologies.com/sites/default/files/ScreenShot%201.jpg)
 
-![App Screenshot](images/ScreenShot%202.jpg)
+![App Screenshot](https://www.skynettechnologies.com/sites/default/files/ScreenShot%202.jpg)
 
-![App Screenshot](images/ScreenShot%203.jpg)
+![App Screenshot](https://www.skynettechnologies.com/sites/default/files/ScreenShot%203.jpg)
 
-![App Screenshot](images/ScreenShot%204.jpg)
+![App Screenshot](https://www.skynettechnologies.com/sites/default/files/ScreenShot%204.jpg)
 
-![App Screenshot](images/ScreenShot%205.jpg)
+![App Screenshot](https://www.skynettechnologies.com/sites/default/files/ScreenShot%205.jpg)
 
-![App Screenshot](images/ScreenShot%206.jpg)
+![App Screenshot](https://www.skynettechnologies.com/sites/default/files/ScreenShot%206.jpg)
 
 ## Video
 

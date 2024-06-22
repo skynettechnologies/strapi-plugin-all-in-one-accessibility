@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Annotation, EditorState, StateEffect, type Extension } from '@codemirror/state';
-import { EditorView, ViewUpdate } from '@codemirror/view';
+import { EditorView, type ViewUpdate } from '@codemirror/view';
 import { getDefaultExtensions } from './getDefaultExtensions';
 import { getStatistics } from './utils';
-import { ReactCodeMirrorProps } from '.';
+import { type ReactCodeMirrorProps } from '.';
 
 const External = Annotation.define<boolean>();
 
@@ -38,7 +38,7 @@ export function useCodeMirror(props: UseCodeMirror) {
     root,
     initialState,
   } = props;
-  const [container, setContainer] = useState<HTMLDivElement>();
+  const [container, setContainer] = useState<HTMLDivElement | null>();
   const [view, setView] = useState<EditorView>();
   const [state, setState] = useState<EditorState>();
   const defaultThemeOption = EditorView.theme({
@@ -114,7 +114,7 @@ export function useCodeMirror(props: UseCodeMirror) {
     };
   }, [container, state]);
 
-  useEffect(() => setContainer(props.container!), [props.container]);
+  useEffect(() => setContainer(props.container), [props.container]);
 
   useEffect(
     () => () => {
