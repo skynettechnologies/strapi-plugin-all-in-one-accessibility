@@ -58,17 +58,13 @@ After registration, you will receive an License Key via Email. Enter the License
 
 ## Screenshots
 
-![App Screenshot](https://www.skynettechnologies.com/sites/default/files/strapi/Screenshot-1.jpg)
+![App Screenshot](https://www.skynettechnologies.com/sites/default/files/screenshot-1-free.jpg?v=2)
 
-![App Screenshot](https://www.skynettechnologies.com/sites/default/files/strapi/Screenshot-2.jpg)
+![App Screenshot](https://www.skynettechnologies.com/sites/default/files/screenshot-2-free.jpg?v=2)
 
-![App Screenshot](https://www.skynettechnologies.com/sites/default/files/strapi/Screenshot-3.jpg)
+![App Screenshot](https://www.skynettechnologies.com/sites/default/files/screenshot-3-free.jpg?v=2)
 
-![App Screenshot](https://www.skynettechnologies.com/sites/default/files/strapi/Screenshot-4.jpg)
-
-![App Screenshot](https://www.skynettechnologies.com/sites/default/files/strapi/Screenshot-5.jpg)
-
-![App Screenshot](https://www.skynettechnologies.com/sites/default/files/strapi/Screenshot-6.jpg)
+![App Screenshot](https://www.skynettechnologies.com/sites/default/files/screenshot-4-free.jpg?v=2)
 
 ## Video
 
