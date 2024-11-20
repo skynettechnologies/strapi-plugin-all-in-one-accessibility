@@ -1,0 +1,71 @@
+{
+  "version": "1.0.15",
+  "keywords": [],
+  "type": "commonjs",
+  "exports": {
+    "./package.json": "./package.json",
+    "./strapi-admin": {
+      "source": "./admin/src/index.js",
+      "import": "./dist/admin/index.mjs",
+      "require": "./dist/admin/index.js",
+      "default": "./dist/admin/index.js"
+    },
+    "./strapi-server": {
+      "source": "./server/src/index.js",
+      "import": "./dist/server/index.mjs",
+      "require": "./dist/server/index.js",
+      "default": "./dist/server/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "strapi-plugin build",
+    "watch": "strapi-plugin watch",
+    "watch:link": "strapi-plugin watch:link",
+    "verify": "strapi-plugin verify"
+  },
+  "dependencies": {
+    "@strapi/design-system": "^2.0.0-rc.12",
+    "react-intl": "^6.8.7",
+    "react-bootstrap": "^2.10.5",
+    "prop-types": "^15.8.1",
+    "bootstrap": "^5.3.3"
+  },
+  "devDependencies": {
+    "@strapi/strapi": "^5.4.0",
+    "@strapi/sdk-plugin": "^5.2.7",
+    "prettier": "^3.3.3",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.28.0",
+    "styled-components": "^6.1.13"
+  },
+  "peerDependencies": {
+    "@strapi/strapi": "^5.4.0",
+    "@strapi/sdk-plugin": "^5.2.7",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.28.0",
+    "styled-components": "^6.1.13"
+  },
+  "strapi": {
+    "kind": "plugin",
+    "name": "all-in-one-accessibility",
+    "displayName": "All in One Accessibility",
+    "description": "Website accessibility widget for improving WCAG 2.0, 2.1, 2.2 and ADA compliance!"
+  },
+  "name": "all-in-one-accessibility",
+  "description": "Website accessibility widget for improving WCAG 2.0, 2.1, 2.2 and ADA compliance!",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/skynettechnologies/strapi-plugin-all-in-one-accessibility.git"
+  },
+  "bugs": {
+    "url": "https://github.com/skynettechnologies/strapi-plugin-all-in-one-accessibility/issues"
+  },
+  "homepage": "https://github.com/skynettechnologies/strapi-plugin-all-in-one-accessibility#readme",
+  "author": "Rajesh Bhimani <developer3@skynettechnologies.com>"
+}
