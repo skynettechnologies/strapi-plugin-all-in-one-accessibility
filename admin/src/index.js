@@ -59,6 +59,9 @@ import { Initializer } from './components/Initializer';
 import { PluginIcon } from './components/PluginIcon';
 
 export default {
+  /**
+   * App/Plugin Registration on Strapi Admin Panel
+   */
   register(app) {
     // Add the menu link
     app.addMenuLink({

@@ -14,6 +14,9 @@
 // import SettingsApiHandler from '../../admin/src/API/settings';
 
 module.exports = ({ strapi }) => ({
+  /**
+   * Get Settings from Strapi Database
+   */
   async getSettings(query) {
     strapi.db.query('plugin::all-in-one-accessibility.settings')
     const q = strapi.entityService.findMany("plugin::all-in-one-accessibility.settings",);

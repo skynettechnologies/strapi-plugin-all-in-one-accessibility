@@ -4,6 +4,9 @@
 import axios from 'axios';
 
 const SettingsApiHandler = {
+  /**
+   * This API is used to Get All saved settings
+   */
   getAllSettings: async () => {
     try {
       const response = await axios.get('/all-in-one-accessibility/getsettings');
@@ -14,6 +17,9 @@ const SettingsApiHandler = {
     }
   },
 
+  /**
+   * This API is used to Add Settings 
+   */
   addSettings: async (data) => {
     try {
       const response = await axios.post('/all-in-one-accessibility/createsettings', {
@@ -26,6 +32,9 @@ const SettingsApiHandler = {
     }
   },
 
+  /**
+   * This API is used to update settings
+   */
   editSettings: async (id, data) => {
     try {
       const response = await axios.put(`/all-in-one-accessibility/updatesettings/${id}`, {

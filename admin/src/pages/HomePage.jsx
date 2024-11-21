@@ -17,7 +17,7 @@
 
 /*
  *
- * HomePage
+ * HomePage of All in One Accessibility Settings Page
  *
  */
 
@@ -31,6 +31,11 @@ import { Tab } from 'bootstrap';
 // import cssString from "../../../assets/css/style.css";
 
 const HomePage = () => {
+
+  /**
+   * Declare Variables
+   */
+
   const [isValid, setIsValid] = useState(false);
   const [message, setMessage] = useState('');
   const [parameters, setParameters] = useState({
@@ -88,6 +93,9 @@ const HomePage = () => {
     Fetchsettings();
   }, []);
 
+  /**
+   * Get All Settings from Database
+   */
   async function Fetchsettings() {
     try {
       const settings = await SettingsApiHandler.getAllSettings();
@@ -106,6 +114,9 @@ const HomePage = () => {
     Fetchsettings();
   }
 
+  /**
+   * Update Settings when settings are already there
+   */
   async function updatesetting(id, data) {
     SettingsApiHandler.editSettings(id, {
       // 'License Key': data.licenseKey,
@@ -118,6 +129,9 @@ const HomePage = () => {
        Fetchsettings()
   }
 
+  /**
+   * Add Settings function will save settings
+   */
   async function addsetting(data) {
     console.log('addsetting parameters', parameters);
 
@@ -132,6 +146,9 @@ const HomePage = () => {
     Fetchsettings();
   }
 
+  /**
+   * Save Changes is a function which used to click on Save Changes Button on UI
+   */
   const onSaveChanges = async () => {
     if (Object.keys(settingList).length !== 0) {
       await updatesetting(settingList.id, parameters);
@@ -142,6 +159,9 @@ const HomePage = () => {
     }
   };
 
+  /**
+   * Save the data on Dashboard from Settings UI
+   */
   const saveData = (data) => {
     var formdata = new FormData();
     console.log('window.location.origin : ', window.location.hostname);
@@ -178,6 +198,9 @@ const HomePage = () => {
       .catch((error) => console.log('error', error));
   };
 
+  /**
+   * Get API data will get all details from Dashboard API to Settings UI
+   */
   const getAPIData = () => {
     var formdata = new FormData();
     formdata.append('website_url', window.location.hostname);
@@ -252,6 +275,9 @@ const HomePage = () => {
       .catch((error) => console.log('error', error));
   };
 
+  /**
+   * Icon change event when user change Icon Type on Settings UI
+   */
   const onIconChange = (e) => {
     setParameters({ ...parameters, icontype: e.target.value });
     if (e.target.value == 'aioa-icon-type-2') {
@@ -300,6 +326,9 @@ const HomePage = () => {
     height: '100vh',
   };
 
+  /**
+   * Settings UI
+   */
   return (
     <>
       <meta charSet="utf-8" />

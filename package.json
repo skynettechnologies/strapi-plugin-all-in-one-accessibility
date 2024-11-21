@@ -1,5 +1,5 @@
 {
-  "version": "1.0.17",
+  "version": "1.0.18",
   "keywords": [],
   "type": "commonjs",
   "exports": {
@@ -52,7 +52,7 @@
   },
   "strapi": {
     "kind": "plugin",
-    "name": "strapi-plugin-all-in-one-accessibility",
+    "name": "plugin-all-in-one-accessibility",
     "displayName": "All in One Accessibility",
     "description": "Website accessibility widget for improving WCAG 2.0, 2.1, 2.2 and ADA compliance!"
   },

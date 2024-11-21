@@ -71,7 +71,9 @@
 
 import contentApi from "./content-api.js";
 import admin from "./admin";
-
+/**
+ * Set Routes for Plugin
+ */
 export default {
   "content-api": {
     type: "content-api",

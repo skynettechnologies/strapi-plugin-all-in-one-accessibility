@@ -70,10 +70,6 @@ Add the following code in your ./config/plugins.js file:
 
 To integrate the **All-in-One Accessibility** widget into your website or Strapi frontend, follow the steps below:
 
-### Integration Guide: Adding the Accessibility Widget
-
-To integrate the **All-in-One Accessibility** widget into your website or Strapi frontend, follow the steps below:
-
 #### Add the Script
 Place the following script in the **header** or **footer** section of your website or frontend:
 
@@ -89,7 +85,7 @@ Place the following script in the **header** or **footer** section of your websi
 </script>
 ```
 
-# CORS Policy Configuration
+## CORS Policy Configuration
 
 To avoid CORS policy issues, ensure the following URLs are allowed in your website. These URLs should be added to your CORS configuration or trusted domains list.
 
@@ -97,8 +93,8 @@ To avoid CORS policy issues, ensure the following URLs are allowed in your websi
 |-----------------------------------|----------------------------------------------|----------------------------------|
 | `https://*.skynettechnologies.com` | Skynet Technologies (Global Domain)         | API access and resources        |
 | `https://*.skynettechnologies.us` | Skynet Technologies (US Domain)             | API access and resources        |
-| `https://*.googleapis.com`        | Google APIs                                 | Services like Google Maps, ML Kit |
-| `https://vlibras.gov.br`          | VLibras - Brazilian Sign Language Service   | Accessibility tools             |
+| `https://*.googleapis.com`        | Google APIs                                 | Services like Fonts, Translation |
+| `https://vlibras.gov.br`          | VLibras - Brazilian Sign Language Service   | Sign Language             |
 
 ## Instructions
 
@@ -114,13 +110,13 @@ To configure the widget, access the Admin Panel and head to the All in One Acces
 
 ## Screenshots
 
-![App Screenshot](https://www.skynettechnologies.com/sites/default/files/screenshot-1-free.jpg?v=3)
+![App Screenshot](https://www.skynettechnologies.com/sites/default/files/strapi/Screenshot-1.jpg?v=3)
 
-![App Screenshot](https://www.skynettechnologies.com/sites/default/files/screenshot-2-free.jpg?v=3)
+![App Screenshot](https://www.skynettechnologies.com/sites/default/files/strapi/Screenshot-2.jpg?v=3)
 
-![App Screenshot](https://www.skynettechnologies.com/sites/default/files/screenshot-3-free.jpg?v=3)
+![App Screenshot](https://www.skynettechnologies.com/sites/default/files/strapi/Screenshot-3.jpg?v=3)
 
-![App Screenshot](https://www.skynettechnologies.com/sites/default/files/screenshot-4-free.jpg?v=3)
+![App Screenshot](https://www.skynettechnologies.com/sites/default/files/strapi/Screenshot-4.jpg?v=3)
 
 ## Video
 
