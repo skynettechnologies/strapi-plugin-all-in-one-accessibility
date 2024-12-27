@@ -5,7 +5,7 @@
 // export { PluginIcon };
 
 import React from 'react';
-import aioaicontype1 from "../../../assets/images/aioa-icon-type-1.svg";
+import aioaicontype1 from "../../../assets/images/aioa-icon-type-1_new.svg";
 
 /**
  * This Plugin Icon is used to display on Strapi Admin Panel

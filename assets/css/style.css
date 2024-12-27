@@ -2682,7 +2682,8 @@ a,
     height: 130px;
     padding: 10px !important;
     text-align: center;
-    background-color: #fff;
+    /* background-color: #fff; */
+    background-color: #420083;
     outline: 4px solid #fff;
     outline-offset: -4px;
     border-radius: 10px
@@ -2712,7 +2713,8 @@ a,
 
 .all-in-one-accessibility-wrap .accessibility-settings .all-one-accessibility-form .icon-size-wrapper input[type=radio]:checked+label,
 .all-in-one-accessibility-wrap .accessibility-settings .all-one-accessibility-form .icon-type-wrapper input[type=radio]:checked+label {
-    outline-color: #80c944
+    outline-color: #80c944;
+    background-color: #420083;
 }
 
 .all-in-one-accessibility-wrap .accessibility-settings .all-one-accessibility-form .icon-size-wrapper input[type=radio]:checked+label::before,

@@ -1,1 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="324.324" height="75" viewBox="0 0 324.324 75"><g transform="translate(-320 -987)"><rect width="324.324" height="75" transform="translate(320 987)" fill="#420083"/><text transform="translate(482.162 1032.5)" fill="#fff" font-size="24" font-family="Rubik-Medium, Rubik" font-weight="500"><tspan x="-73.716" y="0">Accessibility</tspan></text><path d="M4,4V63H312.324V4H4M0,0H316.324V67H0Z" transform="translate(324 991)" fill="#fff"/></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="132" height="132" viewBox="0 0 132 132">
+  <g id="Group_21777" data-name="Group 21777" transform="translate(-935 -316)">
+    <g id="Ellipse_6923" data-name="Ellipse 6923" transform="translate(935 316)" fill="none" stroke="#fff" stroke-width="10">
+      <circle cx="66" cy="66" r="66" stroke="none"/>
+      <circle cx="66" cy="66" r="61" fill="none"/>
+    </g>
+    <g id="text-formatting" transform="translate(960 348.996)">
+      <g id="Page-1_23_" transform="translate(0 0.001)">
+        <g id="_x30_24---Text-Magnification">
+          <path id="Shape_37_" d="M.091,122.508,22.869,63.59a2.825,2.825,0,0,1,2.65-1.823h8.8a2.849,2.849,0,0,1,2.65,1.823l22.764,58.918a1.425,1.425,0,0,1-1.325,1.937H49.423a1.441,1.441,0,0,1-1.339-.912L43.34,111.112a1.424,1.424,0,0,0-1.325-.912H17.826a1.441,1.441,0,0,0-1.339.912l-4.744,12.422a1.424,1.424,0,0,1-1.325.912H1.43a1.434,1.434,0,0,1-1.339-1.937Zm22.265-22.279H37.485a1.493,1.493,0,0,0,1.4-2.037L31.317,78.405a1.489,1.489,0,0,0-2.792,0L20.946,98.192a1.507,1.507,0,0,0,1.41,2.037Z" transform="translate(22.783 -61.767)" fill="#fff"/>
+          <path id="Shape_36_" d="M349.112,270.569l11.553-30.413a2.849,2.849,0,0,1,2.664-1.838h4.131a2.849,2.849,0,0,1,2.664,1.838l5.185,13.647-3.447,8.946a1.327,1.327,0,0,0-.741-.214H359.667a1.425,1.425,0,0,0-1.325.9l-3.276,8.177a1.425,1.425,0,0,1-1.325.9h-3.3a1.424,1.424,0,0,1-1.325-1.937Zm12.864-13.732H368.8a.719.719,0,0,0,.67-1l-3.4-8.519a.712.712,0,0,0-1.339,0l-3.419,8.519a.725.725,0,0,0,.67,1Z" transform="translate(-349.016 -209.828)" fill="#fff"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

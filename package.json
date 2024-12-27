@@ -1,5 +1,5 @@
 {
-  "version": "1.0.18",
+  "version": "1.0.19",
   "keywords": [],
   "type": "commonjs",
   "exports": {
@@ -28,26 +28,26 @@
   },
   "dependencies": {
     "@strapi/design-system": "^2.0.0-rc.12",
-    "react-intl": "^6.8.7",
-    "react-bootstrap": "^2.10.5",
+    "react-intl": "^7.0.4",
+    "react-bootstrap": "^2.10.7",
     "prop-types": "^15.8.1",
     "bootstrap": "^5.3.3"
   },
   "devDependencies": {
-    "@strapi/strapi": "^5.4.0",
-    "@strapi/sdk-plugin": "^5.2.7",
-    "prettier": "^3.3.3",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-router-dom": "^6.28.0",
+    "@strapi/strapi": "^5.6.0",
+    "@strapi/sdk-plugin": "^5.2.8",
+    "prettier": "^3.4.2",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-router-dom": "^7.1.1",
     "styled-components": "^6.1.13"
   },
   "peerDependencies": {
-    "@strapi/strapi": "^5.4.0",
-    "@strapi/sdk-plugin": "^5.2.7",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-router-dom": "^6.28.0",
+    "@strapi/strapi": "^5.6.0",
+    "@strapi/sdk-plugin": "^5.2.8",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-router-dom": "^7.1.1",
     "styled-components": "^6.1.13"
   },
   "strapi": {
