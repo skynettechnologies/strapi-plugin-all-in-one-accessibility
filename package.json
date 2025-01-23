@@ -1,15 +1,15 @@
 {
-  "version": "1.0.21",
+  "version": "1.0.22",
   "keywords": [
     "All in One Accessibility",
     "ADA",
-    "All in One Accessibility gatsby",
+    "All in One Accessibility Strapi",
     "All in One Accessibility javascript",
     "analytics.js",
-    "gatsby",
-    "Gatsby Plugin All in One Accessibility",
-    "gatsby-plugin",
-    "gatsby-plugin-all-in-one-accessibility"
+    "Strapi",
+    "Strapi Plugin All in One Accessibility",
+    "strapi-plugin",
+    "strapi-plugin-all-in-one-accessibility"
   ],
   "type": "commonjs",
   "exports": {
