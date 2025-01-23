@@ -33,7 +33,6 @@ By implementing the widget, you’re not only enhancing user experience but also
 ### Upgrade to Unlock Premium Features
 
 **Why stop at 23 features?** Unlock over **70 advanced features** with our **paid subscription** and take your website’s accessibility to the next level. Compare the benefits of Free vs. Paid versions **[here](https://www.skynettechnologies.com/all-in-one-accessibility/features)**.
-**`Please add the Free to Paid Widget steps once provided by Team`**
 Checkout the steps for upgrading **[Free to Paid Widget](https://www.skynettechnologies.com/blog/upgrade-from-all-in-one-accessibility-free-widget-to-premium-version).**
 
 ### Start Your Accessibility Journey Today
