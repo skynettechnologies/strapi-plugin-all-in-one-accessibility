@@ -1,5 +1,5 @@
 {
-  "version": "1.0.19",
+  "version": "1.0.20",
   "keywords": [],
   "type": "commonjs",
   "exports": {
@@ -67,5 +67,5 @@
     "url": "https://github.com/skynettechnologies/strapi-plugin-all-in-one-accessibility/issues"
   },
   "homepage": "https://github.com/skynettechnologies/strapi-plugin-all-in-one-accessibility#readme",
-  "author": "Rajesh Bhimani <developer3@skynettechnologies.com>"
+  "author": "Skynet Technologies USA LLC <developer3@skynettechnologies.com>"
 }

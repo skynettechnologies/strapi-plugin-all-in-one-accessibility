@@ -1,20 +1,52 @@
 # All in One Accessibility®: Strapi Plugin
 
-All in One Accessibility AI free Widget Supports limited 23 features only and includes 140 Languages. 
+## Enhance Your Website's Accessibility with All in One Accessibility®
 
-It improves website ADA compliance and browser experience for ADA, WCAG 2.0, 2.1 & 2.2, Section 508, California Unruh Act, Australian DDA, European EAA EN 301 549, UK Equality Act (EA), Israeli Standard 5568, Ontario AODA, Canada ACA, German BITV, France RGAA, Brazilian Inclusion Law (LBI 13.146/2015), Spain UNE 139803:2012, JIS X 8341 (Japan), Italian Stanca Act and Switzerland DDA Standards.
+**Did you know?** Your website's accessibility can make or break your audience's experience. With the **All in One Accessibility AI Free Accessibility Widget**, you can instantly boost your site's inclusivity and support over **140+ languages**! Experience the power of **23 essential features** in our free version and take the first step towards creating a better web for everyone.
 
-Follows the best industry security, SEO practices and standards ISO 9001:2015 & ISO 27001:2013 and complies with GDPR, COPPA regulations. Member of W3C and International Association of Accessibility Professionals (IAAP). It is a flexible & lightweight widget that can be changed according to law and reduces the risk of time-consuming accessibility lawsuits.
+### Why All in One Accessibility®?
 
-For more details/features, Please visit [All in One Accessibility®](https://www.skynettechnologies.com/all-in-one-accessibility)
+This lightweight and flexible widget is designed to improve your website’s compliance with international accessibility standards, including:
 
-Unlock over 70 features with the All in One Accessibility Widget through a paid subscription. See the detailed comparison of Paid vs. Free features [here](https://www.skynettechnologies.com/all-in-one-accessibility/features).
+- **ADA (Americans with Disabilities Act)**
+- **WCAG 2.0, 2.1, & 2.2**
+- **Section 508 (U.S. Government Standard)**
+- **California Unruh Act**
+- **Australian DDA**
+- **European EAA EN 301 549**
+- **UK Equality Act (EA)**
+- **Israel Standard 5568**
+- **Ontario AODA**
+- **Canada ACA**
+- **UAE Disability Act**
+- **Singapore DSS and SGDS**
+- For more details on Accessibility Standards, Visit **[All in One Accessibility Supported Standards.](https://www.skynettechnologies.com/accessibility-standards)**
 
-We provide a 10-day free trial. Get started [here](https://ada.skynettechnologies.us/trial-subscription?utm_source=all-in-one-accessibility&utm_medium=landing-page&utm_campaign=trial-subscription).
+By implementing the widget, you’re not only enhancing user experience but also minimizing the risk of costly accessibility lawsuits. For more details, visit **[All in One Accessibility®.](https://www.skynettechnologies.com/all-in-one-accessibility)**
+
+### Built for Excellence
+
+- Adheres to **ISO 9001:2015** & **ISO 27001:2013** standards.
+- Fully compliant with **GDPR** and **COPPA** regulations.
+- Proud member of **W3C** and the **International Association of Accessibility Professionals (IAAP)**.
+
+### Upgrade to Unlock Premium Features
+
+**Why stop at 23 features?** Unlock over **70 advanced features** with our **paid subscription** and take your website’s accessibility to the next level. Compare the benefits of Free vs. Paid versions **[here](https://www.skynettechnologies.com/all-in-one-accessibility/features)**.
+**`Please add the Free to Paid Widget steps once provided by Team`**
+Checkout the steps for upgrading **[Free to Paid Widget](https://www.skynettechnologies.com/blog/upgrade-from-all-in-one-accessibility-free-widget-to-premium-version).**
+
+### Start Your Accessibility Journey Today
+
+Try it risk-free with our **10-day free trial**! Don’t wait, experience the benefits today. **[Click to get started](https://ada.skynettechnologies.us/trial-subscription?utm_source=all-in-one-accessibility&utm_medium=landing-page&utm_campaign=trial-subscription)** and join a growing community of forward-thinking businesses making the web accessible to everyone.
+
+**Your website’s accessibility journey begins here. Make an impact.**
+
+For more details, visit **[All in One Accessibility®](https://www.skynettechnologies.com/all-in-one-accessibility)** and transform your digital presence.
 
 ### Supported Languages (140+ Languages):
 
-English (USA), English (UK), English (Australian), English (Canadian), English (South Africa), Español, Español (Mexicano), Deutsch, عربى, Português, Português (Brazil), 日本語, Français, Italiano, Polski, Pусский, 中文, 中文 (Traditional), עִברִית, Magyar, Slovenčina, Suomenkieli, Türkçe, Ελληνικά, Latinus, Български, Català, Čeština, Dansk, Nederlands, हिंदी, Bahasa Indonesia, 한국인, Lietuvių, Bahasa Melayu, Norsk, Română, Slovenščina, Svenska, แบบไทย, Українська, Việt Nam, বাঙালি, සිංහල, አማርኛ, Hmoob, မြန်မာ, Eesti keel, latviešu, Cрпски, Hrvatski, ქართული, ʻŌlelo Hawaiʻi, Cymraeg, Cebuano, Samoa, Kreyòl ayisyen, Føroyskt, Crnogorski, Azerbaijani, Euskara, Tagalog, Galego, Norsk Bokmål, فارسی, ਪੰਜਾਬੀ, shqiptare, Hայերեն, অসমীয়া, Aymara, Bamanankan, беларускі, bosanski, Corsu, ދިވެހި, Esperanto, Eʋegbe, Frisian, guarani, ગુજરાતી, Hausa, íslenskur, Igbo, Gaeilge, basa jawa, ಕನ್ನಡ, қазақ, ខ្មែរ, Kinyarwanda, Kurdî, Кыргызча, ພາສາລາວ, Lingala, Luganda, lëtzebuergesch, македонски, Malagasy, മലയാളം, Malti, Maori, मराठी, Монгол, नेपाली, Sea, ଓଡିଆ, Afaan Oromoo, پښتو, Runasimi, संस्कृत, Gàidhlig na h-Alba, Sesotho, Shona, سنڌي, Soomaali, basa Sunda, kiswahili, тоҷикӣ, தமிழ், Татар, తెలుగు, ትግሪኛ, Tsonga, Türkmenler, Ride, اردو, ئۇيغۇر, o'zbek, isiXhosa, יידיש, Yoruba, Zulu, भोजपुरी, डोगरी, कोंकणी, Kurdî, Krio, मैथिली, Meiteilon, Mizo tawng, Sepedi, Ilocano.
+English (USA), English (UK), English (Australian), English (Canadian), English (South Africa), Español, Español (Mexicano), Deutsch, عربى, Português, Português (Brazil), 日本語, Français, Italiano, Polski, Pусский, 中文, 中文 (Traditional), עִברִית, Magyar, Slovenčina, Suomenkieli, Türkçe, Ελληνικά, Latinus, Български, Català, Čeština, Dansk, Nederlands, हिंदी, Bahasa Indonesia, 한국인, Lietuvių, Bahasa Melayu, Norsk, Română, Slovenščina, Svenska, แบบไทย, Українська, Việt Nam, বাঙালি, සිංහල, አማርኛ, Hmoob, မြန်မာ, Eesti keel, latviešu, Cрпски, Hrvatski, ქართული, ʻŌlelo Hawaiʻi, Cymraeg, Cebuano, Samoa, Kreyòl ayisyen, Føroyskt, Crnogorski, Azerbaijani, Euskara, Tagalog, Galego, Norsk Bokmål, فارسی, ਪੰਜਾਬੀ, shqiptare, Hայերեն, অসমীয়া, Aymara, Bamanankan, беларускі, bosanski, Corsu, ދިވެހި, Esperanto, Eʋegbe, Frisian, guarani, ગુજરાતી, Hausa, íslenskur, Igbo, Gaeilge, basa jawa, ಕನ್ನಡ, қазақ, ខ្មែរ, Kinyarwanda, Kurdî, Кыргызча, ພາສາລາວ, Lingala, Luganda, lëtzebuergesch, македонски, Malagasy, മലയാളം, Malti, Maori, मराठी, Монгол, नेपाली, Sea, ଓଡିଆ, Afaan Oromoo, پښتو, Runasimi, संस्कृत, Gàidhlig na h-Alba, Sesotho, Shona, سنڌي, Soomaali, basa Sunda, kiswahili, тоҷикӣ, தமிழ், Татар, తెలుగు, ትግሪኛ, Tsonga, Türkmenler, Ride, اردو, ئۇيغۇر, o'zbek, isiXhosa, יידיש, Yoruba, Zulu, भोजपुरी, डोगरी, कोंकणी, Kurdî, Krio, मैथिली, Meiteilon, Mizo tawng, Sepedi, Ilocano, دری.
 
 ## Installation
 
@@ -25,11 +57,11 @@ English (USA), English (UK), English (Australian), English (Canadian), English (
 ### Steps
 
 You can install this plugin via the Strapi marketplace or by using npm or yarn.
+Checkout our **[Strapi All in One Accessibility Extension installation steps blog](https://www.skynettechnologies.com/blog/strapi-web-accessibility-widget-installation)**
 
 ### Via the Strapi Marketplace
 
-[![Strapi Marketplace](https://strapi.io/assets/strapi-logo.svg)](https://market.strapi.io/plugins/strapi-plugin-all-in-one-accessibility)
-
+[![Strapi Marketplace](https://strapi.io/assets/strapi-logo-dark.svg)](https://market.strapi.io/plugins/strapi-plugin-all-in-one-accessibility)
 
 ### Via NPM
 
@@ -103,51 +135,49 @@ To avoid CORS policy issues, ensure the following URLs are allowed in your websi
 3. Verify the application functionality by testing requests to these domains.
 4. If issues persist, consult the Strapi documentation for CORS configuration guidance.
 
-
 ## Configuration
 
 To configure the widget, access the Admin Panel and head to the All in One Accessibility menu in the dashboard. From there, you can register [here](https://ada.skynettechnologies.us/trial-subscription) with 10 Days free trial.
 
-## Screenshots
-
-![App Screenshot](https://www.skynettechnologies.com/sites/default/files/strapi/Screenshot-1.jpg?v=3)
-
-![App Screenshot](https://www.skynettechnologies.com/sites/default/files/strapi/Screenshot-2.jpg?v=3)
-
-![App Screenshot](https://www.skynettechnologies.com/sites/default/files/strapi/Screenshot-3.jpg?v=3)
-
-![App Screenshot](https://www.skynettechnologies.com/sites/default/files/strapi/Screenshot-4.jpg?v=3)
-
-## Video
-
-[![All in One Accessibility](https://img.youtube.com/vi/I-DjgZyleeI/0.jpg)](https://www.youtube.com/watch?v=I-DjgZyleeI)
-
 ## Documentation
-
 - [Strapi All in One Accessibility](https://www.skynettechnologies.com/strapi-website-accessibility)
 - [Strapi All in One Accessibility Extension installation steps blog](https://www.skynettechnologies.com/blog/strapi-web-accessibility-widget-installation)
 - [All in One Accessibility - Features Guide](https://www.skynettechnologies.com/sites/default/files/accessibility-widget-features-list.pdf)
 
 ## Submit a Support Request
 
-Please visit our [support page](https://www.skynettechnologies.com/report-accessibility-problem) and fill out the form. Our team will get back to you as soon as possible.
+Please visit our **[support page](https://www.skynettechnologies.com/report-accessibility-problem)** and fill out the form. Our team will get back to you as soon as possible.
 
 ## Send Us an Email
 
 Alternatively, you can send an email to our support team:
-[hello@skynettechnologies.com](mailto:hello@skynettechnologies.com)
+**[hello@skynettechnologies.com](mailto:hello@skynettechnologies.com)**
 
-## Partnership Opportunities
+## Accessibility Partnership Opportunities
 
-#### [Agency Partnership](https://www.skynettechnologies.com/agency-partners)
+#### **[Agencies Partnership](https://www.skynettechnologies.com/agency-partners)**
 
 Partner with us as an agency to provide comprehensive accessibility solutions to your clients. Get access to exclusive resources, training, and support to help you implement and manage accessibility features effectively.
 
-#### [Affiliate Partnership](https://www.skynettechnologies.com/affiliate-partner)
+#### **[Affiliated Partnership](https://www.skynettechnologies.com/affiliate-partner)**
 
 Join our affiliate program and earn commissions by promoting All in One Accessibility™. Share our Widget with your network and help businesses improve their website accessibility while generating revenue.
 
-For more details, Please visit [Partnership Opportunities Page](https://www.skynettechnologies.com/partner-program)
+For more details, Please visit **[Partnership Opportunities Page](https://www.skynettechnologies.com/partner-program)**
+
+## Screenshots
+
+![App Screenshot](https://www.skynettechnologies.com/sites/default/files/strapi/Screenshot-1.jpg?v=4)
+
+![App Screenshot](https://www.skynettechnologies.com/sites/default/files/strapi/Screenshot-2.jpg?v=4)
+
+![App Screenshot](https://www.skynettechnologies.com/sites/default/files/strapi/Screenshot-3.jpg?v=4)
+
+![App Screenshot](https://www.skynettechnologies.com/sites/default/files/strapi/Screenshot-4.jpg?v=4)
+
+## Video
+
+[![All in One Accessibility](https://img.youtube.com/vi/I-DjgZyleeI/0.jpg)](https://www.youtube.com/watch?v=I-DjgZyleeI)
 
 ## Credits
 
