@@ -51,7 +51,7 @@ English (USA), English (UK), English (Australian), English (Canadian), English (
 ## Installation
 
 ### Prerequisites
-- Strapi version ^5.4.0
+- Strapi version ^5.6.0
 - Node.js version ^20.9.0
 
 ### Steps

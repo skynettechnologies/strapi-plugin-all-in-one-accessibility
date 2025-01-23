@@ -1,6 +1,16 @@
 {
-  "version": "1.0.20",
-  "keywords": [],
+  "version": "1.0.21",
+  "keywords": [
+    "All in One Accessibility",
+    "ADA",
+    "All in One Accessibility gatsby",
+    "All in One Accessibility javascript",
+    "analytics.js",
+    "gatsby",
+    "Gatsby Plugin All in One Accessibility",
+    "gatsby-plugin",
+    "gatsby-plugin-all-in-one-accessibility"
+  ],
   "type": "commonjs",
   "exports": {
     "./package.json": "./package.json",
