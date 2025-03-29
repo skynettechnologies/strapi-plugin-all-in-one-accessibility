@@ -176,7 +176,7 @@ For more details, Please visit **[Partnership Opportunities Page](https://www.sk
 
 ## Video
 
-[![All in One Accessibility](https://img.youtube.com/vi/I-DjgZyleeI/0.jpg)](https://www.youtube.com/watch?v=I-DjgZyleeI)
+[![All in One Accessibility](https://img.youtube.com/vi/X70XtvGyvSs/0.jpg)](https://www.youtube.com/watch?v=X70XtvGyvSs)
 
 ## Credits
 
