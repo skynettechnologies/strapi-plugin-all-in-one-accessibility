@@ -1,5 +1,5 @@
 {
-  "version": "1.0.23",
+  "version": "1.0.24",
   "keywords": [
     "All in One Accessibility",
     "ADA",
@@ -62,7 +62,7 @@
   },
   "strapi": {
     "kind": "plugin",
-    "name": "plugin-all-in-one-accessibility",
+    "name": "strapi-plugin-all-in-one-accessibility",
     "displayName": "All in One Accessibility",
     "description": "Website accessibility widget for improving WCAG 2.0, 2.1, 2.2 and ADA compliance!"
   },
