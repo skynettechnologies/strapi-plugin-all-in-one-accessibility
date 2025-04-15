@@ -1,4 +1,4 @@
-# All in One Accessibility®: Strapi Plugin
+# All in One Accessibility®: 
 
 ## Enhance Your Website's Accessibility with All in One Accessibility®
 
@@ -8,13 +8,13 @@
 
 This lightweight and flexible widget is designed to improve your website’s compliance with **international accessibility standards**, including:
 
-### 🌍 **International Standards**
+### **International Standards**
 
 - **WCAG 2.0, 2.1, & 2.2** (Web Content Accessibility Guidelines)  
 - **ATAG 2.0** (Authoring Tool Accessibility Guidelines)  
 - **PDF/UA – ISO 14289** (Accessible PDF Format)
 
-### 🇺🇸 **United States**
+### **United States**
 - **ADA (Americans with Disabilities Act)**  
 - **ADA Title III Website Accessibility**  
 - **Section 508 (U.S. Government Standard)**  
@@ -35,70 +35,70 @@ This lightweight and flexible widget is designed to improve your website’s com
 - **Kansas ADA Compliance**  
 - **Washington State ADA Compliance**
 
-### 🇨🇦 **Canada**
+### **Canada**
 - **AODA (Accessibility for Ontarians with Disabilities Act)**  
 - **ACA (Accessible Canada Act)**
 
-### 🇬🇧 **United Kingdom**
+### **United Kingdom**
 - **UK Equality Act (EA)**
 
-### 🇪🇺 **European Union**
+### **European Union**
 - **EAA / EN 301 549 Accessibility**  
 - **EN 301 549 v4.1.1**
 
-### 🇫🇷 **France**
+### **France**
 - **RGAA (Référentiel Général d’Amélioration de l’Accessibilité)**
 
-### 🇩🇪 **Germany**
+### **Germany**
 - **BITV (Barrierefreie-Informationstechnik-Verordnung)**
 
-### 🇮🇹 **Italy**
+### **Italy**
 - **Italian Stanca Act**
 
-### 🇪🇸 **Spain**
+### **Spain**
 - **UNE 139803:2012**
 
-### 🇦🇹 **Austria**
+### **Austria**
 - **WZG (Austrian Web Accessibility Act)**
 
-### 🇨🇭 **Switzerland**
+### **Switzerland**
 - **Swiss Disability Discrimination Act (DDA)**
 
-### 🇸🇪 **Sweden**
+### **Sweden**
 - **Swedish Discrimination Act (2008:567)**
 
-### 🇮🇱 **Israel**
+### **Israel**
 - **IS 5568 (Israeli Standard)**
 
-### 🇦🇺 **Australia**
+### **Australia**
 - **Australian DDA (Disability Discrimination Act)**
 
-### 🇮🇳 **India**
+### **India**
 - **RPD Act (Rights of Persons with Disabilities Act)**  
 - **GIGW 3.0 (Guidelines for Indian Government Websites)**
 
-### 🇧🇷 **Brazil**
+### **Brazil**
 - **LBI 13.146/2015 (Brazilian Inclusion Law)**
 
-### 🇲🇽 **Mexico**
+### **Mexico**
 - **ADA-Inspired Web Accessibility Compliance**
 
-### 🇯🇵 **Japan**
+### **Japan**
 - **JIS X 8341**
 
-### 🇰🇷 **South Korea**
+### **South Korea**
 - **KWCAG 2.1 (Korean Web Content Accessibility Guidelines)**
 
-### 🇸🇬 **Singapore**
+### **Singapore**
 - **DSS and SGDS (Design System and Digital Standards)**
 
-### 🇲🇾 **Malaysia**
+### **Malaysia**
 - **PWD Act 2008 (Persons with Disabilities Act)**
 
-### 🇹🇭 **Thailand**
+### **Thailand**
 - **PDA 2013 (Persons with Disabilities Empowerment Act)**
 
-### 🇦🇪 **United Arab Emirates**
+### **United Arab Emirates**
 - **UAE Disability Act (Federal Law No. 29 of 2006)**
 
 For more details on supported accessibility laws and standards, visit  
@@ -282,13 +282,13 @@ For more details, Please visit **[Partnership Opportunities Page](https://www.sk
 
 ## Screenshots
 
-![App Screenshot](https://www.skynettechnologies.com/sites/default/files/strapi/Screenshot-1.jpg?v=4)
+![App Screenshot](https://www.skynettechnologies.com/sites/default/files/screenshot-1-free.jpg?v=3)
 
-![App Screenshot](https://www.skynettechnologies.com/sites/default/files/strapi/Screenshot-2.jpg?v=4)
+![App Screenshot](https://www.skynettechnologies.com/sites/default/files/screenshot-2-free.jpg?v=3)
 
-![App Screenshot](https://www.skynettechnologies.com/sites/default/files/strapi/Screenshot-3.jpg?v=4)
+![App Screenshot](https://www.skynettechnologies.com/sites/default/files/screenshot-3-free.jpg?v=3)
 
-![App Screenshot](https://www.skynettechnologies.com/sites/default/files/strapi/Screenshot-4.jpg?v=4)
+![App Screenshot](https://www.skynettechnologies.com/sites/default/files/screenshot-4-free.jpg?v=3)
 
 ## Video
 
