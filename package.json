@@ -1,5 +1,5 @@
 {
-  "version": "1.0.26",
+  "version": "1.0.27",
   "keywords": [
     "All in One Accessibility",
     "ADA",
@@ -38,31 +38,31 @@
   },
   "dependencies": {
     "@strapi/design-system": "^2.0.0-rc.12",
-    "react-intl": "^7.0.4",
-    "react-bootstrap": "^2.10.7",
+    "react-intl": "^7.1.11",
+    "react-bootstrap": "^2.10.10",
     "prop-types": "^15.8.1",
-    "bootstrap": "^5.3.3"
+    "bootstrap": "^5.3.6"
   },
   "devDependencies": {
-    "@strapi/strapi": "^5.6.0",
-    "@strapi/sdk-plugin": "^5.2.8",
-    "prettier": "^3.4.2",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "react-router-dom": "^7.1.1",
-    "styled-components": "^6.1.13"
+    "@strapi/strapi": "^5.15.0",
+    "@strapi/sdk-plugin": "^5.3.2",
+    "prettier": "^3.5.3",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-router-dom": "^7.6.2",
+    "styled-components": "^6.1.18"
   },
   "peerDependencies": {
-    "@strapi/strapi": "^5.6.0",
-    "@strapi/sdk-plugin": "^5.2.8",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "react-router-dom": "^7.1.1",
-    "styled-components": "^6.1.13"
+    "@strapi/strapi": "^5.15.0",
+    "@strapi/sdk-plugin": "^5.3.2",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-router-dom": "^7.6.2",
+    "styled-components": "^6.1.18"
   },
   "strapi": {
     "kind": "plugin",
-    "name": "plugin-all-in-one-accessibility",
+    "name": "strapi-plugin-all-in-one-accessibility",
     "displayName": "All in One Accessibility",
     "description": "Website accessibility widget for improving WCAG 2.0, 2.1, 2.2 and ADA compliance!"
   },
@@ -77,5 +77,9 @@
     "url": "https://github.com/skynettechnologies/strapi-plugin-all-in-one-accessibility/issues"
   },
   "homepage": "https://github.com/skynettechnologies/strapi-plugin-all-in-one-accessibility#readme",
-  "author": "Skynet Technologies USA LLC <developer3@skynettechnologies.com>"
+  "author": "Skynet Technologies USA LLC <developer3@skynettechnologies.com>",
+  "engines": {
+    "node": ">=18.0.0 <=22.x.x",
+    "npm": ">=6.0.0"
+  }
 }

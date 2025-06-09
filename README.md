@@ -1,4 +1,4 @@
-# All in One Accessibility®: 
+# All in One Accessibility®: Strapi Plugin
 
 ## Enhance Your Website's Accessibility with All in One Accessibility®
 
@@ -15,6 +15,7 @@ This lightweight and flexible widget is designed to improve your website’s com
 - **PDF/UA – ISO 14289** (Accessible PDF Format)
 
 ### **United States**
+
 - **ADA (Americans with Disabilities Act)**  
 - **ADA Title III Website Accessibility**  
 - **Section 508 (U.S. Government Standard)**  
@@ -36,69 +37,90 @@ This lightweight and flexible widget is designed to improve your website’s com
 - **Washington State ADA Compliance**
 
 ### **Canada**
+
 - **AODA (Accessibility for Ontarians with Disabilities Act)**  
 - **ACA (Accessible Canada Act)**
 
 ### **United Kingdom**
+
 - **UK Equality Act (EA)**
 
 ### **European Union**
-- **EAA / EN 301 549 Accessibility**  
+
+- **EAA / EN 301 549 Accessibility**
 - **EN 301 549 v4.1.1**
 
 ### **France**
+
 - **RGAA (Référentiel Général d’Amélioration de l’Accessibilité)**
 
 ### **Germany**
+
 - **BITV (Barrierefreie-Informationstechnik-Verordnung)**
 
 ### **Italy**
+
 - **Italian Stanca Act**
 
 ### **Spain**
+
 - **UNE 139803:2012**
 
 ### **Austria**
+
 - **WZG (Austrian Web Accessibility Act)**
 
 ### **Switzerland**
+
 - **Swiss Disability Discrimination Act (DDA)**
 
 ### **Sweden**
+
 - **Swedish Discrimination Act (2008:567)**
 
 ### **Israel**
+
 - **IS 5568 (Israeli Standard)**
 
 ### **Australia**
+
 - **Australian DDA (Disability Discrimination Act)**
 
 ### **India**
+
 - **RPD Act (Rights of Persons with Disabilities Act)**  
 - **GIGW 3.0 (Guidelines for Indian Government Websites)**
 
 ### **Brazil**
+
 - **LBI 13.146/2015 (Brazilian Inclusion Law)**
 
 ### **Mexico**
+
 - **ADA-Inspired Web Accessibility Compliance**
 
 ### **Japan**
+
 - **JIS X 8341**
 
 ### **South Korea**
+
 - **KWCAG 2.1 (Korean Web Content Accessibility Guidelines)**
 
 ### **Singapore**
+
 - **DSS and SGDS (Design System and Digital Standards)**
 
 ### **Malaysia**
+
 - **PWD Act 2008 (Persons with Disabilities Act)**
 
 ### **Thailand**
+
 - **PDA 2013 (Persons with Disabilities Empowerment Act)**
 
 ### **United Arab Emirates**
+
 - **UAE Disability Act (Federal Law No. 29 of 2006)**
 
 For more details on supported accessibility laws and standards, visit  
@@ -133,7 +155,8 @@ English (USA), English (UK), English (Australian), English (Canadian), English (
 ## Installation
 
 ### Prerequisites
-- Strapi version ^5.6.0
+
+- Strapi version ^5.15.0
 - Node.js version ^20.9.0
 
 ### Steps
@@ -157,35 +180,19 @@ npm i strapi-plugin-all-in-one-accessibility
 yarn add strapi-plugin-all-in-one-accessibility
 ```
 
-## Setup
-Add the following code in your ./config/plugins.js file:
-
-```javascript
-'all-in-one-accessibility': {
-    enabled: true,
-    resolve: './node_modules/strapi-plugin-all-in-one-accessibility',
-    config: {
-    },
-  },
-```
-
-### Configuration
-
-#### Enable API Permissions
-1. Ensure your Strapi server is running.
-2. In the Strapi admin panel, navigate to the **Settings** section.
-3. Click on the **Users & Permissions** plugin and select **Roles**.
-4. Choose the **Public** role from the list.
-5. Locate the **all-in-one-accessibility** option in the permissions list.
-6. Check the box for **all APIs endpoints** under the **all-in-one-accessibility** option.
-7. Save your changes.
-
 ### Integration Guide: Adding the Accessibility Widget
 
 To integrate the **All-in-One Accessibility** widget into your website or Strapi frontend, follow the steps below:
 
 #### Add the Script
+
 Place the following script in the **header** or **footer** section of your website or frontend:
+
+```html
+<script id="aioa-adawidget" src="https://www.skynettechnologies.com/accessibility/js/all-in-one-accessibility-js-widget-minify.js?colorcode=#420083&token=&position=bottom_right" async />
+```
+
+or
 
 ```html
 <script>
@@ -211,7 +218,6 @@ To avoid CORS policy issues, ensure the following URLs are allowed in your websi
 | `https://*.gstatic.com`            | Fonts APIs                                   | Custom Fonts                     |
 | `https://vlibras.gov.br`           | VLibras - Brazilian Sign Language Service    | Sign Language                    |
 
-
 ## Instructions
 
 1. Update your server's CORS configuration to include these URLs.
@@ -224,6 +230,7 @@ To avoid CORS policy issues, ensure the following URLs are allowed in your websi
 To configure the widget, access the Admin Panel and head to the **All in One Accessibility** menu in the dashboard. From there, you can register **[here](https://ada.skynettechnologies.us/trial-subscription)** with 10 Days free trial.
 
 ## Documentation
+
 - [Strapi All in One Accessibility](https://www.skynettechnologies.com/strapi-website-accessibility)
 - [Strapi All in One Accessibility Extension installation steps blog](https://www.skynettechnologies.com/blog/strapi-web-accessibility-widget-installation)
 - [All in One Accessibility - Features Guide](https://www.skynettechnologies.com/sites/default/files/accessibility-widget-features-list.pdf)
@@ -249,23 +256,29 @@ Simple before-after UI/UX recommendations on how to fix the issues
 Comprehensive audit report
 
 ### **[Manual Accessibility Remediation](https://www.skynettechnologies.com/all-in-one-accessibility/addons#manual-accessibility-remediation)**
+
 Enhance website accessibility and inclusivity with our Manual Accessibility Remediation add-on. This service includes fixing accessibility issues and thorough remediation of your website manually. Our experts ensure accessibility with WCAG standards, improve user experience for those with disabilities, and provide a detailed report on the improvements made.
 
 ### **[PDF/Document Accessibility Remediation](https://www.skynettechnologies.com/all-in-one-accessibility/addons#pdf-document-remediation)**
+
 The PDF / Document Remediation provides a list of inaccessible PDFs and remediated PDFs from where you can request PDF remediation service.
- 
- ### **[VPAT Report/Accessibility Conformance Report(ACR)](https://www.skynettechnologies.com/all-in-one-accessibility/addons#vpat-acr-report)**
- The Voluntary Product Accessibility Template (VPAT), also known as an ACR (Accessibility Conformance Report) starts with an audit and provides current details for an accessible website, application, or any other digital assets.
+
+### **[VPAT Report/Accessibility Conformance Report(ACR)](https://www.skynettechnologies.com/all-in-one-accessibility/addons#vpat-acr-report)**
+
+The Voluntary Product Accessibility Template (VPAT), also known as an ACR (Accessibility Conformance Report) starts with an audit and provides current details for an accessible website, application, or any other digital assets.
 
 ## Accessibility Widget Paid Add-ons
 
 ### **[White Label](https://www.skynettechnologies.com/all-in-one-accessibility/addons#accessibility-widget-add-ons)**
+
 Remove the Skynet technologies logo as well as all of the footer links, popups, report a problem link and more for full white label control.
 
 ### **[Live Site Translations](https://www.skynettechnologies.com/all-in-one-accessibility/addons#accessibility-widget-add-ons)**
+
 Translate your site into over 140 languages instantly to enhance accessibility for non-native speakers, individuals with language acquisition difficulties, and those with learning disabilities.
 
 ###  **[Modify Accessibility Menu](https://www.skynettechnologies.com/all-in-one-accessibility/addons#accessibility-widget-add-ons)**
+
 Build and fine-tune your widget with the Modify Menu option. Reorder, remove and restructure the widget buttons to fit your users’ specific accessibility needs.
 
 ## Accessibility Partnership Opportunities
