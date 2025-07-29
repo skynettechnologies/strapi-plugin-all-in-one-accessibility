@@ -88,7 +88,8 @@ const HomePage = () => {
     // console.log('user', user?.name);
     // console.log('user', user?.email);
 
-    getAPIData()
+    // getAPIData()
+    fetchApiData()
   }, [settingList])
 
   useEffect(() => {
@@ -440,9 +441,11 @@ const HomePage = () => {
     }
   }
 
-  function fetchApiData(website_name) {
-    const username = userData?.name ?? ""
-    const useremail = userData?.email ?? ""
+  function fetchApiData() {
+    const username = window.location.hostname
+    const useremail = "no-reply@" + window.location.hostname + ".com"
+    // var website_name = window.location.hostname
+    var website_name = btoa(window.location.hostname);
 
     const packageType = "free-widget"
     const arrDetails = {
@@ -455,7 +458,7 @@ const HomePage = () => {
       end_date: "",
       price: "",
       discount_price: "0",
-      platform: "webasyst",
+      platform: "strapi",
       api_key: "",
       is_trial_period: "",
       is_free_widget: "0",
@@ -487,6 +490,7 @@ const HomePage = () => {
       .then(result => {
         if (result && result.link) {
           // Handle valid link
+          getAPIData()
         } else {
           const secondApiUrl =
             "https://ada.skynettechnologies.us/api/add-user-domain"
@@ -502,11 +506,13 @@ const HomePage = () => {
               if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`)
               }
+              getAPIData()
               return response.json()
             })
             .then(data => {
               if (data.success) {
                 // Handle success
+                getAPIData()
               } else {
                 // Handle error
               }
