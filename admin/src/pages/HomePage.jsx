@@ -461,7 +461,7 @@ const HomePage = () => {
       platform: "strapi",
       api_key: "",
       is_trial_period: "",
-      is_free_widget: "0",
+      is_free_widget: "1",
       bill_address: "",
       country: "",
       state: "",
