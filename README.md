@@ -13,7 +13,7 @@ It reinforces brand’s professionalism by aligning site with modern expectation
 - Skip to Navigation / Content / Footer
 - Content Adjustment Options
 - Visual & Color Adjustments
-- Widget customization including colors, size, icon, and position 
+- Widget customization including colors, size, icon, and position
 - Reading mask
 - Accessibility statement
 
@@ -145,12 +145,13 @@ For more details, explore [**STRAPI accessibility partnership opportunities
 
 **Screenshots**
 
-![App Screenshot](https://www.skynettechnologies.com/sites/default/files/strapi/Screenshot-1.jpg?v=4)
-![App Screenshot](https://www.skynettechnologies.com/sites/default/files/strapi/Screenshot-2.jpg?v=4)
-![App Screenshot](https://www.skynettechnologies.com/sites/default/files/strapi/Screenshot-3.jpg?v=4)
-![App Screenshot](https://www.skynettechnologies.com/sites/default/files/strapi/Screenshot-4.jpg?v=4)
-![App Screenshot](https://www.skynettechnologies.com/sites/default/files/strapi/Screenshot-5.jpg?v=4)
-![App Screenshot](https://www.skynettechnologies.com/sites/default/files/strapi/Screenshot-6.jpg?v=4)
+![App Screenshot](https://www.skynettechnologies.com/sites/default/files/strapi/Screenshot-1.jpg?v=5)
+![App Screenshot](https://www.skynettechnologies.com/sites/default/files/strapi/Screenshot-2.jpg?v=5)
+![App Screenshot](https://www.skynettechnologies.com/sites/default/files/strapi/Screenshot-3.jpg?v=5)
+![App Screenshot](https://www.skynettechnologies.com/sites/default/files/strapi/Screenshot-4.jpg?v=5)
+![App Screenshot](https://www.skynettechnologies.com/sites/default/files/strapi/Screenshot-5.jpg?v=5)
+![App Screenshot](https://www.skynettechnologies.com/sites/default/files/strapi/Screenshot-6.jpg?v=5)
+![App Screenshot](https://www.skynettechnologies.com/sites/default/files/strapi/Screenshot-7.jpg?v=5)
 
 **Credits**
 
