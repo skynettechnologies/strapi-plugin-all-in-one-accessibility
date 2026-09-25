@@ -1,18 +1,15 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from "react";
 
-import { pluginId } from '../pluginId';
+import { PLUGIN_ID } from "../pluginId";
 
 /**
  * @type {import('react').FC<{ setPlugin: (id: string) => void }>}
- */
-/**
- * This Initializer is used to initialize the plugin
  */
 const Initializer = ({ setPlugin }) => {
   const ref = useRef(setPlugin);
 
   useEffect(() => {
-    ref.current(pluginId);
+    ref.current(PLUGIN_ID);
   }, []);
 
   return null;

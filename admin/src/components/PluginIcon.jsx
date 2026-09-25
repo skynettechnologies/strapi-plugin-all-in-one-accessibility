@@ -1,9 +1,3 @@
-// import { PuzzlePiece } from '@strapi/icons';
-
-// const PluginIcon = () => <PuzzlePiece />;
-
-// export { PluginIcon };
-
 import React from 'react';
 import aioaicontype1 from "../../../assets/images/aioa-icon-type-1_new.svg";
 

@@ -1,5 +1,5 @@
 {
-  "version": "1.0.34",
+  "version": "1.0.35",
   "keywords": [
     "All in One Accessibility",
     "ADA",
@@ -19,17 +19,9 @@
       "import": "./dist/admin/index.mjs",
       "require": "./dist/admin/index.js",
       "default": "./dist/admin/index.js"
-    },
-    "./strapi-server": {
-      "source": "./server/src/index.js",
-      "import": "./dist/server/index.mjs",
-      "require": "./dist/server/index.js",
-      "default": "./dist/server/index.js"
     }
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "scripts": {
     "build": "strapi-plugin build",
     "watch": "strapi-plugin watch",
@@ -37,49 +29,53 @@
     "verify": "strapi-plugin verify"
   },
   "dependencies": {
-    "@strapi/design-system": "^2.0.0-rc.12",
-    "react-intl": "^7.1.11",
-    "react-bootstrap": "^2.10.10",
-    "prop-types": "^15.8.1",
-    "bootstrap": "^5.3.7"
   },
   "devDependencies": {
-    "@strapi/strapi": "^5.19.0",
-    "@strapi/sdk-plugin": "^5.3.2",
-    "prettier": "^3.6.2",
-    "react": "^19.1.1",
-    "react-dom": "^19.1.1",
-    "react-router-dom": "^7.7.1",
-    "styled-components": "^6.1.19"
+    "@strapi/strapi": "^5.55.1",
+    "@strapi/sdk-plugin": "^6.1.1",
+    "prettier": "^3.9.9",
+    "@strapi/design-system": "^2.2.4",
+    "@strapi/icons": "^2.2.4",
+    "react-intl": "^12.1.3",
+    "styled-components": "^6.5.3",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "react-router-dom": "^7.18.4",
+    "react-bootstrap": "^2.10.10",
+    "prop-types": "^15.8.1",
+    "bootstrap": "^5.3.8"
   },
   "peerDependencies": {
-    "@strapi/strapi": "^5.19.0",
-    "@strapi/sdk-plugin": "^5.3.2",
-    "react": "^19.1.1",
-    "react-dom": "^19.1.1",
-    "react-router-dom": "^7.7.1",
-    "styled-components": "^6.1.19"
+    "@strapi/strapi": "^5.55.1",
+    "@strapi/sdk-plugin": "^6.1.1",
+    "prettier": "^3.9.9",
+    "@strapi/design-system": "^2.2.4",
+    "@strapi/icons": "^2.2.4",
+    "react-intl": "^12.1.3",
+    "styled-components": "^6.5.3",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "react-router-dom": "^7.18.4",
+    "react-bootstrap": "^2.10.10",
+    "prop-types": "^15.8.1",
+    "bootstrap": "^5.3.8"
   },
   "strapi": {
     "kind": "plugin",
     "name": "strapi-plugin-all-in-one-accessibility",
     "displayName": "All in One Accessibility",
-    "description": "Website accessibility widget for improving WCAG 2.0, 2.1, 2.2 and ADA compliance!"
+    "description": "Website accessibility widget for improving WCAG 2.0, 2.1, 2.2 and ADA, EAA compliance!"
   },
   "name": "strapi-plugin-all-in-one-accessibility",
-  "description": "Website accessibility widget for improving WCAG 2.0, 2.1, 2.2 and ADA compliance!",
+  "description": "Website accessibility widget for improving WCAG 2.0, 2.1, 2.2 and ADA, EAA compliance!",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/skynettechnologies/strapi-plugin-all-in-one-accessibility.git"
+    "url": "git+ssh://git@github.com/skynettechnologies/strapi-plugin-all-in-one-accessibility.git"
   },
   "bugs": {
     "url": "https://github.com/skynettechnologies/strapi-plugin-all-in-one-accessibility/issues"
   },
   "homepage": "https://github.com/skynettechnologies/strapi-plugin-all-in-one-accessibility#readme",
-  "author": "Skynet Technologies USA LLC <developer3@skynettechnologies.com>",
-  "engines": {
-    "node": ">=18.0.0 <=22.x.x",
-    "npm": ">=6.0.0"
-  }
+  "author": "Skynet Technologies USA LLC <developer3@skynettechnologies.com>"
 }
