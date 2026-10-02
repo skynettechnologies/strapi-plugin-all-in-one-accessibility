@@ -61,6 +61,54 @@ English (USA), English (UK), English (Australian), English (Canadian), English (
 
 [![All in One Accessibility](https://img.youtube.com/vi/X70XtvGyvSs/0.jpg)](https://youtu.be/X70XtvGyvSs)
 
+**Installation**
+
+**Prerequisites**
+
+- Strapi version ^5.6.0
+- Node.js version ^20.9.0
+
+**Steps**
+
+You can install this plugin via the Strapi marketplace or by using npm or yarn.
+Checkout our **[Strapi All in One Accessibility Extension installation steps blog](https://www.skynettechnologies.com/blog/strapi-web-accessibility-widget-installation)**
+
+**Via the Strapi Marketplace**
+
+[![Strapi Marketplace](https://strapi.io/assets/strapi-logo-dark.svg)](https://market.strapi.io/plugins/strapi-plugin-all-in-one-accessibility)
+
+**Via NPM**
+
+```bash
+npm i strapi-plugin-all-in-one-accessibility
+```
+
+**Via yarn**
+
+```bash
+yarn add strapi-plugin-all-in-one-accessibility
+```
+
+**Integration Guide: Adding the Accessibility Widget**
+
+To integrate the **All in One Accessibility** widget into your website or Strapi frontend, follow the steps below:
+
+**Add the Script**
+
+Place the following script in the **header** or **footer** section of your website or frontend:
+
+```html
+<script>
+  setTimeout(() => { 
+    let aioa_script_tag = document.createElement("script"); 
+    aioa_script_tag.src = "https://www.skynettechnologies.com/accessibility/js/all-in-one-accessibility-js-widget-minify.js?colorcode=#420083&token=null&position=bottom_right";  
+    aioa_script_tag.id = "aioa-adawidget";
+    aioa_script_tag.defer = "true"; 
+    document.getElementsByTagName("body")[0].appendChild(aioa_script_tag); 
+  }, 3000);
+</script>
+```
+
 **CORS Policy Configuration**
 
 To avoid CORS policy issues, ensure the following URLs are allowed in your website. These URLs should be added to your CORS configuration or trusted domains list.

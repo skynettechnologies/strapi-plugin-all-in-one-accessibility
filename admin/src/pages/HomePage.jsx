@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from "react"
-import { Form, Button, Image } from "react-bootstrap"
-import { InputGroup, FormControl, Row, Col } from "react-bootstrap"
+import { useCallback, useEffect, useState } from 'react';
+import { Page, useFetchClient, useNotification } from '@strapi/strapi/admin';
+
+import { aioaStyles } from './aioaStyles';
+import { fetchWidgetSettings, saveWidgetSettings, UPGRADE_URL } from '../utils/aioaApi';
 
 import aioaicontype1 from '../../../assets/images/aioa-icon-type-1.svg';
 import aioaicontype2 from '../../../assets/images/aioa-icon-type-2.svg';
@@ -33,2054 +35,612 @@ import aioaicontype28 from '../../../assets/images/aioa-icon-type-28.svg';
 import aioaicontype29 from '../../../assets/images/aioa-icon-type-29.svg';
 import allinoneaccessibilitylogo from '../../../assets/images/all-in-one-accessibility-logo.svg';
 
+/* ------------------------------------------------------------------ */
+/* Options (values must match the Skynet API / reference exactly)      */
+/* ------------------------------------------------------------------ */
+
+const ICON_IMAGES = [
+  aioaicontype1, aioaicontype2, aioaicontype3, aioaicontype4, aioaicontype5, aioaicontype6,
+  aioaicontype7, aioaicontype8, aioaicontype9, aioaicontype10, aioaicontype11, aioaicontype12,
+  aioaicontype13, aioaicontype14, aioaicontype15, aioaicontype16, aioaicontype17, aioaicontype18,
+  aioaicontype19, aioaicontype20, aioaicontype21, aioaicontype22, aioaicontype23, aioaicontype24,
+  aioaicontype25, aioaicontype26, aioaicontype27, aioaicontype28, aioaicontype29,
+];
+
+const ICON_TYPES = ICON_IMAGES.map((src, i) => ({
+  value: `aioa-icon-type-${i + 1}`,
+  label: `Type ${i + 1}`,
+  src,
+}));
+
+const iconSrcFor = (type) =>
+  (ICON_TYPES.find((t) => t.value === type) || ICON_TYPES[0]).src;
+
+// Note: "middel" is the spelling the API expects.
+const POSITIONS = [
+  { value: 'top_left', label: 'Top left' },
+  { value: 'top_center', label: 'Top Center' },
+  { value: 'top_right', label: 'Top Right' },
+  { value: 'middel_left', label: 'Middle left' },
+  { value: 'middel_right', label: 'Middle Right' },
+  { value: 'bottom_left', label: 'Bottom left' },
+  { value: 'bottom_center', label: 'Bottom Center' },
+  { value: 'bottom_right', label: 'Bottom Right' },
+];
+
+const ICON_SIZES = [
+  { value: 'aioa-big-icon', label: 'Big', px: 75 },
+  { value: 'aioa-medium-icon', label: 'Medium', px: 65 },
+  { value: 'aioa-default-icon', label: 'Default', px: 55 },
+  { value: 'aioa-small-icon', label: 'Small', px: 45 },
+  { value: 'aioa-extra-small-icon', label: 'Extra Small', px: 35 },
+];
+
+const WIDGET_SIZES = [
+  { value: '0', label: 'Regular Size', id: 'edit-widget-size-regularsize' },
+  { value: '1', label: 'Oversize', id: 'edit-widget-size-oversize' },
+];
+
+const X_RIGHT = 'cust-pos-to-the-right';
+const X_LEFT = 'cust-pos-to-the-left';
+const Y_BOTTOM = 'cust-pos-to-the-lower';
+const Y_TOP = 'cust-pos-to-the-upper';
+
+const DEFAULTS = {
+  widget_color_code: '#420083',
+  widget_position: 'bottom_right',
+  widget_size: '0',
+  widget_icon_type: 'aioa-icon-type-1',
+  widget_icon_size: 'aioa-default-icon',
+  widget_icon_size_custom: '',
+  is_widget_custom_position: false,
+  is_widget_custom_size: false,
+  custom_position_x: 0,
+  custom_position_x_dir: X_RIGHT,
+  custom_position_y: 0,
+  custom_position_y_dir: Y_BOTTOM,
+};
+
+const POSITION_MIN = 0;
+const POSITION_MAX = 250;
+const SIZE_MIN = 20;
+const SIZE_MAX = 150;
+const HEX_PATTERN = /^#?([0-9a-f]{3}|[0-9a-f]{6})$/i;
+
+const toInt = (v) => {
+  const n = parseInt(v, 10);
+  return Number.isNaN(n) ? 0 : n;
+};
+
+const clamp = (v, min, max) => Math.min(Math.max(toInt(v), min), max);
+
+/**
+ * Map the API response to form state (reference: populateSettings()).
+ */
+const settingsFromApi = (data) => {
+  const right = toInt(data.widget_position_right);
+  const left = toInt(data.widget_position_left);
+  const bottom = toInt(data.widget_position_bottom);
+  const top = toInt(data.widget_position_top);
+
+  let x = 0;
+  let xDir = X_RIGHT;
+  if (right > 0) {
+    x = right;
+  } else if (left > 0) {
+    x = left;
+    xDir = X_LEFT;
+  }
+
+  let y = 0;
+  let yDir = Y_BOTTOM;
+  if (bottom > 0) {
+    y = bottom;
+  } else if (top > 0) {
+    y = top;
+    yDir = Y_TOP;
+  }
+
+  return {
+    widget_color_code: data.widget_color_code || DEFAULTS.widget_color_code,
+    widget_position: data.widget_position || DEFAULTS.widget_position,
+    widget_size:
+      data.widget_size !== undefined && data.widget_size !== null && data.widget_size !== ''
+        ? String(data.widget_size)
+        : DEFAULTS.widget_size,
+    widget_icon_type: data.widget_icon_type || DEFAULTS.widget_icon_type,
+    widget_icon_size: data.widget_icon_size || DEFAULTS.widget_icon_size,
+    widget_icon_size_custom:
+      data.widget_icon_size_custom !== undefined && data.widget_icon_size_custom !== null
+        ? String(data.widget_icon_size_custom)
+        : '',
+    is_widget_custom_position: toInt(data.is_widget_custom_position) === 1,
+    is_widget_custom_size: toInt(data.is_widget_custom_size) === 1,
+    custom_position_x: x,
+    custom_position_x_dir: xDir,
+    custom_position_y: y,
+    custom_position_y_dir: yDir,
+  };
+};
+
+/* ------------------------------------------------------------------ */
+/* Component                                                           */
+/* ------------------------------------------------------------------ */
+
 const HomePage = () => {
-  const [isValid, setIsValid] = useState(false)
-  const [message, setMessage] = useState("")
-  const [parameters, setParameters] = useState({
-    hexaColor: "",
-    widget_size: "0",
-    position: "bottom_right",
-    icontype: "aioa-icon-type-1",
-    iconsize: "aioa-default-icon"
-  })
+  const { get } = useFetchClient();
+  const { toggleNotification } = useNotification();
 
-  const [widgetSettings, setWidgetSettings] = useState({
-    widget_icon_size_custom: "",
-    custom_position_x_value: "",
-    custom_position_y_value: "",
-    custom_position_left_right: "To the top",
-    custom_position_top_bottom: "To the left"
-  })
+  const [settings, setSettings] = useState(DEFAULTS);
+  const [isFreeWidget, setIsFreeWidget] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isSaving, setIsSaving] = useState(false);
+  const [loadError, setLoadError] = useState('');
 
-  const [isSwitcherEnabled, setSwitcherEnabled] = useState(false)
+  const update = (key) => (e) => {
+    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
+    setSettings((prev) => ({ ...prev, [key]: value }));
+  };
 
-  const [isSizeSwitcherEnabled, setSizeSwitcherEnabled] = useState(false)
-  const [iconsize, setIconSize] = useState(aioaicontype1)
-  const [settingList, setSetting] = useState({})
-  const [isChanged, setIsChanged] = useState(false)
-  const [showSuccessMessage, setShowSuccessMessage] = useState(false)
-  const [userData, setUserData] = useState(null)
+  const updatePosition = (key) => (e) => {
+    // Reference: oninput="this.value = Math.min(Math.max(this.value, 0), 250)"
+    const raw = e.target.value;
+    setSettings((prev) => ({
+      ...prev,
+      [key]: raw === '' ? '' : clamp(raw, POSITION_MIN, POSITION_MAX),
+    }));
+  };
+
+  /**
+   * Current admin user, used when registering the site for the first time.
+   */
+  const getUser = useCallback(async () => {
+    const url = window.location.hostname;
+    try {
+      const { data } = await get('/admin/users/me');
+      const me = data?.data || {};
+      const fullName = [me.firstname, me.lastname].filter(Boolean).join(' ');
+      return { url, username: fullName || me.username || url, email: me.email || '' };
+    } catch {
+      return { url, username: url, email: '' };
+    }
+  }, [get]);
+
+  const loadSettings = useCallback(async () => {
+    setLoadError('');
+    try {
+      const user = await getUser();
+      const data = await fetchWidgetSettings(user);
+      if (data) {
+        setSettings(settingsFromApi(data));
+        // Reference: toggleFreePlanBlock() - 1 = free plan (show banner), 0 = paid (hide).
+        setIsFreeWidget(toInt(data.is_free_widget) === 1);
+      } else {
+        setLoadError(
+          'Your website could not be registered yet. Default settings are shown; please try again in a moment.'
+        );
+      }
+    } catch (error) {
+      console.error('[All in One Accessibility] Failed to load settings:', error);
+      setLoadError(
+        'Could not reach the All in One Accessibility service. Check your connection and Content Security Policy, then reload this page.'
+      );
+    }
+  }, [getUser]);
 
   useEffect(() => {
-    console.log("settingList (outside): ", settingList)
-    if (Object.keys(settingList).length !== 0) {
-      console.log("Color Code", settingList["Color_Code"])
-      console.log("Icon Position", settingList["Icon_Position"])
-      console.log("Icon Type", settingList["Icon_Type"])
-      console.log("Icon Size", settingList["Icon_Size"])
+    let cancelled = false;
+    (async () => {
+      await loadSettings();
+      if (!cancelled) setIsLoading(false);
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [loadSettings]);
 
-      setParameters({
-        hexaColor: settingList["Color_Code"],
-        position: settingList["Icon_Position"],
-        icontype: settingList["Icon_Type"],
-        iconsize: settingList["Icon_Size"],
-        widget_size: "0"
-      })
-      if (settingList["Icon_Type"] === "aioa-icon-type-2") {
-        setIconSize(aioaicontype2)
-      } else if (settingList["Icon_Type"] === "aioa-icon-type-3") {
-        setIconSize(aioaicontype3)
-      } else {
-        setIconSize(aioaicontype1)
+  const notifyError = (message) => toggleNotification({ type: 'danger', message });
+
+  /**
+   * Save settings (reference: $("#submit").click handler).
+   */
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    if (isSaving) return;
+
+    const color = String(settings.widget_color_code || '').trim();
+    if (color && !HEX_PATTERN.test(color)) {
+      notifyError('Please enter a valid hex color code, for example: FF5733');
+      return;
+    }
+
+    const customSize = settings.widget_icon_size_custom;
+    if (settings.is_widget_custom_size) {
+      const size = toInt(customSize);
+      if (customSize === '' || size < SIZE_MIN) {
+        notifyError(`Please enter an exact icon size of at least ${SIZE_MIN}px.`);
+        return;
+      }
+      if (size > SIZE_MAX) {
+        notifyError(`Please enter an exact icon size of at most ${SIZE_MAX}px.`);
+        return;
       }
     }
-    // const user = useCurrentUser()
-    // console.log('user', user?.name);
-    // console.log('user', user?.email);
 
-    // getAPIData()
-    fetchApiData()
-  }, [settingList])
+    const x = toInt(settings.custom_position_x);
+    const y = toInt(settings.custom_position_y);
 
-  useEffect(() => {
-    console.log(parameters)
-    console.log(
-      "parameters.position : ",
-      parameters.position === "bottom_center"
-    )
-  }, [parameters])
+    const params = {
+      u: window.location.hostname,
+      widget_position: settings.widget_position,
+      is_widget_custom_position: settings.is_widget_custom_position ? 1 : 0,
+      is_widget_custom_size: settings.is_widget_custom_size ? 1 : 0,
+      widget_color_code: color,
+      widget_icon_type: settings.widget_icon_type,
+      widget_icon_size: settings.widget_icon_size,
+      widget_size: settings.widget_size,
+      widget_icon_size_custom: customSize,
+      widget_position_right: settings.custom_position_x_dir === X_RIGHT ? x : null,
+      widget_position_left: settings.custom_position_x_dir === X_LEFT ? x : null,
+      widget_position_top: settings.custom_position_y_dir === Y_TOP ? y : null,
+      widget_position_bottom: settings.custom_position_y_dir === Y_BOTTOM ? y : null,
+    };
 
-  useEffect(() => {}, [])
-
-  /**
-   * Get All Settings from Database
-   */
-
-  /**
-   * Save Changes is a function which used to click on Save Changes Button on UI
-   */
-  const onSaveChanges = async () => {
-    saveData(parameters)
-  }
-
-  /**
-   * Save the data on Dashboard from Settings UI
-   */
-  const saveData = data => {
-    const formdata = new FormData()
-
-    const widget_icon_size_custom =
-      document.getElementById("widget_icon_size_custom")?.value || ""
-    const custom_position_x_value =
-      document.getElementById("custom_position_x_value")?.value || ""
-    const custom_position_y_value =
-      document.getElementById("custom_position_y_value")?.value || ""
-    const custom_position_left_right =
-      document.getElementById("custom_position_left_right")?.value || ""
-    const custom_position_top_bottom =
-      document.getElementById("custom_position_top_bottom")?.value || ""
-
-    let widget_position_right = "",
-      widget_position_left = "",
-      widget_position_top = "",
-      widget_position_bottom = ""
-    if (custom_position_left_right == "To the right") {
-      widget_position_right = custom_position_x_value
-    } else {
-      widget_position_left = custom_position_x_value
+    setIsSaving(true);
+    try {
+      await saveWidgetSettings(params);
+      toggleNotification({ type: 'success', message: 'Settings saved successfully!' });
+      // Reference reloads the page here; re-fetching keeps the form in sync without a reload.
+      await loadSettings();
+    } catch (error) {
+      console.error('[All in One Accessibility] Failed to save settings:', error);
+      notifyError('Something went wrong while saving. Please try again.');
+    } finally {
+      setIsSaving(false);
     }
+  };
 
-    if (custom_position_left_right == "To the bottom") {
-      widget_position_bottom = custom_position_y_value
-    } else {
-      widget_position_top = custom_position_y_value
-    }
-
-    formdata.append("u", window.location.hostname)
-    formdata.append("widget_position", data.position)
-    formdata.append("widget_color_code", data.hexaColor)
-    formdata.append("widget_icon_type", data.icontype)
-    formdata.append("widget_icon_size", data.iconsize)
-    formdata.append("widget_size", data.widget_size)
-    formdata.append(
-      "is_widget_custom_position",
-      isSwitcherEnabled == true ? "1" : "0"
-    )
-    formdata.append(
-      "is_widget_custom_size",
-      isSizeSwitcherEnabled == true ? "1" : "0"
-    )
-    formdata.append("widget_icon_size_custom", widget_icon_size_custom)
-    formdata.append("widget_position_right", widget_position_right)
-    formdata.append("widget_position_left", widget_position_left)
-    formdata.append("widget_position_top", widget_position_top)
-    formdata.append("widget_position_bottom", widget_position_bottom)
-
-    /*
-      widget_position_right: widget_position_right,
-      widget_position_left: widget_position_left,
-      widget_position_top: widget_position_top,
-      widget_position_bottom: widget_position_bottom
-    */
-    const requestOptions = {
-      method: "POST",
-      body: formdata
-    }
-
-    fetch(
-      "https://ada.skynettechnologies.us/api/widget-setting-update-platform",
-      requestOptions
-    )
-      .then(response => response.json())
-      .then(async response => {
-        console.log("response Save Data", response)
-        setShowSuccessMessage(true)
-
-        setTimeout(() => {
-          setShowSuccessMessage(false)
-        }, 3000) // Reset message after 3 seconds
-      })
-      .catch(error => console.log("error", error))
+  if (isLoading) {
+    return (
+      <>
+        <Page.Title>All in One Accessibility</Page.Title>
+        <Page.Loading />
+      </>
+    );
   }
 
-  /**
-   * Get API data will get all details from Dashboard API to Settings UI
-   */
-  const getAPIData = () => {
-    const formdata = new FormData()
-    formdata.append("website_url", window.location.hostname)
+  const previewIcon = iconSrcFor(settings.widget_icon_type);
 
-    const requestOptions = {
-      method: "POST",
-      body: formdata
-    }
-    fetch(
-      "https://ada.skynettechnologies.us/api/widget-settings",
-      requestOptions
-    )
-      .then(response => response.json())
-      .then(response => {
-        if (Object.keys(response.Data).length !== 0) {
-          setIsValid(true)
-          setParameters({
-            hexaColor: response.Data.widget_color_code,
-            position: response.Data.widget_position,
-            icontype: response.Data.widget_icon_type,
-            iconsize: response.Data.widget_icon_size,
-            widget_size: response.Data.widget_size
-          })
-          setSizeSwitcherEnabled(
-            response.Data.is_widget_custom_size == "0" ? false : true
-          )
-          setSwitcherEnabled(
-            response.Data.is_widget_custom_position == "0" ? false : true
-          )
-          setWidgetSettings({
-            widget_icon_size_custom:
-              response.Data.widget_icon_size_custom || "",
-            custom_position_x_value:
-              parseInt(response.Data.widget_position_left) > 0
-                ? response.Data.widget_position_left
-                : response.Data.widget_position_right,
-            custom_position_y_value:
-              parseInt(response.Data.widget_position_bottom) > 0
-                ? response.Data.widget_position_bottom
-                : response.Data.widget_position_top,
-            custom_position_left_right:
-              parseInt(response.Data.widget_position_left) > 0
-                ? "To the left"
-                : "To the right",
-            custom_position_top_bottom:
-              parseInt(response.Data.widget_position_bottom) > 0
-                ? "To the bottom"
-                : "To the top"
-          })
-          console.log("setWidgetSettings : ", widgetSettings)
-        } else {
-          setIsValid(false)
-        }
-      })
-      .catch(error => console.log("error", error))
-  }
-
-  /**
-   * Icon change event when user change Icon Type on Settings UI
-   */
-
-  const onIconChange = e => {
-    setParameters({ ...parameters, icontype: e.target.value })
-    switch (e.target.value) {
-      case "aioa-icon-type-2":
-        setIconSize(aioaicontype2)
-        break
-      case "aioa-icon-type-3":
-        setIconSize(aioaicontype3)
-        break
-      case "aioa-icon-type-4":
-        setIconSize(aioaicontype4)
-        break
-      case "aioa-icon-type-5":
-        setIconSize(aioaicontype5)
-        break
-      case "aioa-icon-type-6":
-        setIconSize(aioaicontype6)
-        break
-      case "aioa-icon-type-7":
-        setIconSize(aioaicontype7)
-        break
-      case "aioa-icon-type-8":
-        setIconSize(aioaicontype8)
-        break
-      case "aioa-icon-type-9":
-        setIconSize(aioaicontype9)
-        break
-      case "aioa-icon-type-10":
-        setIconSize(aioaicontype10)
-        break
-      case "aioa-icon-type-11":
-        setIconSize(aioaicontype11)
-        break
-      case "aioa-icon-type-12":
-        setIconSize(aioaicontype12)
-        break
-      case "aioa-icon-type-13":
-        setIconSize(aioaicontype13)
-        break
-      case "aioa-icon-type-14":
-        setIconSize(aioaicontype14)
-        break
-      case "aioa-icon-type-15":
-        setIconSize(aioaicontype15)
-        break
-      case "aioa-icon-type-16":
-        setIconSize(aioaicontype16)
-        break
-      case "aioa-icon-type-17":
-        setIconSize(aioaicontype17)
-        break
-      case "aioa-icon-type-18":
-        setIconSize(aioaicontype18)
-        break
-      case "aioa-icon-type-19":
-        setIconSize(aioaicontype19)
-        break
-      case "aioa-icon-type-20":
-        setIconSize(aioaicontype20)
-        break
-      case "aioa-icon-type-21":
-        setIconSize(aioaicontype21)
-        break
-      case "aioa-icon-type-22":
-        setIconSize(aioaicontype22)
-        break
-      case "aioa-icon-type-23":
-        setIconSize(aioaicontype23)
-        break
-      case "aioa-icon-type-24":
-        setIconSize(aioaicontype24)
-        break
-      case "aioa-icon-type-25":
-        setIconSize(aioaicontype25)
-        break
-      case "aioa-icon-type-26":
-        setIconSize(aioaicontype26)
-        break
-      case "aioa-icon-type-27":
-        setIconSize(aioaicontype27)
-        break
-      case "aioa-icon-type-28":
-        setIconSize(aioaicontype28)
-        break
-      case "aioa-icon-type-29":
-        setIconSize(aioaicontype29)
-        break
-      default:
-        setIconSize(aioaicontype1)
-    }
-  }
-
-  const onIconChange1 = e => {
-    setParameters({ ...parameters, icontype: e.target.value })
-    switch (e.target.value) {
-      case "aioa-icon-type-2":
-        setIconSize(aioaicontype2)
-        break
-      case "aioa-icon-type-3":
-        setIconSize(aioaicontype3)
-        break
-      case "aioa-icon-type-4":
-        setIconSize(aioaicontype4)
-        break
-      case "aioa-icon-type-5":
-        setIconSize(aioaicontype5)
-        break
-      case "aioa-icon-type-6":
-        setIconSize(aioaicontype6)
-        break
-      case "aioa-icon-type-7":
-        setIconSize(aioaicontype7)
-        break
-      case "aioa-icon-type-8":
-        setIconSize(aioaicontype8)
-        break
-      case "aioa-icon-type-9":
-        setIconSize(aioaicontype9)
-        break
-      case "aioa-icon-type-10":
-        setIconSize(aioaicontype10)
-        break
-      case "aioa-icon-type-11":
-        setIconSize(aioaicontype11)
-        break
-      case "aioa-icon-type-12":
-        setIconSize(aioaicontype12)
-        break
-      case "aioa-icon-type-13":
-        setIconSize(aioaicontype13)
-        break
-      case "aioa-icon-type-14":
-        setIconSize(aioaicontype14)
-        break
-      case "aioa-icon-type-15":
-        setIconSize(aioaicontype15)
-        break
-      case "aioa-icon-type-16":
-        setIconSize(aioaicontype16)
-        break
-      case "aioa-icon-type-17":
-        setIconSize(aioaicontype17)
-        break
-      case "aioa-icon-type-18":
-        setIconSize(aioaicontype18)
-        break
-      case "aioa-icon-type-19":
-        setIconSize(aioaicontype19)
-        break
-      case "aioa-icon-type-20":
-        setIconSize(aioaicontype20)
-        break
-      case "aioa-icon-type-21":
-        setIconSize(aioaicontype21)
-        break
-      case "aioa-icon-type-22":
-        setIconSize(aioaicontype22)
-        break
-      case "aioa-icon-type-23":
-        setIconSize(aioaicontype23)
-        break
-      case "aioa-icon-type-24":
-        setIconSize(aioaicontype24)
-        break
-      case "aioa-icon-type-25":
-        setIconSize(aioaicontype25)
-        break
-      case "aioa-icon-type-26":
-        setIconSize(aioaicontype26)
-        break
-      case "aioa-icon-type-27":
-        setIconSize(aioaicontype27)
-        break
-      case "aioa-icon-type-28":
-        setIconSize(aioaicontype28)
-        break
-      case "aioa-icon-type-29":
-        setIconSize(aioaicontype29)
-        break
-      default:
-        setIconSize(aioaicontype1)
-    }
-  }
-
-  function fetchApiData() {
-    const username = window.location.hostname
-    const useremail = "no-reply@" + window.location.hostname + ".com"
-    // var website_name = window.location.hostname
-    var website_name = btoa(window.location.hostname);
-
-    const packageType = "free-widget"
-    const arrDetails = {
-      name: username,
-      email: useremail,
-      company_name: username,
-      website: website_name,
-      package_type: packageType,
-      start_date: new Date().toISOString(),
-      end_date: "",
-      price: "",
-      discount_price: "0",
-      platform: "strapi",
-      api_key: "",
-      is_trial_period: "",
-      is_free_widget: "1",
-      bill_address: "",
-      country: "",
-      state: "",
-      city: "",
-      post_code: "",
-      transaction_id: "",
-      subscr_id: "",
-      payment_source: ""
-    }
-
-    const apiUrl = "https://ada.skynettechnologies.us/api/get-autologin-link"
-
-    fetch(apiUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ website: website_name })
-    })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`)
-        }
-        return response.json()
-      })
-      .then(result => {
-        if (result && result.link) {
-          // Handle valid link
-          getAPIData()
-        } else {
-          const secondApiUrl =
-            "https://ada.skynettechnologies.us/api/add-user-domain"
-
-          fetch(secondApiUrl, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify(arrDetails)
-          })
-            .then(response => {
-              if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`)
-              }
-              getAPIData()
-              return response.json()
-            })
-            .then(data => {
-              if (data.success) {
-                // Handle success
-                getAPIData()
-              } else {
-                // Handle error
-              }
-            })
-            .catch(error => {
-              // Handle error
-            })
-        }
-      })
-      .catch(error => {
-        // Handle error
-      })
-  }
-
-  const elementStyle = {
-    marginTop: "0px",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "column"
-  }
-
-  const labelStyle = {
-    backgroundColor: ""
-  }
-
-  const handleInput = e => {
-    e.target.value = Math.min(
-      Math.max(Number(e.target.value), 0),
-      250
-    ).toString()
-  }
-
-  const handleInput2 = e => {
-    e.target.value = Math.min(
-      Math.max(Number(e.target.value), 0),
-      250
-    ).toString()
-  }
-
-  const handleInput1 = e => {
-    e.target.value = Math.min(
-      Math.max(Number(e.target.value), 20),
-      150
-    ).toString()
-  }
-
-  /**
-   * Settings UI
-   */
   return (
-    <>
-      <meta charSet="utf-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <title>All In One Accessibility Strapi</title>
-      <meta name="description" content="Strapi App" />
-      {/* <style>
-        @import ("./assets/css/style.css");
-    </style> */}
+    <div className="aioa-plugin">
+      <Page.Title>All in One Accessibility</Page.Title>
+      <style>{aioaStyles}</style>
 
-      <link
-        rel="stylesheet"
-        type="text/css"
-        href="https://strapi.skynettechnologies.us/style.css"
-      />
-      <div style={elementStyle}>
-        <div className="all-in-one-accessibility-strapi-container">
-          <div className="container">
-            <div className="set-width">
-              <div className="all-in-one-accessibility-wrap">
-                <div className="accessibility-settings">
-                  <Image
-                    src={allinoneaccessibilitylogo}
-                    alt="All in One Accessibility - Skynet Technologies"
-                    style={{
-                      display: "block",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      textAlign: "center",
-                      marginLeft: "auto",
-                      marginRight: "auto",
-                      width: "50%"
-                    }}
-                  ></Image>
-                  <h3>
-                    <b></b>
-                  </h3>
+      <div className="set-width">
+        <div className="all-in-one-accessibility-wrap">
+          <div className="accessibility-settings">
+            <div className="aioa-logo">
+              <img src={allinoneaccessibilitylogo} alt="All in One Accessibility - Skynet Technologies" />
+            </div>
 
-                  <div className="all-one-accessibility-form">
-                    <Form onSubmit={onSaveChanges}>
-                      {!isValid && ( // Conditionally render the view based on API data
-                        <Form.Group className={`mb-30 row`}>
-                          <Form.Label className="col-sm-12 col-form-label">
-                            {/* License key required for full version: */}
-                            <div
-                              className={`form-text col-sm-12 col-form-label ${
-                                isValid ? "d-none" : ""
-                              }`}
-                              style={{
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
-                                textAlign: "center"
-                              }}
-                            >
-                              Please{" "}
-                              <a
-                                href="https://ada.skynettechnologies.us/trial-subscription"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                              >
-                                &nbsp;Upgrade&nbsp;
-                              </a>{" "}
-                              to the full version of All in One Accessibility
-                              Pro.
-                            </div>
-                          </Form.Label>
-                          {/* <div className="col-sm-9">
-                        <Form.Control value={parameters.licenseKey} type="text" onChange={checkLicenseKey} />
-                        
-                        <div className="form-text text-danger">{message}</div>
-                      </div> */}
-                        </Form.Group>
-                      )}
-
-                      <Form.Group className={`mb-30 row`}>
-                        <Form.Label
-                          htmlFor="inputPassword"
-                          className="col-sm-3 col-form-label"
-                        >
-                          Hex color code:
-                        </Form.Label>
-                        <div className="col-sm-9">
-                          <Form.Control
-                            value={parameters.hexaColor}
-                            className="form-control"
-                            id="colorcode"
-                            name="colorcode"
-                            onChange={e =>
-                              setParameters({
-                                ...parameters,
-                                hexaColor: e.target.value
-                              })
-                            }
-                          />
-                        </div>
-                        <div className="col-sm-3"></div>
-                        <div className="form-text col-sm-9">
-                          You can customize the ADA Widget color. For example:
-                          FF5733
-                        </div>
-                      </Form.Group>
-
-                      <Form.Group className={`mb-30 row`}>
-                        <Form.Label className="col-sm-12 col-form-label">
-                          Select Widget Size:
-                        </Form.Label>
-                        <div className="col-sm-12 three-col">
-                          <div className="js-form-item form-item js-form-type-radio form-type-radio js-form-item-position form-item-position">
-                            <Form.Check
-                              type="radio"
-                              id="edit-widget-size-regularsize"
-                              label="Regular Size"
-                              name="widget_size"
-                              value="0"
-                              onChange={e =>
-                                setParameters({
-                                  ...parameters,
-                                  widget_size: e.target.value
-                                })
-                              }
-                              checked={
-                                parameters.widget_size == "0" ? true : false
-                              }
-                              className="form-radio"
-                            />
-                          </div>
-
-                          <div className="js-form-item form-item js-form-type-radio form-type-radio js-form-item-position form-item-position">
-                            <Form.Check
-                              type="radio"
-                              id="edit-widget-size-oversize"
-                              label="Over Size"
-                              name="widget_size"
-                              value="1"
-                              onChange={e =>
-                                setParameters({
-                                  ...parameters,
-                                  widget_size: e.target.value
-                                })
-                              }
-                              checked={
-                                parameters.widget_size == "1" ? true : false
-                              }
-                              className="form-radio"
-                            />
-                          </div>
-                        </div>
-                      </Form.Group>
-
-                      <Form.Group className={`mb-30 row`}>
-                        <div className="icon-custom-position-wrapper mb-3">
-                          <div className="mb-2">
-                            <Row className="align-items-center mb-30">
-                              <Col>
-                                <Form.Label className="col-sm-12 col-form-label">
-                                  Enable precise accessibility widget icon
-                                  position:
-                                </Form.Label>
-                              </Col>
-                              <Col xs="auto">
-                                <Form.Check
-                                  type="switch"
-                                  id="custom-position-switcher"
-                                  className="custom-switcher"
-                                  checked={isSwitcherEnabled}
-                                  onChange={() =>
-                                    setSwitcherEnabled(!isSwitcherEnabled)
-                                  }
-                                  style={{
-                                    transform: "scale(1.5)" // Increase the switch size
-                                  }}
-                                />
-                              </Col>
-                            </Row>
-
-                            {!isSwitcherEnabled && (
-                              <Form.Group
-                                className={`mb-30 row widget-position`}
-                              >
-                                <Form.Label className="col-sm-12 col-form-label">
-                                  Where would you like to place the
-                                  accessibility icon on your site?:
-                                </Form.Label>
-                                <div className="col-sm-12 three-col">
-                                  <div className="js-form-item form-item js-form-type-radio form-type-radio js-form-item-position form-item-position">
-                                    <Form.Check
-                                      type="radio"
-                                      id="edit-position-top-left"
-                                      label="Top left"
-                                      name="position"
-                                      value="top_left"
-                                      onChange={e =>
-                                        setParameters({
-                                          ...parameters,
-                                          position: e.target.value
-                                        })
-                                      }
-                                      checked={
-                                        parameters.position == "top_left"
-                                          ? true
-                                          : false
-                                      }
-                                      className="form-radio"
-                                    />
-                                  </div>
-
-                                  <div className="js-form-item form-item js-form-type-radio form-type-radio js-form-item-position form-item-position">
-                                    <Form.Check
-                                      type="radio"
-                                      id="edit-position-top-center"
-                                      label="Top Center"
-                                      name="position"
-                                      value="top_center"
-                                      onChange={e =>
-                                        setParameters({
-                                          ...parameters,
-                                          position: e.target.value
-                                        })
-                                      }
-                                      checked={
-                                        parameters.position == "top_center"
-                                          ? true
-                                          : false
-                                      }
-                                      className="form-radio"
-                                    />
-                                  </div>
-
-                                  <div className="js-form-item form-item js-form-type-radio form-type-radio js-form-item-position form-item-position">
-                                    <Form.Check
-                                      type="radio"
-                                      id="edit-position-top-right"
-                                      label="Top Right"
-                                      name="position"
-                                      value="top_right"
-                                      onChange={e =>
-                                        setParameters({
-                                          ...parameters,
-                                          position: e.target.value
-                                        })
-                                      }
-                                      checked={
-                                        parameters.position == "top_right"
-                                          ? true
-                                          : false
-                                      }
-                                      className="form-radio"
-                                    />
-                                  </div>
-
-                                  <div className="js-form-item form-item js-form-type-radio form-type-radio js-form-item-position form-item-position">
-                                    <Form.Check
-                                      type="radio"
-                                      id="edit-position-middel-left"
-                                      label="Middle left"
-                                      name="position"
-                                      value="middle_left"
-                                      onChange={e =>
-                                        setParameters({
-                                          ...parameters,
-                                          position: e.target.value
-                                        })
-                                      }
-                                      checked={
-                                        parameters.position == "middle_left"
-                                          ? true
-                                          : false
-                                      }
-                                      className="form-radio"
-                                    />
-                                  </div>
-
-                                  <div className="js-form-item form-item js-form-type-radio form-type-radio js-form-item-position form-item-position">
-                                    <Form.Check
-                                      type="radio"
-                                      id="edit-position-middel-right"
-                                      label="Middle Right"
-                                      name="position"
-                                      value="middle_right"
-                                      onChange={e =>
-                                        setParameters({
-                                          ...parameters,
-                                          position: e.target.value
-                                        })
-                                      }
-                                      checked={
-                                        parameters.position == "middle_right"
-                                          ? true
-                                          : false
-                                      }
-                                      className="form-radio"
-                                    />
-                                  </div>
-                                  <div className="js-form-item form-item js-form-type-radio form-type-radio js-form-item-position form-item-position">
-                                    <Form.Check
-                                      type="radio"
-                                      id="edit-position-bottom-left"
-                                      label="Bottom left"
-                                      name="position"
-                                      value="bottom_left"
-                                      onChange={e =>
-                                        setParameters({
-                                          ...parameters,
-                                          position: e.target.value
-                                        })
-                                      }
-                                      checked={
-                                        parameters.position == "bottom_left"
-                                          ? true
-                                          : false
-                                      }
-                                      className="form-radio"
-                                    />
-                                  </div>
-                                  <div className="js-form-item form-item js-form-type-radio form-type-radio js-form-item-position form-item-position">
-                                    <Form.Check
-                                      type="radio"
-                                      id="edit-position-bottom-center"
-                                      label="Bottom Center"
-                                      name="position"
-                                      value="bottom_center"
-                                      onChange={e =>
-                                        setParameters({
-                                          ...parameters,
-                                          position: e.target.value
-                                        })
-                                      }
-                                      checked={
-                                        parameters.position == "bottom_center"
-                                          ? true
-                                          : false
-                                      }
-                                      className="form-radio"
-                                    />
-                                  </div>
-                                  <div className="js-form-item form-item js-form-type-radio form-type-radio js-form-item-position form-item-position">
-                                    <Form.Check
-                                      type="radio"
-                                      id="edit-position-bottom-right"
-                                      label="Bottom Right"
-                                      name="position"
-                                      value="bottom_right"
-                                      onChange={e =>
-                                        setParameters({
-                                          ...parameters,
-                                          position: e.target.value
-                                        })
-                                      }
-                                      checked={
-                                        parameters.position == "bottom_right"
-                                          ? true
-                                          : false
-                                      }
-                                      className="form-radio"
-                                    />
-                                  </div>
-                                </div>
-                              </Form.Group>
-                            )}
-                            {isSwitcherEnabled && (
-                              <div className="custom-position-controls">
-                                <Row className="mb-3">
-                                  <Col xs="auto">
-                                    <InputGroup>
-                                      <FormControl
-                                        type="number"
-                                        min="0"
-                                        max="250"
-                                        id="custom_position_x_value"
-                                        aria-label="Value in pixels"
-                                        onInput={handleInput}
-                                        defaultValue={
-                                          widgetSettings.custom_position_x_value
-                                        }
-                                      />
-                                      <InputGroup.Text>PX</InputGroup.Text>
-                                    </InputGroup>
-                                  </Col>
-                                  <Col xs="auto">
-                                    <Form.Select
-                                      id="custom_position_left_right"
-                                      aria-label="Position select"
-                                      value={
-                                        widgetSettings.custom_position_left_right
-                                      }
-                                    >
-                                      <option value="cust-pos-to-the-right">
-                                        To the right
-                                      </option>
-                                      <option value="cust-pos-to-the-left">
-                                        To the left
-                                      </option>
-                                    </Form.Select>
-                                  </Col>
-                                </Row>
-                                <Row className="mb-3">
-                                  <Col xs="auto">
-                                    <InputGroup>
-                                      <FormControl
-                                        type="number"
-                                        min="0"
-                                        max="250"
-                                        id="custom_position_y_value"
-                                        aria-label="Value in pixels"
-                                        onInput={handleInput2}
-                                        defaultValue={
-                                          widgetSettings.custom_position_y_value
-                                        }
-                                      />
-                                      <InputGroup.Text>PX</InputGroup.Text>
-                                    </InputGroup>
-                                  </Col>
-                                  <Col xs="auto">
-                                    <Form.Select
-                                      id="custom_position_top_bottom"
-                                      aria-label="Position select"
-                                      value={
-                                        widgetSettings.custom_position_top_bottom
-                                      }
-                                    >
-                                      <option value="cust-pos-to-the-lower">
-                                        To the bottom
-                                      </option>
-                                      <option value="cust-pos-to-the-upper">
-                                        To the top
-                                      </option>
-                                    </Form.Select>
-                                  </Col>
-                                </Row>
-                                <div className="description">
-                                  0 - 250px are permitted values
-                                </div>
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                      </Form.Group>
-
-                      <Form.Group
-                        className={`icon-type-wrapper row ${
-                          isValid ? null : "d-none"
-                        }`}
-                      >
-                        <Form.Label className="fcol-sm-12 col-form-label">
-                          Select icon type:
-                        </Form.Label>
-                        <div className="col-sm-12">
-                          <div className="row">
-                            <div className="col-auto mb-30">
-                              <div className="js-form-item form-item js-form-type-radio form-type-radio js-form-item-position form-item-position">
-                                <Form.Check type="radio" id="edit-type-1">
-                                  <Form.Check.Input
-                                    type="radio"
-                                    name="aioa_icon_type"
-                                    value="aioa-icon-type-1"
-                                    onChange={onIconChange}
-                                    checked={
-                                      parameters.icontype == "aioa-icon-type-1"
-                                        ? true
-                                        : false
-                                    }
-                                    className="form-radio"
-                                  ></Form.Check.Input>
-                                  <Form.Check.Label className="option">
-                                    <Image
-                                      src={aioaicontype1}
-                                      alt=""
-                                      width="65"
-                                      height="65"
-                                    />
-                                  </Form.Check.Label>
-                                </Form.Check>
-                              </div>
-                            </div>
-                            <div className="col-auto mb-30">
-                              <div className="js-form-item form-item js-form-type-radio form-type-radio js-form-item-position form-item-position">
-                                <Form.Check type="radio" id="edit-type-2">
-                                  <Form.Check.Input
-                                    type="radio"
-                                    name="aioa_icon_type"
-                                    value="aioa-icon-type-2"
-                                    onChange={onIconChange}
-                                    checked={
-                                      parameters.icontype == "aioa-icon-type-2"
-                                        ? true
-                                        : false
-                                    }
-                                    className="form-radio"
-                                  ></Form.Check.Input>
-                                  <Form.Check.Label className="option">
-                                    <Image
-                                      src={aioaicontype2}
-                                      alt=""
-                                      width="65"
-                                      height="65"
-                                    />
-                                  </Form.Check.Label>
-                                </Form.Check>
-                              </div>
-                            </div>
-
-                            <div className="col-auto mb-30">
-                              <div className="js-form-item form-item js-form-type-radio form-type-radio js-form-item-position form-item-position">
-                                <Form.Check type="radio" id="edit-type-3">
-                                  <Form.Check.Input
-                                    type="radio"
-                                    name="aioa_icon_type"
-                                    value="aioa-icon-type-3"
-                                    onChange={onIconChange}
-                                    checked={
-                                      parameters.icontype == "aioa-icon-type-3"
-                                        ? true
-                                        : false
-                                    }
-                                    className="form-radio"
-                                  ></Form.Check.Input>
-                                  <Form.Check.Label className="option">
-                                    <Image
-                                      src={aioaicontype3}
-                                      alt=""
-                                      width="65"
-                                      height="65"
-                                    />
-                                  </Form.Check.Label>
-                                </Form.Check>
-                              </div>
-                            </div>
-
-                            <div className="col-auto mb-30">
-                              <div className="js-form-item form-item js-form-type-radio form-type-radio js-form-item-position form-item-position">
-                                <Form.Check type="radio" id="edit-type-4">
-                                  <Form.Check.Input
-                                    type="radio"
-                                    name="aioa_icon_type"
-                                    value="aioa-icon-type-4"
-                                    onChange={onIconChange}
-                                    checked={
-                                      parameters.icontype == "aioa-icon-type-4"
-                                        ? true
-                                        : false
-                                    }
-                                    className="form-radio"
-                                  ></Form.Check.Input>
-                                  <Form.Check.Label className="option">
-                                    <Image
-                                      src={aioaicontype4}
-                                      alt=""
-                                      width="65"
-                                      height="65"
-                                    />
-                                  </Form.Check.Label>
-                                </Form.Check>
-                              </div>
-                            </div>
-
-                            <div className="col-auto mb-30">
-                              <div className="js-form-item form-item js-form-type-radio form-type-radio js-form-item-position form-item-position">
-                                <Form.Check type="radio" id="edit-type-5">
-                                  <Form.Check.Input
-                                    type="radio"
-                                    name="aioa_icon_type"
-                                    value="aioa-icon-type-5"
-                                    onChange={onIconChange}
-                                    checked={
-                                      parameters.icontype == "aioa-icon-type-5"
-                                        ? true
-                                        : false
-                                    }
-                                    className="form-radio"
-                                  ></Form.Check.Input>
-                                  <Form.Check.Label className="option">
-                                    <Image
-                                      src={aioaicontype5}
-                                      alt=""
-                                      width="65"
-                                      height="65"
-                                    />
-                                  </Form.Check.Label>
-                                </Form.Check>
-                              </div>
-                            </div>
-
-                            <div className="col-auto mb-30">
-                              <div className="js-form-item form-item js-form-type-radio form-type-radio js-form-item-position form-item-position">
-                                <Form.Check type="radio" id="edit-type-6">
-                                  <Form.Check.Input
-                                    type="radio"
-                                    name="aioa_icon_type"
-                                    value="aioa-icon-type-6"
-                                    onChange={onIconChange}
-                                    checked={
-                                      parameters.icontype == "aioa-icon-type-6"
-                                        ? true
-                                        : false
-                                    }
-                                    className="form-radio"
-                                  ></Form.Check.Input>
-                                  <Form.Check.Label className="option">
-                                    <Image
-                                      src={aioaicontype6}
-                                      alt=""
-                                      width="65"
-                                      height="65"
-                                    />
-                                  </Form.Check.Label>
-                                </Form.Check>
-                              </div>
-                            </div>
-
-                            <div className="col-auto mb-30">
-                              <div className="js-form-item form-item js-form-type-radio form-type-radio js-form-item-position form-item-position">
-                                <Form.Check type="radio" id="edit-type-7">
-                                  <Form.Check.Input
-                                    type="radio"
-                                    name="aioa_icon_type"
-                                    value="aioa-icon-type-7"
-                                    onChange={onIconChange}
-                                    checked={
-                                      parameters.icontype == "aioa-icon-type-7"
-                                        ? true
-                                        : false
-                                    }
-                                    className="form-radio"
-                                  ></Form.Check.Input>
-                                  <Form.Check.Label className="option">
-                                    <Image
-                                      src={aioaicontype7}
-                                      alt=""
-                                      width="65"
-                                      height="65"
-                                    />
-                                  </Form.Check.Label>
-                                </Form.Check>
-                              </div>
-                            </div>
-
-                            <div className="col-auto mb-30">
-                              <div className="js-form-item form-item js-form-type-radio form-type-radio js-form-item-position form-item-position">
-                                <Form.Check type="radio" id="edit-type-8">
-                                  <Form.Check.Input
-                                    type="radio"
-                                    name="aioa_icon_type"
-                                    value="aioa-icon-type-8"
-                                    onChange={onIconChange}
-                                    checked={
-                                      parameters.icontype == "aioa-icon-type-8"
-                                        ? true
-                                        : false
-                                    }
-                                    className="form-radio"
-                                  ></Form.Check.Input>
-                                  <Form.Check.Label className="option">
-                                    <Image
-                                      src={aioaicontype8}
-                                      alt=""
-                                      width="65"
-                                      height="65"
-                                    />
-                                  </Form.Check.Label>
-                                </Form.Check>
-                              </div>
-                            </div>
-
-                            <div className="col-auto mb-30">
-                              <div className="js-form-item form-item js-form-type-radio form-type-radio js-form-item-position form-item-position">
-                                <Form.Check type="radio" id="edit-type-9">
-                                  <Form.Check.Input
-                                    type="radio"
-                                    name="aioa_icon_type"
-                                    value="aioa-icon-type-9"
-                                    onChange={onIconChange}
-                                    checked={
-                                      parameters.icontype == "aioa-icon-type-9"
-                                        ? true
-                                        : false
-                                    }
-                                    className="form-radio"
-                                  ></Form.Check.Input>
-                                  <Form.Check.Label className="option">
-                                    <Image
-                                      src={aioaicontype9}
-                                      alt=""
-                                      width="65"
-                                      height="65"
-                                    />
-                                  </Form.Check.Label>
-                                </Form.Check>
-                              </div>
-                            </div>
-
-                            <div className="col-auto mb-30">
-                              <div className="js-form-item form-item js-form-type-radio form-type-radio js-form-item-position form-item-position">
-                                <Form.Check type="radio" id="edit-type-10">
-                                  <Form.Check.Input
-                                    type="radio"
-                                    name="aioa_icon_type"
-                                    value="aioa-icon-type-10"
-                                    onChange={onIconChange}
-                                    checked={
-                                      parameters.icontype == "aioa-icon-type-10"
-                                        ? true
-                                        : false
-                                    }
-                                    className="form-radio"
-                                  ></Form.Check.Input>
-                                  <Form.Check.Label className="option">
-                                    <Image
-                                      src={aioaicontype10}
-                                      alt=""
-                                      width="65"
-                                      height="65"
-                                    />
-                                  </Form.Check.Label>
-                                </Form.Check>
-                              </div>
-                            </div>
-
-                            <div className="col-auto mb-30">
-                              <div className="js-form-item form-item js-form-type-radio form-type-radio js-form-item-position form-item-position">
-                                <Form.Check type="radio" id="edit-type-11">
-                                  <Form.Check.Input
-                                    type="radio"
-                                    name="aioa_icon_type"
-                                    value="aioa-icon-type-11"
-                                    onChange={onIconChange}
-                                    checked={
-                                      parameters.icontype == "aioa-icon-type-11"
-                                        ? true
-                                        : false
-                                    }
-                                    className="form-radio"
-                                  ></Form.Check.Input>
-                                  <Form.Check.Label className="option">
-                                    <Image
-                                      src={aioaicontype11}
-                                      alt=""
-                                      width="65"
-                                      height="65"
-                                    />
-                                  </Form.Check.Label>
-                                </Form.Check>
-                              </div>
-                            </div>
-
-                            <div className="col-auto mb-30">
-                              <div className="js-form-item form-item js-form-type-radio form-type-radio js-form-item-position form-item-position">
-                                <Form.Check type="radio" id="edit-type-12">
-                                  <Form.Check.Input
-                                    type="radio"
-                                    name="aioa_icon_type"
-                                    value="aioa-icon-type-12"
-                                    onChange={onIconChange}
-                                    checked={
-                                      parameters.icontype == "aioa-icon-type-12"
-                                        ? true
-                                        : false
-                                    }
-                                    className="form-radio"
-                                  ></Form.Check.Input>
-                                  <Form.Check.Label className="option">
-                                    <Image
-                                      src={aioaicontype12}
-                                      alt=""
-                                      width="65"
-                                      height="65"
-                                    />
-                                  </Form.Check.Label>
-                                </Form.Check>
-                              </div>
-                            </div>
-
-                            <div className="col-auto mb-30">
-                              <div className="js-form-item form-item js-form-type-radio form-type-radio js-form-item-position form-item-position">
-                                <Form.Check type="radio" id="edit-type-13">
-                                  <Form.Check.Input
-                                    type="radio"
-                                    name="aioa_icon_type"
-                                    value="aioa-icon-type-13"
-                                    onChange={onIconChange}
-                                    checked={
-                                      parameters.icontype == "aioa-icon-type-13"
-                                        ? true
-                                        : false
-                                    }
-                                    className="form-radio"
-                                  ></Form.Check.Input>
-                                  <Form.Check.Label className="option">
-                                    <Image
-                                      src={aioaicontype13}
-                                      alt=""
-                                      width="65"
-                                      height="65"
-                                    />
-                                  </Form.Check.Label>
-                                </Form.Check>
-                              </div>
-                            </div>
-
-                            <div className="col-auto mb-30">
-                              <div className="js-form-item form-item js-form-type-radio form-type-radio js-form-item-position form-item-position">
-                                <Form.Check type="radio" id="edit-type-14">
-                                  <Form.Check.Input
-                                    type="radio"
-                                    name="aioa_icon_type"
-                                    value="aioa-icon-type-14"
-                                    onChange={onIconChange}
-                                    checked={
-                                      parameters.icontype == "aioa-icon-type-14"
-                                        ? true
-                                        : false
-                                    }
-                                    className="form-radio"
-                                  ></Form.Check.Input>
-                                  <Form.Check.Label className="option">
-                                    <Image
-                                      src={aioaicontype14}
-                                      alt=""
-                                      width="65"
-                                      height="65"
-                                    />
-                                  </Form.Check.Label>
-                                </Form.Check>
-                              </div>
-                            </div>
-
-                            <div className="col-auto mb-30">
-                              <div className="js-form-item form-item js-form-type-radio form-type-radio js-form-item-position form-item-position">
-                                <Form.Check type="radio" id="edit-type-15">
-                                  <Form.Check.Input
-                                    type="radio"
-                                    name="aioa_icon_type"
-                                    value="aioa-icon-type-15"
-                                    onChange={onIconChange}
-                                    checked={
-                                      parameters.icontype == "aioa-icon-type-15"
-                                        ? true
-                                        : false
-                                    }
-                                    className="form-radio"
-                                  ></Form.Check.Input>
-                                  <Form.Check.Label className="option">
-                                    <Image
-                                      src={aioaicontype15}
-                                      alt=""
-                                      width="65"
-                                      height="65"
-                                    />
-                                  </Form.Check.Label>
-                                </Form.Check>
-                              </div>
-                            </div>
-
-                            <div className="col-auto mb-30">
-                              <div className="js-form-item form-item js-form-type-radio form-type-radio js-form-item-position form-item-position">
-                                <Form.Check type="radio" id="edit-type-16">
-                                  <Form.Check.Input
-                                    type="radio"
-                                    name="aioa_icon_type"
-                                    value="aioa-icon-type-16"
-                                    onChange={onIconChange}
-                                    checked={
-                                      parameters.icontype == "aioa-icon-type-16"
-                                        ? true
-                                        : false
-                                    }
-                                    className="form-radio"
-                                  ></Form.Check.Input>
-                                  <Form.Check.Label className="option">
-                                    <Image
-                                      src={aioaicontype16}
-                                      alt=""
-                                      width="65"
-                                      height="65"
-                                    />
-                                  </Form.Check.Label>
-                                </Form.Check>
-                              </div>
-                            </div>
-
-                            <div className="col-auto mb-30">
-                              <div className="js-form-item form-item js-form-type-radio form-type-radio js-form-item-position form-item-position">
-                                <Form.Check type="radio" id="edit-type-17">
-                                  <Form.Check.Input
-                                    type="radio"
-                                    name="aioa_icon_type"
-                                    value="aioa-icon-type-17"
-                                    onChange={onIconChange}
-                                    checked={
-                                      parameters.icontype == "aioa-icon-type-17"
-                                        ? true
-                                        : false
-                                    }
-                                    className="form-radio"
-                                  ></Form.Check.Input>
-                                  <Form.Check.Label className="option">
-                                    <Image
-                                      src={aioaicontype17}
-                                      alt=""
-                                      width="65"
-                                      height="65"
-                                    />
-                                  </Form.Check.Label>
-                                </Form.Check>
-                              </div>
-                            </div>
-
-                            <div className="col-auto mb-30">
-                              <div className="js-form-item form-item js-form-type-radio form-type-radio js-form-item-position form-item-position">
-                                <Form.Check type="radio" id="edit-type-18">
-                                  <Form.Check.Input
-                                    type="radio"
-                                    name="aioa_icon_type"
-                                    value="aioa-icon-type-18"
-                                    onChange={onIconChange}
-                                    checked={
-                                      parameters.icontype == "aioa-icon-type-18"
-                                        ? true
-                                        : false
-                                    }
-                                    className="form-radio"
-                                  ></Form.Check.Input>
-                                  <Form.Check.Label className="option">
-                                    <Image
-                                      src={aioaicontype18}
-                                      alt=""
-                                      width="65"
-                                      height="65"
-                                    />
-                                  </Form.Check.Label>
-                                </Form.Check>
-                              </div>
-                            </div>
-
-                            <div className="col-auto mb-30">
-                              <div className="js-form-item form-item js-form-type-radio form-type-radio js-form-item-position form-item-position">
-                                <Form.Check type="radio" id="edit-type-19">
-                                  <Form.Check.Input
-                                    type="radio"
-                                    name="aioa_icon_type"
-                                    value="aioa-icon-type-19"
-                                    onChange={onIconChange}
-                                    checked={
-                                      parameters.icontype == "aioa-icon-type-19"
-                                        ? true
-                                        : false
-                                    }
-                                    className="form-radio"
-                                  ></Form.Check.Input>
-                                  <Form.Check.Label className="option">
-                                    <Image
-                                      src={aioaicontype19}
-                                      alt=""
-                                      width="65"
-                                      height="65"
-                                    />
-                                  </Form.Check.Label>
-                                </Form.Check>
-                              </div>
-                            </div>
-
-                            <div className="col-auto mb-30">
-                              <div className="js-form-item form-item js-form-type-radio form-type-radio js-form-item-position form-item-position">
-                                <Form.Check type="radio" id="edit-type-20">
-                                  <Form.Check.Input
-                                    type="radio"
-                                    name="aioa_icon_type"
-                                    value="aioa-icon-type-20"
-                                    onChange={onIconChange}
-                                    checked={
-                                      parameters.icontype == "aioa-icon-type-20"
-                                        ? true
-                                        : false
-                                    }
-                                    className="form-radio"
-                                  ></Form.Check.Input>
-                                  <Form.Check.Label className="option">
-                                    <Image
-                                      src={aioaicontype20}
-                                      alt=""
-                                      width="65"
-                                      height="65"
-                                    />
-                                  </Form.Check.Label>
-                                </Form.Check>
-                              </div>
-                            </div>
-
-                            <div className="col-auto mb-30">
-                              <div className="js-form-item form-item js-form-type-radio form-type-radio js-form-item-position form-item-position">
-                                <Form.Check type="radio" id="edit-type-21">
-                                  <Form.Check.Input
-                                    type="radio"
-                                    name="aioa_icon_type"
-                                    value="aioa-icon-type-21"
-                                    onChange={onIconChange}
-                                    checked={
-                                      parameters.icontype == "aioa-icon-type-21"
-                                        ? true
-                                        : false
-                                    }
-                                    className="form-radio"
-                                  ></Form.Check.Input>
-                                  <Form.Check.Label className="option">
-                                    <Image
-                                      src={aioaicontype21}
-                                      alt=""
-                                      width="65"
-                                      height="65"
-                                    />
-                                  </Form.Check.Label>
-                                </Form.Check>
-                              </div>
-                            </div>
-
-                            <div className="col-auto mb-30">
-                              <div className="js-form-item form-item js-form-type-radio form-type-radio js-form-item-position form-item-position">
-                                <Form.Check type="radio" id="edit-type-22">
-                                  <Form.Check.Input
-                                    type="radio"
-                                    name="aioa_icon_type"
-                                    value="aioa-icon-type-22"
-                                    onChange={onIconChange}
-                                    checked={
-                                      parameters.icontype == "aioa-icon-type-22"
-                                        ? true
-                                        : false
-                                    }
-                                    className="form-radio"
-                                  ></Form.Check.Input>
-                                  <Form.Check.Label className="option">
-                                    <Image
-                                      src={aioaicontype22}
-                                      alt=""
-                                      width="65"
-                                      height="65"
-                                    />
-                                  </Form.Check.Label>
-                                </Form.Check>
-                              </div>
-                            </div>
-
-                            <div className="col-auto mb-30">
-                              <div className="js-form-item form-item js-form-type-radio form-type-radio js-form-item-position form-item-position">
-                                <Form.Check type="radio" id="edit-type-23">
-                                  <Form.Check.Input
-                                    type="radio"
-                                    name="aioa_icon_type"
-                                    value="aioa-icon-type-23"
-                                    onChange={onIconChange}
-                                    checked={
-                                      parameters.icontype == "aioa-icon-type-23"
-                                        ? true
-                                        : false
-                                    }
-                                    className="form-radio"
-                                  ></Form.Check.Input>
-                                  <Form.Check.Label className="option">
-                                    <Image
-                                      src={aioaicontype23}
-                                      alt=""
-                                      width="65"
-                                      height="65"
-                                    />
-                                  </Form.Check.Label>
-                                </Form.Check>
-                              </div>
-                            </div>
-
-                            <div className="col-auto mb-30">
-                              <div className="js-form-item form-item js-form-type-radio form-type-radio js-form-item-position form-item-position">
-                                <Form.Check type="radio" id="edit-type-24">
-                                  <Form.Check.Input
-                                    type="radio"
-                                    name="aioa_icon_type"
-                                    value="aioa-icon-type-24"
-                                    onChange={onIconChange}
-                                    checked={
-                                      parameters.icontype == "aioa-icon-type-24"
-                                        ? true
-                                        : false
-                                    }
-                                    className="form-radio"
-                                  ></Form.Check.Input>
-                                  <Form.Check.Label className="option">
-                                    <Image
-                                      src={aioaicontype24}
-                                      alt=""
-                                      width="65"
-                                      height="65"
-                                    />
-                                  </Form.Check.Label>
-                                </Form.Check>
-                              </div>
-                            </div>
-
-                            <div className="col-auto mb-30">
-                              <div className="js-form-item form-item js-form-type-radio form-type-radio js-form-item-position form-item-position">
-                                <Form.Check type="radio" id="edit-type-25">
-                                  <Form.Check.Input
-                                    type="radio"
-                                    name="aioa_icon_type"
-                                    value="aioa-icon-type-25"
-                                    onChange={onIconChange}
-                                    checked={
-                                      parameters.icontype == "aioa-icon-type-25"
-                                        ? true
-                                        : false
-                                    }
-                                    className="form-radio"
-                                  ></Form.Check.Input>
-                                  <Form.Check.Label className="option">
-                                    <Image
-                                      src={aioaicontype25}
-                                      alt=""
-                                      width="65"
-                                      height="65"
-                                    />
-                                  </Form.Check.Label>
-                                </Form.Check>
-                              </div>
-                            </div>
-
-                            <div className="col-auto mb-30">
-                              <div className="js-form-item form-item js-form-type-radio form-type-radio js-form-item-position form-item-position">
-                                <Form.Check type="radio" id="edit-type-26">
-                                  <Form.Check.Input
-                                    type="radio"
-                                    name="aioa_icon_type"
-                                    value="aioa-icon-type-26"
-                                    onChange={onIconChange}
-                                    checked={
-                                      parameters.icontype == "aioa-icon-type-26"
-                                        ? true
-                                        : false
-                                    }
-                                    className="form-radio"
-                                  ></Form.Check.Input>
-                                  <Form.Check.Label className="option">
-                                    <Image
-                                      src={aioaicontype26}
-                                      alt=""
-                                      width="65"
-                                      height="65"
-                                    />
-                                  </Form.Check.Label>
-                                </Form.Check>
-                              </div>
-                            </div>
-
-                            <div className="col-auto mb-30">
-                              <div className="js-form-item form-item js-form-type-radio form-type-radio js-form-item-position form-item-position">
-                                <Form.Check type="radio" id="edit-type-27">
-                                  <Form.Check.Input
-                                    type="radio"
-                                    name="aioa_icon_type"
-                                    value="aioa-icon-type-27"
-                                    onChange={onIconChange}
-                                    checked={
-                                      parameters.icontype == "aioa-icon-type-27"
-                                        ? true
-                                        : false
-                                    }
-                                    className="form-radio"
-                                  ></Form.Check.Input>
-                                  <Form.Check.Label className="option">
-                                    <Image
-                                      src={aioaicontype27}
-                                      alt=""
-                                      width="65"
-                                      height="65"
-                                    />
-                                  </Form.Check.Label>
-                                </Form.Check>
-                              </div>
-                            </div>
-
-                            <div className="col-auto mb-30">
-                              <div className="js-form-item form-item js-form-type-radio form-type-radio js-form-item-position form-item-position">
-                                <Form.Check type="radio" id="edit-type-28">
-                                  <Form.Check.Input
-                                    type="radio"
-                                    name="aioa_icon_type"
-                                    value="aioa-icon-type-28"
-                                    onChange={onIconChange}
-                                    checked={
-                                      parameters.icontype == "aioa-icon-type-28"
-                                        ? true
-                                        : false
-                                    }
-                                    className="form-radio"
-                                  ></Form.Check.Input>
-                                  <Form.Check.Label className="option">
-                                    <Image
-                                      src={aioaicontype28}
-                                      alt=""
-                                      width="65"
-                                      height="65"
-                                    />
-                                  </Form.Check.Label>
-                                </Form.Check>
-                              </div>
-                            </div>
-
-                            <div className="col-auto mb-30">
-                              <div className="js-form-item form-item js-form-type-radio form-type-radio js-form-item-position form-item-position">
-                                <Form.Check type="radio" id="edit-type-29">
-                                  <Form.Check.Input
-                                    type="radio"
-                                    name="aioa_icon_type"
-                                    value="aioa-icon-type-29"
-                                    onChange={onIconChange}
-                                    checked={
-                                      parameters.icontype == "aioa-icon-type-29"
-                                        ? true
-                                        : false
-                                    }
-                                    className="form-radio"
-                                  ></Form.Check.Input>
-                                  <Form.Check.Label className="option">
-                                    <Image
-                                      src={aioaicontype29}
-                                      alt=""
-                                      width="65"
-                                      height="65"
-                                    />
-                                  </Form.Check.Label>
-                                </Form.Check>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </Form.Group>
-
-                      <Form.Group className={`mb-30 row`}>
-                        <div className="icon-custom-size-wrapper mb-3">
-                          <Row className="align-items-center mb-30">
-                            <Col>
-                              <Form.Label className="col-sm-12 col-form-label">
-                                Enable icon custom size:
-                              </Form.Label>
-                            </Col>
-                            <Col xs="auto">
-                              <Form.Check
-                                type="switch"
-                                id="custom-size-switcher"
-                                className="custom-switcher_inp_2"
-                                checked={isSizeSwitcherEnabled}
-                                onChange={() =>
-                                  setSizeSwitcherEnabled(!isSizeSwitcherEnabled)
-                                }
-                                style={{
-                                  transform: "scale(1.5)" // Increase the switch size
-                                }}
-                              />
-                            </Col>
-                          </Row>
-
-                          {!isSizeSwitcherEnabled && (
-                            <Form.Group
-                              className={`icon-size-wrapper row ${
-                                isValid ? null : "d-none"
-                              }`}
-                            >
-                              <Form.Label className="fcol-sm-12 col-form-label">
-                                Select icon size:
-                              </Form.Label>
-                              <div className="col-sm-12">
-                                <div className="row">
-                                  <div className="col-auto mb-30">
-                                    <div className="js-form-item form-item js-form-type-radio form-type-radio js-form-item-position form-item-position">
-                                      <Form.Check
-                                        type="radio"
-                                        id="edit-size-big"
-                                      >
-                                        <Form.Check.Input
-                                          type="radio"
-                                          name="aioa_icon_size"
-                                          value="aioa-big-icon"
-                                          onChange={e =>
-                                            setParameters({
-                                              ...parameters,
-                                              iconsize: e.target.value
-                                            })
-                                          }
-                                          checked={
-                                            parameters.iconsize ==
-                                            "aioa-big-icon"
-                                              ? true
-                                              : false
-                                          }
-                                          className="form-radio"
-                                        ></Form.Check.Input>
-                                        <Form.Check.Label className="option">
-                                          <Image
-                                            src={iconsize}
-                                            alt=""
-                                            width="75"
-                                            height="75"
-                                          />
-                                        </Form.Check.Label>
-                                      </Form.Check>
-                                    </div>
-                                  </div>
-                                  <div className="col-auto mb-30">
-                                    <div className="js-form-item form-item js-form-type-radio form-type-radio js-form-item-position form-item-position">
-                                      <Form.Check
-                                        type="radio"
-                                        id="edit-size-medium"
-                                      >
-                                        <Form.Check.Input
-                                          type="radio"
-                                          name="aioa_icon_size"
-                                          value="aioa-medium-icon"
-                                          onChange={e =>
-                                            setParameters({
-                                              ...parameters,
-                                              iconsize: e.target.value
-                                            })
-                                          }
-                                          checked={
-                                            parameters.iconsize ==
-                                            "aioa-medium-icon"
-                                              ? true
-                                              : false
-                                          }
-                                          className="form-radio"
-                                        ></Form.Check.Input>
-                                        <Form.Check.Label className="option">
-                                          <Image
-                                            src={iconsize}
-                                            alt=""
-                                            width="65"
-                                            height="65"
-                                          />
-                                        </Form.Check.Label>
-                                      </Form.Check>
-                                    </div>
-                                  </div>
-                                  <div className="col-auto mb-30">
-                                    <div className="js-form-item form-item js-form-type-radio form-type-radio js-form-item-position form-item-position">
-                                      <Form.Check
-                                        type="radio"
-                                        id="edit-size-default"
-                                      >
-                                        <Form.Check.Input
-                                          type="radio"
-                                          name="aioa_icon_size"
-                                          value="aioa-default-icon"
-                                          onChange={e =>
-                                            setParameters({
-                                              ...parameters,
-                                              iconsize: e.target.value
-                                            })
-                                          }
-                                          checked={
-                                            parameters.iconsize ==
-                                            "aioa-default-icon"
-                                              ? true
-                                              : false
-                                          }
-                                          className="form-radio"
-                                        ></Form.Check.Input>
-                                        <Form.Check.Label className="option">
-                                          <Image
-                                            src={iconsize}
-                                            alt=""
-                                            width="55"
-                                            height="55"
-                                          />
-                                        </Form.Check.Label>
-                                      </Form.Check>
-                                    </div>
-                                  </div>
-                                  <div className="col-auto mb-30">
-                                    <div className="js-form-item form-item js-form-type-radio form-type-radio js-form-item-position form-item-position">
-                                      <Form.Check
-                                        type="radio"
-                                        id="edit-size-small"
-                                      >
-                                        <Form.Check.Input
-                                          type="radio"
-                                          name="aioa_icon_size"
-                                          value="aioa-small-icon"
-                                          onChange={e =>
-                                            setParameters({
-                                              ...parameters,
-                                              iconsize: e.target.value
-                                            })
-                                          }
-                                          checked={
-                                            parameters.iconsize ==
-                                            "aioa-small-icon"
-                                              ? true
-                                              : false
-                                          }
-                                          className="form-radio"
-                                        ></Form.Check.Input>
-                                        <Form.Check.Label className="option">
-                                          <Image
-                                            src={iconsize}
-                                            alt=""
-                                            width="45"
-                                            height="45"
-                                          />
-                                        </Form.Check.Label>
-                                      </Form.Check>
-                                    </div>
-                                  </div>
-                                  <div className="col-auto mb-30">
-                                    <div className="js-form-item form-item js-form-type-radio form-type-radio js-form-item-position form-item-position">
-                                      <Form.Check
-                                        type="radio"
-                                        id="edit-size-extra-small"
-                                      >
-                                        <Form.Check.Input
-                                          type="radio"
-                                          name="aioa_icon_size"
-                                          value="aioa-extra-small-icon"
-                                          onChange={e =>
-                                            setParameters({
-                                              ...parameters,
-                                              iconsize: e.target.value
-                                            })
-                                          }
-                                          checked={
-                                            parameters.iconsize ==
-                                            "aioa-extra-small-icon"
-                                              ? true
-                                              : false
-                                          }
-                                          className="form-radio"
-                                        ></Form.Check.Input>
-                                        <Form.Check.Label className="option">
-                                          <Image
-                                            src={iconsize}
-                                            alt=""
-                                            width="35"
-                                            height="35"
-                                          />
-                                        </Form.Check.Label>
-                                      </Form.Check>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </Form.Group>
-                          )}
-
-                          {isSizeSwitcherEnabled && (
-                            <div className="custom-size-controls mt-3">
-                              <Row>
-                                <Col xs="auto" className="controls">
-                                  <Form.Label
-                                    htmlFor="widget_icon_size_custom"
-                                    className="fcol-sm-12 col-form-label"
-                                  >
-                                    Select exact icon size:
-                                  </Form.Label>
-                                  <InputGroup className="mb-2">
-                                    <FormControl
-                                      type="number"
-                                      id="widget_icon_size_custom"
-                                      name="widget_icon_size_custom"
-                                      aria-label="Value in pixels"
-                                      aria-describedby="size-value-input_1"
-                                      style={{ height: "auto" }}
-                                      min="20"
-                                      max="150"
-                                      onInput={handleInput1}
-                                      defaultValue={
-                                        widgetSettings.widget_icon_size_custom
-                                      }
-                                    />
-                                    <InputGroup.Text
-                                      style={{ height: "auto" }}
-                                      id="size-value-input_1"
-                                    >
-                                      PX
-                                    </InputGroup.Text>
-                                  </InputGroup>
-                                  <div className="description">
-                                    20 - 150px are permitted values
-                                  </div>
-                                </Col>
-                              </Row>
-                            </div>
-                          )}
-                        </div>
-                      </Form.Group>
-
-                      <div className="save-changes-btn">
-                        <Button
-                          variant="primary"
-                          size="lg"
-                          id="submit"
-                          onClick={onSaveChanges}
-                          className="btn btn-primary"
-                        >
-                          Save Changes
-                        </Button>
-                        <Form.Group className={`mt-30 row`}>
-                          {showSuccessMessage && (
-                            <div className="success-message">
-                              Settings successfully saved!
-                            </div>
-                          )}
-                        </Form.Group>
+            <div className="all-one-accessibility-form">
+              {isFreeWidget && (
+                <div id="free_plan_upgrade_block">
+                  <svg className="aioa-bold-watermark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
+                    <path d="M12 2a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zm7 7.5c0 .8-.6 1.5-1.5 1.5H15v3.2l2.4 6.4a1.2 1.2 0 0 1-2.2.9L13 15.5h-2L8.8 20.5a1.2 1.2 0 0 1-2.2-.9L9 13.2V10H6.5A1.5 1.5 0 0 1 5 8.5V8a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v1.5z" />
+                  </svg>
+                  <div className="aioa-bold-inner">
+                    <span className="aioa-bold-eyebrow">Free Plan Active</span>
+                    <div className="aioa-bold-top">
+                      <div className="aioa-bold-left">
+                        <div className="aioa-bold-stat">With 24 Features</div>
+                        <p className="aioa-bold-sub">
+                          Upgrade to unlock <strong>90+ Premium Accessibility Features</strong> and make your
+                          website even more inclusive.
+                        </p>
                       </div>
-                    </Form>
+                      <a href={UPGRADE_URL} target="_blank" rel="noopener noreferrer" className="aioa-bold-btn">
+                        Upgrade to Paid Plan
+                        <span className="visually-hidden"> (opens in a new tab)</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
+                          <line x1="5" y1="12" x2="19" y2="12" />
+                          <polyline points="12 5 19 12 12 19" />
+                        </svg>
+                      </a>
+                    </div>
+                    <span className="aioa-bold-trial">10 days free trial &middot; Cancel anytime</span>
+                    <div className="aioa-bold-divider" />
+                    <p className="aioa-bold-note" id="upgrade_html_notes">
+                      <b>NOTE:</b> All in One Accessibility is dedicated to enhancing accessibility specifically for
+                      websites and online stores.
+                    </p>
                   </div>
                 </div>
-              </div>
+              )}
+
+              {loadError && (
+                <div className="form-text mb-3" role="alert" style={{ color: '#b02a37' }}>
+                  {loadError}
+                </div>
+              )}
+
+              <form id="widget-form" name="widget-form" onSubmit={onSubmit} noValidate>
+                {/* Hex color code */}
+                <div className="mb-3 row" id="colorcode_html">
+                  <label htmlFor="colorcode" className="col-sm-3 col-form-label">
+                    Hex color code:
+                  </label>
+                  <div className="col-sm-9">
+                    <input
+                      type="text"
+                      name="colorcode"
+                      className="form-control"
+                      id="colorcode"
+                      aria-describedby="colorcode-help"
+                      value={settings.widget_color_code}
+                      onChange={update('widget_color_code')}
+                    />
+                    <div className="form-text" id="colorcode-help">
+                      You can customize the ADA Widget color. For example: FF5733
+                    </div>
+                  </div>
+                </div>
+
+                {/* Custom position */}
+                <div className="icon-custom-position-wrapper aioa-section">
+                  <label className="custom-switcher">
+                    <span className="custom-switcher_right">
+                      <input
+                        type="checkbox"
+                        role="switch"
+                        id="custom-position-switcher"
+                        className="custom-switcher_inp_2"
+                        checked={settings.is_widget_custom_position}
+                        onChange={update('is_widget_custom_position')}
+                      />
+                      <span className="custom-switcher_body" title="Toggle to override the selected position" />
+                      <span className="custom-switcher_label">Enable precise accessibility widget icon position:</span>
+                    </span>
+                  </label>
+
+                  {settings.is_widget_custom_position && (
+                    <div className="custom-position-controls">
+                      <div className="row">
+                        <div className="col-auto">
+                          <div className="input-group mb-3">
+                            <input
+                              type="number"
+                              min={POSITION_MIN}
+                              max={POSITION_MAX}
+                              className="form-control"
+                              id="custom_position_x_value"
+                              aria-label="Horizontal offset in pixels"
+                              aria-describedby="pos-value-input_1"
+                              value={settings.custom_position_x}
+                              onChange={updatePosition('custom_position_x')}
+                            />
+                            <span className="input-group-text" id="pos-value-input_1">PX</span>
+                          </div>
+                        </div>
+                        <div className="col-auto">
+                          <select
+                            className="form-select"
+                            id="custom_position_x_direction"
+                            aria-label="Horizontal direction"
+                            value={settings.custom_position_x_dir}
+                            onChange={update('custom_position_x_dir')}
+                          >
+                            <option value={X_RIGHT}>To the right</option>
+                            <option value={X_LEFT}>To the left</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div className="row">
+                        <div className="col-auto">
+                          <div className="input-group mb-3">
+                            <input
+                              type="number"
+                              min={POSITION_MIN}
+                              max={POSITION_MAX}
+                              className="form-control"
+                              id="custom_position_y_value"
+                              aria-label="Vertical offset in pixels"
+                              aria-describedby="pos-value-input_2"
+                              value={settings.custom_position_y}
+                              onChange={updatePosition('custom_position_y')}
+                            />
+                            <span className="input-group-text" id="pos-value-input_2">PX</span>
+                          </div>
+                        </div>
+                        <div className="col-auto">
+                          <select
+                            className="form-select"
+                            id="custom_position_y_direction"
+                            aria-label="Vertical direction"
+                            value={settings.custom_position_y_dir}
+                            onChange={update('custom_position_y_dir')}
+                          >
+                            <option value={Y_BOTTOM}>To the bottom</option>
+                            <option value={Y_TOP}>To the top</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div className="description">
+                        {POSITION_MIN} - {POSITION_MAX}px are permitted values
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* Preset position */}
+                {!settings.is_widget_custom_position && (
+                  <fieldset className="mb-3 widget-position" id="position_html" style={{ border: 0, padding: 0, margin: '0 0 1rem' }}>
+                    <legend className="col-form-label">
+                      Where would you like to place the accessibility icon on your site?
+                    </legend>
+                    <div className="three-col">
+                      {POSITIONS.map((p) => {
+                        const id = `edit-position-${p.value.replace(/_/g, '-')}`;
+                        return (
+                          <div className="form-item mb-2" key={p.value}>
+                            <input
+                              type="radio"
+                              id={id}
+                              name="position"
+                              value={p.value}
+                              className="form-radio"
+                              checked={settings.widget_position === p.value}
+                              onChange={update('widget_position')}
+                            />
+                            <label htmlFor={id} className="option">{p.label}</label>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </fieldset>
+                )}
+
+                {/* Widget size */}
+                <fieldset className="mb-3" style={{ border: 0, padding: 0, margin: '0 0 1rem' }}>
+                  <legend className="col-form-label">Select Widget Size:</legend>
+                  {WIDGET_SIZES.map((s) => (
+                    <div className="form-item mb-2" key={s.value}>
+                      <input
+                        type="radio"
+                        id={s.id}
+                        name="widget_size"
+                        value={s.value}
+                        className="form-radio"
+                        aria-describedby="edit-widget-size--description"
+                        checked={settings.widget_size === s.value}
+                        onChange={update('widget_size')}
+                      />
+                      <label htmlFor={s.id} className="option">{s.label}</label>
+                    </div>
+                  ))}
+                  <div className="description" id="edit-widget-size--description">
+                    It only works on desktop view.
+                  </div>
+                </fieldset>
+
+                {/* Icon type */}
+                <fieldset className="icon-type-wrapper mb-3" id="select_icon_type" style={{ border: 0, padding: 0, margin: '0 0 1rem' }}>
+                  <legend className="col-form-label">Select icon type:</legend>
+                  <div className="row">
+                    {ICON_TYPES.map((t, i) => (
+                      <div className="col-auto mb-30" key={t.value}>
+                        <div className="form-item" style={{ position: 'relative' }}>
+                          <input
+                            type="radio"
+                            id={`edit-type-${i + 1}`}
+                            name="aioa_icon_type"
+                            value={t.value}
+                            className="form-radio"
+                            checked={settings.widget_icon_type === t.value}
+                            onChange={update('widget_icon_type')}
+                          />
+                          <label htmlFor={`edit-type-${i + 1}`} className="option">
+                            <img src={t.src} width="65" height="65" alt="" />
+                            <span className="visually-hidden">{t.label}</span>
+                          </label>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </fieldset>
+
+                {/* Custom icon size */}
+                <div className="icon-custom-size-wrapper aioa-section">
+                  <label className="custom-switcher">
+                    <span className="custom-switcher_right">
+                      <input
+                        type="checkbox"
+                        role="switch"
+                        id="custom-size-switcher"
+                        className="custom-switcher_inp_2"
+                        checked={settings.is_widget_custom_size}
+                        onChange={update('is_widget_custom_size')}
+                      />
+                      <span className="custom-switcher_body" title="Toggle to override the selected size" />
+                      <span className="custom-switcher_label">Enable icon custom size:</span>
+                    </span>
+                  </label>
+
+                  {settings.is_widget_custom_size && (
+                    <div className="custom-size-controls">
+                      <label htmlFor="widget_icon_size_custom" className="col-form-label">
+                        Select exact icon size:
+                      </label>
+                      <div className="input-group mb-2">
+                        <input
+                          type="number"
+                          className="form-control"
+                          id="widget_icon_size_custom"
+                          name="widget_icon_size_custom"
+                          min={SIZE_MIN}
+                          max={SIZE_MAX}
+                          aria-describedby="size-value-input_1 size-value-help"
+                          value={settings.widget_icon_size_custom}
+                          onChange={update('widget_icon_size_custom')}
+                        />
+                        <span className="input-group-text" id="size-value-input_1">PX</span>
+                      </div>
+                      <div className="description" id="size-value-help">
+                        {SIZE_MIN} - {SIZE_MAX}px are permitted values
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* Preset icon size */}
+                {!settings.is_widget_custom_size && (
+                  <fieldset className="icon-size-wrapper widget-icon mb-3" id="select_icon_size" style={{ border: 0, padding: 0, margin: '0 0 1rem' }}>
+                    <legend className="col-form-label">Select icon size for Desktop:</legend>
+                    <div className="row">
+                      {ICON_SIZES.map((s) => {
+                        const id = `edit-size-${s.value.replace(/^aioa-|-icon$/g, '')}`;
+                        return (
+                          <div className="col-auto mb-30" key={s.value}>
+                            <div className="form-item" style={{ position: 'relative' }}>
+                              <input
+                                type="radio"
+                                id={id}
+                                name="aioa_icon_size"
+                                value={s.value}
+                                className="form-radio"
+                                checked={settings.widget_icon_size === s.value}
+                                onChange={update('widget_icon_size')}
+                              />
+                              <label htmlFor={id} className="option">
+                                <img src={previewIcon} width={s.px} height={s.px} alt="" />
+                                <span className="visually-hidden">{s.label}</span>
+                              </label>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </fieldset>
+                )}
+
+                <div className="save-changes-btn">
+                  <button type="submit" id="submit" className="btn btn-primary" disabled={isSaving} aria-busy={isSaving}>
+                    {isSaving ? 'Saving…' : 'Save Changes'}
+                  </button>
+                </div>
+                <div className="mt-3" id="save-changes-success">
+                  <div className="form-text">
+                    It may take a few seconds for changes to appear on your website. If you don&apos;t see the changes,
+                    try clearing your browser cache or checking in a private browsing window.
+                  </div>
+                </div>
+              </form>
             </div>
           </div>
         </div>
       </div>
-    </>
-  )
-}
+    </div>
+  );
+};
+
 export { HomePage };
