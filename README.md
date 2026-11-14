@@ -1,210 +1,369 @@
-[Strapi free accessibility plugin](https://www.skynettechnologies.com/strapi-website-accessibility) - All in One Accessibility® is a comprehensive accessibility enhancement tool designed for websites and applications powered by Strapi’s headless CMS. This solution makes it easy to provide a more inclusive digital experience by adding an accessibility interface that supports users with diverse needs, including visual, cognitive, motor, and hearing impairments.
+# All in One Accessibility® – Free ADA Accessibility Widget for Strapi
 
-With a simple script installation on frontend - whether built in React, Next.js, Vue, Nuxt, Angular, or traditional HTML - the widget instantly activates a free suite of accessibility features. The Strapi free accessibility widget offers a practical, efficient way to help website align with WCAG 2.1, 2.2, ADA, EAA, Section 508, California Unruh, France RGAA, UK Equality Act, Spain UNE 138903:2012, Australian DDA, Israeli Standard 5568, Ontario AODA, Canada ACA, German BITV, Brazilian Inclusion Law (LBI 13.146/2015), JIS X 8341 (Japan), Italian Stanca Act, Indian RPwD Act, Switzerland DDA, and other [accessibility standards](https://www.skynettechnologies.com/accessibility-standards).
+This [free Strapi accessibility plugin](https://www.skynettechnologies.com/strapi-website-accessibility) makes your website more usable for people with visual, auditory, motor, or cognitive disabilities. It supports assistive technologies and helps align with WCAG 2.1, 2.2, ADA, EAA, Section 508, France RGAA, California Unruh, European EAA EN 301 549, UK Equality Act, Spain UNE 139803:2012, Australian DDA, Israeli Standard 5568, UAE Disability Act (Federal Law No. 29 of 2006), Saudi Web Accessibility Standards, Qatar National e-Accessibility Policy, Ontario AODA, Canada ACA, German BITV, Brazilian Inclusion Law (LBI 13.146/2015), JIS X 8341 (Japan), Italian Stanca Act, Indian RPwD Act, Switzerland DDA, and other [accessibility standards](https://www.skynettechnologies.com/accessibility-standards).
 
-It eliminates the need for complex coding updates, allowing teams to strengthen accessibility quickly and consistently across all content served by Strapi. Whether you’re managing large-scale digital presence or launching a new project, this free accessibility plugin ensures Strapi powered website is more welcoming, compliant, and easier for everyone to interact with. This [free accessibility widget](https://www.skynettechnologies.com/free-website-accessibility-widget) quickly add essential accessibility features through a lightweight, easy to install solution that supports inclusive browsing and compliance efforts. With this free AI accessibility plugin, improve usability for visitors with visual, motor, cognitive, and other accessibility needs - helping to reach broader audience and enhance overall user experience.
+This lightweight [free ADA accessibility widget](https://www.skynettechnologies.com/free-website-accessibility-widget) quickly adds essential accessibility features that support inclusive browsing and compliance efforts.
 
-It reinforces brand’s professionalism by aligning site with modern expectations around accessibility and ethical web practices. It provides a straightforward way to strengthen website’s commitment to accessibility without complicating Strapi workflow. It helps organizations demonstrate responsibility and inclusivity, enhancing trust with users who expect accessible digital experiences. It integrates naturally into Strapi’s flexible framework, making it easy to adopt while preserving site’s custom design and structure.
+## Highlights
 
-**Which features are available at free WCAG accessibility Strapi widget?**
+- **Free forever:** Essential accessibility features at no cost.
+- **Quick setup:** Installs in minutes with a lightweight script.
+- **Multilingual:** 190+ languages with automatic language detection.
+- **Customizable:** Match the widget's colors, size, icon, and position to your site's mobile and desktop designs.
+- **Free support:** Our support team helps with installation and any queries.
+- **Easy upgrade:** Upgrade to advanced accessibility anytime and get 100+ features, including screen reader, talk & type, and voice navigation. Try them with a [10-day free trial](https://ada.skynettechnologies.us/trial-subscription).
+
+## What You Get with the Free Widget
 
 - Auto-detect language
-- Supports 190+ multi-languages
+- 190+ languages
 - Skip to Navigation / Content / Footer
-- Content Adjustment Options
-- Visual & Color Adjustments
-- Widget customization including colors, size, icon, and position
+- Content adjustment options
+- Visual & color adjustments
 - Reading mask
+- Widget customization (colors, size, icon, and position)
 - Accessibility statement
 
-Explore the [free accessibility widget features guide](https://www.skynettechnologies.com/sites/default/files/Free-Accessibility-Widget-Features-Guide.pdf).
+Explore the [**free accessibility widget features guide**](https://www.skynettechnologies.com/sites/default/files/Free-Accessibility-Widget-Features-Guide.pdf).
 
-**SECURITY & PRIVACY NOTES**
+## Who Is the Free Widget For?
 
-- This Free Accessibility Strapi plugin follows several data and application security practices, including ISO 9001:2015 & ISO 27001:2013, GDPR, CCPA, COPPA, HIPAA,and SOC 2 Type II.
-- Skynet Technologies USA LLC is an organizational member of IAAP and of W3C.
-- No personal data is intentionally stored by the module itself. Site owners are responsible for reviewing their own compliance requirements.
+Businesses, developers, agencies, content teams, ecommerce brands, educational institutions, and public-facing organizations using Strapi who want to improve WCAG accessibility, usability, and user experience quickly without complex development.
 
-**LIMITATIONS**
+## Why Choose This Free Widget?
 
-- Some advanced features require a commercial subscription.
+- Aligns with global accessibility standards.
+- Improves usability for people with visual, cognitive, and motor impairments.
+- Integrates smoothly with most Strapi themes and templates.
+- Supports multisite setups for global reach.
+- Free support from our team for installation and queries.
+- Core features at no cost.
 
-For more details, visit **[Strapi accessibility plugin.](https://www.skynettechnologies.com/strapi-website-accessibility)**
+## Free vs Pro
 
-**FAQS**
+See the full [free widget vs paid app comparison](https://www.skynettechnologies.com/installation-guide/free-vs-paid-accessibility-widget-comparison-video).
 
-**Which Strapi themes are supported by Strapi accessibility free widget?**
+## Security and Privacy
 
-It supports all themes including Bionix, COINFLIP, Jexa, Kyver, LUNIO Cyber Security, Parix, Pasona, Plob, Quviand a, Tozi.
+- This free accessibility plugin follows several data and application security practices, including ISO 9001:2015 & ISO 27001:2022, GDPR, CCPA, COPPA, HIPAA, and SOC 2 Type II.
+- Skynet Technologies USA LLC is an organizational member of IAAP and W3C.
+- No personal data is intentionally stored by the plugin itself.
+- Site owners are responsible for reviewing their own compliance requirements.
 
-**Does this free Strapi accessibility plugin support multilingual STRAPI stores?**
+## Limitations
 
-Yes. It supports 190+ languages.
+- Some advanced features require a commercial subscription and Paid Add-ons.
+- The plugin improves accessibility and usability but is not a full replacement for manual WCAG remediation.
 
-**How can I upgrade from free to Paid Strapi accessibility widget for upgrading accessibility features?**
+For more details, visit [**Strapi accessibility plugin**](https://www.skynettechnologies.com/strapi-website-accessibility).
 
-Upgrade to Paid subscription with 70 plus advanced features and take website’s accessibility to the next level. Checkout the steps for upgrading [free to paid Strapi accessibility widget](https://www.skynettechnologies.com/blog/upgrade-from-all-in-one-accessibility-free-widget-to-premium-version)**.**
+## FAQs
 
-**What additional features are available in the paid version of Strapi WCAG app?**
+**Does this free accessibility plugin support multilingual Strapi sites?**
 
-The paid version of Strapi accessibility widget includes following features like screen reader, voice navigation, talk & type, virtual keyboard, accessibility profiles tailored for different users with disabilities group, Libras (Brazilian sign language), dictionary search, multi-language support (190+ languages), and many more. Pricing starts from $25 / month. Explore more information about [accessibility widget](https://www.skynettechnologies.com/all-in-one-accessibility) and buy now.
+Yes. It supports 190+ languages.
 
-**Supported Languages (190+ Languages)**
+**Which languages do the screen reader, virtual keyboard, and other advanced features support?**
 
-English (USA), English (UK), English (Australian), English (Canadian), English (South Africa), Español, Español (Mexicano), Deutsch, عربى, Português, Português (Brazil), 日本語, Français, Italiano, Polski, Pусский, 中文, 中文 (Traditional), עִברִית, Magyar, Slovenčina, Suomenkieli, Türkçe, Ελληνικά, Latinus, Български, Català, Čeština, Dansk, Nederlands, हिंदी, Bahasa Indonesia, 한국인, Lietuvių, Bahasa Melayu, Norsk, Română, Slovenščina, Svenska, แบบไทย, Українська, Việt Nam, বাঙালি, සිංහල, አማርኛ, Hmoob, မြန်မာ, Eesti keel, latviešu, Cрпски, Hrvatski, ქართული, ʻŌlelo Hawaiʻi, Cymraeg, Cebuano, Samoa, Kreyòl ayisyen, Føroyskt, Crnogorski, Azerbaijani, Euskara, Tagalog, Galego, NorskBokmål, فارسی, ਪੰਜਾਬੀ, shqiptare, Hայերեն, অসমীয়া, Aymara, Bamanankan, беларускі, bosanski, Corsu, ދިވެހި, Esperanto, Eʋegbe, Frisian, guarani, ગુજરાતી, Hausa, íslenskur, Igbo, Gaeilge, basa jawa, ಕನ್ನಡ, қазақ, ខ្មែរ, Kinyarwanda, Kurdî, Кыргызча, ພາສາລາວ, Lingala, Luganda, lëtzebuergesch, македонски, Malagasy, മലയാളം, Malti, Maori, मराठी, Монгол, नेपाली, Sea, ଓଡିଆ, Afaan Oromoo, پښتو, Runasimi, संस्कृत, Gàidhlig na h-Alba, Sesotho, Shona, سنڌي, Soomaali, basa Sunda, kiswahili, тоҷикӣ, தமிழ், Татар, తెలుగు, ትግሪኛ, Tsonga, Türkmenler, Ride, اردو, ئۇيغۇر, o'zbek, isiXhosa, יידיש, Yoruba, Zulu, भोजपुरी, डोगरी, कोंकणी, Kurdî, Krio, मैथिली, Meiteilon, Mizo tawng, Sepedi, Ilocano, دری
+In the paid app, Screen Reader, Talk & Type, and Live Site Translation support 50+ languages; the Virtual Keyboard supports 40+ languages; Voice Navigation and Dictionary Search support 15+ languages. [See language support details](https://www.skynettechnologies.com/all-in-one-accessibility/languages).
 
-**Installation Steps**
+**How can I upgrade from the free widget to the paid app?**
 
-• Check out our [**Strapi WCAG ADA accessibility widget installation steps**](https://www.skynettechnologies.com/blog/strapi-web-accessibility-widget-installation)**.**
+Upgrade to a paid subscription with 100+ advanced features. Check out the [upgrade steps](https://www.skynettechnologies.com/blog/upgrade-from-all-in-one-accessibility-free-widget-to-premium-version).
 
-**Visit the STRAPI Accessibility Improvements Demo to see how does it perform with improved accessibility features:**
+**What additional features are available in the paid version?**
 
-[![All in One Accessibility](https://img.youtube.com/vi/X70XtvGyvSs/0.jpg)](https://youtu.be/X70XtvGyvSs)
+The paid app includes a screen reader, voice navigation, talk & type, virtual keyboard, dictionary search, 12 accessibility profiles tailored for different disability groups, Libras (Brazilian Sign Language), automated compliance accessibility reports, AI-based remediation guidelines, and more. Explore the [paid accessibility app](https://www.skynettechnologies.com/all-in-one-accessibility) and buy now.
 
-**Installation**
+**Can I try Pro before buying?**
 
-**Prerequisites**
+Yes. Pro comes with a [10-day free trial](https://ada.skynettechnologies.us/trial-subscription) that includes all features.
 
-- Strapi version ^5.6.0
-- Node.js version ^20.9.0
+**Which frontends are supported?**
 
-**Steps**
+Strapi is a headless CMS, so the widget works with any frontend that uses Strapi content: React, Next.js, Vue, Nuxt, Angular, Svelte, Astro, plain HTML, and many more.
 
-You can install this plugin via the Strapi marketplace or by using npm or yarn.
-Checkout our **[Strapi All in One Accessibility Extension installation steps blog](https://www.skynettechnologies.com/blog/strapi-web-accessibility-widget-installation)**
+## Supported Languages (190+)
 
-**Via the Strapi Marketplace**
+English (USA), English (UK), English (Australian), English (Canadian), English (South Africa), Español, Español (Mexicano), Deutsch, عربى, Português, Português (Brazil), 日本語, Français, Italiano, Polski, Pусский, 中文, 中文 (Traditional), עִברִית, Magyar, Slovenčina, Suomenkieli, Türkçe, Ελληνικά, Latinus, Български, Català, Čeština, Dansk, Nederlands, हिंदी, Bahasa Indonesia, 한국인, Lietuvių, Bahasa Melayu, Norsk, Română, Slovenščina, Svenska, แบบไทย, Українська, Việt Nam, বাঙালি, සිංහල, አማርኛ, Hmoob, မြန်မာ, Eesti keel, latviešu, Cрпски, Hrvatski, ქართული, ʻŌlelo Hawaiʻi, Cymraeg, Cebuano, Samoa, Kreyòl ayisyen, Føroyskt, Crnogorski, Azerbaijani, Euskara, Tagalog, Galego, Norsk Bokmål, فارسی, ਪੰਜਾਬੀ, shqiptare, Hայերեն, অসমীয়া, Aymara, Bamanankan, беларускі, bosanski, Corsu, ދިވެހި, Esperanto, Eʋegbe, Frisian, guarani, ગુજરાતી, Hausa, íslenskur, Igbo, Gaeilge, basa jawa, ಕನ್ನಡ, қазақ, ខ្មែរ, Kinyarwanda, Kurdî, Кыргызча, ພາສາລາວ, Lingala, Luganda, lëtzebuergesch, македонски, Malagasy, മലയാളം, Malti, Maori, मराठी, Монгол, नेपाली, Sea, ଓଡିଆ, Afaan Oromoo, پښتو, Runasimi, संस्कृत, Gàidhlig na h-Alba, Sesotho, Shona, سنڌي, Soomaali, basa Sunda, kiswahili, тоҷикӣ, தமிழ், Татар, తెలుగు, ትግሪኛ, Tsonga, Türkmenler, Ride, اردو, ئۇيغۇر, o'zbek, isiXhosa, יידיש, Yoruba, Zulu, भोजपुरी, डोगरी, कोंकणी, Kurdî, Krio, मैथिली, Meiteilon, Mizo tawng, Sepedi, Ilocano, دری
 
-[![Strapi Marketplace](https://strapi.io/assets/strapi-logo-dark.svg)](https://market.strapi.io/plugins/strapi-plugin-all-in-one-accessibility)
+## Prerequisites
 
-**Via NPM**
+- Strapi 5
+- A Node.js version supported by your Strapi 5 release (the plugin's server part uses Node's built-in `fetch`)
+- Outbound HTTPS from the Strapi server to `ada.skynettechnologies.us`, `freeada.skynettechnologies.com` and `skynetaccessibilityscan.com`
 
-```bash
-npm i strapi-plugin-all-in-one-accessibility
+- Tested and verified on Strapi 5.62.0
+
+## Installation
+
+1. Install the plugin in your Strapi project:
+
+   ```bash
+   npm install strapi-plugin-all-in-one-accessibility
+   # or
+   yarn add strapi-plugin-all-in-one-accessibility
+   ```
+
+2. Rebuild and restart Strapi:
+
+   ```bash
+   npm run build
+   npm run develop
+   ```
+
+   Strapi enables the plugin automatically. It appears as **All in One Accessibility** in the admin panel's left menu.
+
+3. Add the widget script to your website's frontend, as shown in [Add the Script](#add-the-script) below.
+
+### **Optional: website domain**
+
+By default, the plugin uses the domain the Strapi admin panel is opened on. If your admin panel runs on a different domain from your website (for example `cms.example.com` for Strapi and `www.example.com` for the website), set `websiteUrl` in your Strapi project's plugin config.
+
+TypeScript project (`config/plugins.ts`):
+
+```ts
+export default ({ env }) => ({
+  'strapi-plugin-all-in-one-accessibility': {
+    enabled: true,
+    config: {
+      websiteUrl: env('AIOA_WEBSITE_URL', 'www.example.com'),
+    },
+  },
+});
 ```
 
-**Via yarn**
+JavaScript project (`config/plugins.js`):
 
-```bash
-yarn add strapi-plugin-all-in-one-accessibility
+```js
+module.exports = ({ env }) => ({
+  'strapi-plugin-all-in-one-accessibility': {
+    enabled: true,
+    config: {
+      websiteUrl: env('AIOA_WEBSITE_URL', 'www.example.com'),
+    },
+  },
+});
 ```
 
-**Integration Guide: Adding the Accessibility Widget**
+If the file already exists (for example `export default () => ({});`), add the plugin entry inside the returned object, and change `()` to `({ env })` so `env` can be used. You can also skip `env` and write the domain directly: `websiteUrl: 'www.example.com'`.
 
-To integrate the **All in One Accessibility** widget into your website or Strapi frontend, follow the steps below:
+Restart Strapi after changing it.
 
-**Add the Script**
+Package name: `strapi-plugin-all-in-one-accessibility`
+
+Check out our [**Strapi WCAG accessibility widget installation steps**](https://www.skynettechnologies.com/blog/strapi-web-accessibility-widget-installation).
+
+## Add the Script
 
 Place the following script in the **header** or **footer** section of your website or frontend:
 
+### Option A: Plain HTML
+
+Place this script before the closing `</body>` tag (or in the footer template).
+
 ```html
-<script>
-  setTimeout(() => { 
-    let aioa_script_tag = document.createElement("script"); 
-    aioa_script_tag.src = "https://www.skynettechnologies.com/accessibility/js/all-in-one-accessibility-js-widget-minify.js?colorcode=#420083&token=null&position=bottom_right";  
-    aioa_script_tag.id = "aioa-adawidget";
-    aioa_script_tag.defer = "true"; 
-    document.getElementsByTagName("body")[0].appendChild(aioa_script_tag); 
-  }, 3000);
+<script id="aioa-adawidget" src="https://www.skynettechnologies.com/accessibility/js/all-in-one-accessibility-js-widget-minify.js?colorcode=#420083&token=&position=bottom_right"></script>
+```
+
+### Option B: React/Next.js
+
+Add this to a client component (e.g., your layout or a top-level page). The script loads the widget after a short delay to avoid blocking page rendering.
+
+```typescript
+function load_aioa_script() {
+  const aioa_script_tag = document.createElement("script");
+  aioa_script_tag.id = "aioa-adawidget";
+  aioa_script_tag.src =
+    "https://www.skynettechnologies.com/accessibility/js/all-in-one-accessibility-js-widget-minify.js?colorcode=#420083&token=&position=bottom_right";
+  document.getElementsByTagName("head")[0].appendChild(aioa_script_tag);
+}
+
+setTimeout(() => {
+  load_aioa_script();
+}, 5000);
+```
+
+## EU Region Support (Recommended for EU-Based Websites)
+
+If your website or business operates in the **European Union (EU)**, use the **EU region–hosted script** to improve performance for EU users and better align with GDPR and EU data residency requirements.
+
+### EU Script Base URL
+
+```text
+https://eu.skynettechnologies.com/accessibility/js/all-in-one-accessibility-js-widget-minify.js
+```
+
+### Option A: Plain HTML (EU Region)
+
+```html
+<script
+  id="aioa-adawidget"
+  src="https://eu.skynettechnologies.com/accessibility/js/all-in-one-accessibility-js-widget-minify.js?colorcode=#420083&token=&position=bottom_right">
 </script>
 ```
 
-**CORS Policy Configuration**
+### Option B: React / Next.js (EU Region)
 
-To avoid CORS policy issues, ensure the following URLs are allowed in your website. These URLs should be added to your CORS configuration or trusted domains list.
+```typescript
+function load_aioa_script() {
+  const aioa_script_tag = document.createElement("script");
+  aioa_script_tag.id = "aioa-adawidget";
+  aioa_script_tag.src =
+    "https://eu.skynettechnologies.com/accessibility/js/all-in-one-accessibility-js-widget-minify.js?colorcode=#420083&token=&position=bottom_right";
+  document.getElementsByTagName("head")[0].appendChild(aioa_script_tag);
+}
 
-| **Domain**                         | **Description**                              | **Usage**                        |
-|------------------------------------|----------------------------------------------|----------------------------------|
-| `https://*.skynettechnologies.com` | Skynet Technologies (Global Domain)          | API access and resources         |
-| `https://*.skynettechnologies.us`  | Skynet Technologies (US Domain)              | API access and resources         |
-| `https://*.googleapis.com`         | Google APIs                                  | Services like Fonts, Translation |
-| `https://*.gstatic.com`            | Fonts APIs                                   | Custom Fonts                     |
-| `https://vlibras.gov.br`           | VLibras - Brazilian Sign Language Service    | Sign Language                    |
+setTimeout(() => {
+  load_aioa_script();
+}, 5000);
+```
 
-**Instructions**
+## Configuration
 
-1. Update your server's CORS configuration to include these URLs.
-2. Ensure wildcard subdomains (*) are supported where necessary.
-3. Verify the application functionality by testing requests to these domains.
-4. If issues persist, consult the documentation for CORS configuration guidance.
+Configure the widget from the Strapi admin panel.
 
-**Documentation**
+**Path:** Strapi admin panel → **All in One Accessibility** (left menu)
 
-- **[Strapi All in One Accessibility](https://www.skynettechnologies.com/strapi-website-accessibility)**
-- **[Strapi All in One Accessibility Extension installation steps blog](https://www.skynettechnologies.com/blog/strapi-web-accessibility-widget-installation)**
-- **[All in One Accessibility - Features Guide](https://www.skynettechnologies.com/sites/default/files/accessibility-widget-features-list.pdf)**
+**Steps:**
 
-**Submit a Support Request**
+1. Log in to the Strapi admin panel.
+2. Open **All in One Accessibility** in the left menu.
+3. Configure options (color, icon type, position, size).
+4. Save your changes.
 
-Please visit our [**support page**](https://www.skynettechnologies.com/report-accessibility-problem) and fill out the form. Our team will get back to you as soon as possible.
+## Demo
 
-**Send Us an Email**
+**Demo URL:** <https://strapi.skynettechnologies.us/>
 
-Alternatively, you can send an email to our support team: [**hello@skynettechnologies.com**](mailto:hello@skynettechnologies.com)
+See how the widget performs with improved accessibility features:
 
-**Accessibility Paid Add-on Services**
+[![Free accessibility widget demo video](https://img.youtube.com/vi/VMHx30aUnR4/0.jpg)](https://www.youtube.com/watch?v=VMHx30aUnR4)
 
-**STRAPI manual accessibility audit**
+## CORS Policy Configuration
 
-- Enhance inclusivity and user experience by evaluating STRAPI website’s accessibility by [web accessibility consultant](https://www.skynettechnologies.com/web-accessibility-consultant).
-- WCAG 2.0 / WCAG 2.1 / WCAG 2.2 Level AA conformance testing
-- Automated, semi-automated testing
-- Manual testing
+To avoid CORS policy issues, ensure the following URLs are allowed on your website. Add them to your CORS configuration or trusted domains list.
+
+| **Domain** | **Description** | **Usage** |
+| --- | --- | --- |
+| https://\*.skynettechnologies.com | Skynet Technologies (Global Domain) | API access and resources |
+| https://\*.skynettechnologies.us | Skynet Technologies (US Domain) | API access and resources |
+| <https://skynetaccessibilityscan.com> | SkynetAccessibility Scanner | Accessibility scan results and score |
+| https://\*.googleapis.com | Google APIs | Services like Fonts, Translation |
+| https://\*.gstatic.com | Fonts APIs | Custom Fonts |
+| <https://vlibras.gov.br> | VLibras – Brazilian Sign Language Service | Sign Language |
+| <https://ipapi.co> | ipapi – IP Geolocation API | Called once during installation to detect an EU location and add the EU-based widget script (endpoint: `/json/`) |
+
+### Instructions
+
+1. Update your server's CORS configuration to include these URLs.
+2. Ensure wildcard subdomains (\*) are supported where necessary.
+3. Verify functionality by testing requests to these domains.
+4. If issues persist, consult the documentation for CORS configuration guidance.
+
+## Documentation
+
+- [**Strapi Accessibility plugin**](https://www.skynettechnologies.com/strapi-website-accessibility)
+- [**How to install the accessibility widget on Strapi**](https://www.skynettechnologies.com/blog/strapi-web-accessibility-widget-installation)
+- [**Free Accessibility Widget Features Guide**](https://www.skynettechnologies.com/sites/default/files/Free-Accessibility-Widget-Features-Guide.pdf)
+- [**Free Widget vs Paid App Comparison**](https://www.skynettechnologies.com/installation-guide/free-vs-paid-accessibility-widget-comparison-video)
+
+## Support
+
+### Submit a Support Request
+
+Visit our [**support page**](https://www.skynettechnologies.com/report-accessibility-problem) and fill out the form. Our team will get back to you as soon as possible.
+
+### Send Us an Email
+
+Email our support team: [**hello@skynettechnologies.com**](mailto:hello@skynettechnologies.com)
+
+## Accessibility Paid Add-on Services
+
+[**Manual Accessibility Audit**](https://www.skynettechnologies.com/website-accessibility-audit)
+
+- Evaluate your website's accessibility with a [web accessibility consultant](https://www.skynettechnologies.com/web-accessibility-consultant).
+- WCAG 2.0 / 2.1 / 2.2 Level AA conformance testing
+- Automated, semi-automated, and manual testing
 - Simple before-after UI/UX recommendations on how to fix the issues
 - Comprehensive audit report
 
-**STRAPI site manual accessibility remediation**
+[**Manual Accessibility Remediation**](https://www.skynettechnologies.com/full-website-accessibility-remediation)
 
-Enhance STRAPI ecommerce store accessibility and inclusivity with our manual accessibility remediation add-on. This service includes fixing accessibility issues and thorough remediation of website manually. Our experts ensure accessibility with WCAG standards, improve user experience for those with disabilities, and provide a detailed report on the improvements made.
+Our experts manually fix accessibility issues across your website to meet WCAG standards, improve the experience for people with disabilities, and provide a detailed report of the improvements made.
 
-[**PDF/Document Accessibility Remediation**](https://www.skynettechnologies.com/pdf-accessibility-remediation)
+[**VPAT Report / Accessibility Conformance Report (ACR)**](https://www.skynettechnologies.com/vpat-accessibility-conformance-report)
 
-The PDF / Document Remediation provides a list of inaccessible PDFs and remediated PDFs from where you can request PDF remediation service.
+The Voluntary Product Accessibility Template (VPAT), also known as an Accessibility Conformance Report (ACR), starts with an audit and documents the current accessibility of a website, application, or other digital asset.
 
-**VPAT Report/Accessibility Conformance Report (ACR)**
+## Accessibility Paid Add-ons
 
-The Voluntary Product Accessibility Template (VPAT), also known as an ACR (Accessibility Conformance Report) starts with an audit and provides current details for an accessible website, application, or any other digital assets.
+A faster, cost-effective way to extend accessibility across your website and documents.
 
-**Accessibility STRAPI Widget Paid Add-ons**
+[**SkynetAccessibility Scanner**](https://www.skynettechnologies.com/accessibility-scanning-and-monitoring)
 
-[**White Label Accessibility**](https://www.skynettechnologies.com/all-in-one-accessibility/addons)
+Automatically scan and monitor your website for WCAG and ADA issues, and track compliance progress quickly.
 
-Remove the Skynet Technologies logo as well as all of the footer links, popups, report a problem link and more for full white label control.
+[**SkynetA11y PDF Remediation**](https://www.skynettechnologies.com/pdf-accessibility-remediation)
 
-[**Instant live site translations for STRAPI stores**](https://www.skynettechnologies.com/all-in-one-accessibility/addons)
+AI-powered PDF accessibility remediation - upload PDFs, scan website PDFs, and download remediated files.
 
-Translate STRAPI store into over 190 languages instantly to enhance accessibility for non-native speakers, individuals with language acquisition difficulties, and those with learning disabilities.
+[**MS Office File Accessibility Checker**](https://www.skynettechnologies.com/file-accessibility-checker)
 
-[**Modify Accessibility Menu for STRAPI Store**](https://www.skynettechnologies.com/all-in-one-accessibility/addons)
+Microsoft Office files (Word, Excel, PowerPoint) accessible quickly and cost-effectively.
 
-Build and fine-tune widget with the Modify Menu option. Reorder, remove and restructure the widget buttons to fit users’ specific accessibility needs.
+[**Voice Search**](https://www.skynettechnologies.com/voice-enabled-search)
 
-**STRAPI Accessibility Partnership Opportunities**
+Let visitors search your website using their voice.
 
-[**STRAPI accessibility agencies partnership**](https://www.skynettechnologies.com/agency-partners)
+[**White Label Accessibility**](https://www.skynettechnologies.com/all-in-one-accessibility/addons#accessibility-widget-add-ons)
 
-Partner with us as an agency to provide comprehensive STRAPI ADA, EAA, WCAG accessibility solutions to clients. Get access to exclusive resources, training, and support to implement and manage accessibility features effectively.
+Remove the Skynet Technologies logo and all footer links, popups, the "report a problem" link, and more for full white-label control.
 
-[**STRAPI accessibility affiliate partnership**](https://www.skynettechnologies.com/affiliate-partner)
+[**Instant Live Site Translations**](https://www.skynettechnologies.com/all-in-one-accessibility/addons#accessibility-widget-add-ons)
 
-Sign up for our affiliate program and earn commissions by promoting accessibility STRAPI module. Share our widget with your network and help businesses improve their website accessibility while generating revenue.
+Translate your website into over 190 languages instantly to enhance accessibility for non-native speakers, individuals with language acquisition difficulties, and those with learning disabilities.
 
-For more details, explore [**STRAPI accessibility partnership opportunities**](https://www.skynettechnologies.com/partner-program)
+[**Modify Accessibility Menu**](https://www.skynettechnologies.com/all-in-one-accessibility/addons#accessibility-widget-add-ons)
 
-**Screenshots**
+Reorder, remove, and restructure menu buttons to fit users' specific accessibility needs.
 
-![App Screenshot](https://www.skynettechnologies.com/sites/default/files/strapi/Screenshot-1.jpg?v=5)
-![App Screenshot](https://www.skynettechnologies.com/sites/default/files/strapi/Screenshot-2.jpg?v=5)
-![App Screenshot](https://www.skynettechnologies.com/sites/default/files/strapi/Screenshot-3.jpg?v=5)
-![App Screenshot](https://www.skynettechnologies.com/sites/default/files/strapi/Screenshot-4.jpg?v=5)
-![App Screenshot](https://www.skynettechnologies.com/sites/default/files/strapi/Screenshot-5.jpg?v=5)
-![App Screenshot](https://www.skynettechnologies.com/sites/default/files/strapi/Screenshot-6.jpg?v=5)
-![App Screenshot](https://www.skynettechnologies.com/sites/default/files/strapi/Screenshot-7.jpg?v=5)
+## Partnership Opportunities
 
-**Credits**
+[**Agency Accessibility Partnership**](https://www.skynettechnologies.com/agency-partners)
 
-This addon is developed and maintained by [website accessibility company](https://www.skynettechnologies.com/) - Skynet Technologies USA LLC
+Partner with us as an agency to provide comprehensive ADA, EAA, and WCAG accessibility solutions to clients. Get access to exclusive resources, training, and support to implement and manage accessibility features effectively.
 
-**Current Maintainers**
+[**Affiliate Partnership**](https://www.skynettechnologies.com/affiliate-partner)
+
+Earn commissions by promoting our accessibility solutions and help businesses improve their website accessibility.
+
+For more details, explore [**accessibility partnership opportunities**](https://www.skynettechnologies.com/partner-program).
+
+## Screenshots
+
+![App Screenshot](https://www.skynettechnologies.com/sites/default/files/screenshot-1-free.jpg?v=3)
+
+![App Screenshot](https://www.skynettechnologies.com/sites/default/files/screenshot-2-free.jpg?v=3)
+
+![App Screenshot](https://www.skynettechnologies.com/sites/default/files/screenshot-3-free.jpg?v=3)
+
+![App Screenshot](https://www.skynettechnologies.com/sites/default/files/screenshot-4-free.jpg?v=3)
+
+![App Screenshot](https://www.skynettechnologies.com/sites/default/files/screenshot-5-free.jpg?v=3)
+
+![App Screenshot](https://www.skynettechnologies.com/sites/default/files/screenshot-6-free.jpg?v=3)
+
+![App Screenshot](https://www.skynettechnologies.com/sites/default/files/screenshot-7-free.jpg?v=3)
+
+## Credits
+
+This plugin is developed and maintained by [website accessibility remediation company](https://www.skynettechnologies.com/) – Skynet Technologies USA LLC.
+
+## Current Maintainers
 
 - [**Skynet Technologies USA LLC**](https://github.com/skynettechnologies)
+
+---
+
+_README Version: 26.10.27_

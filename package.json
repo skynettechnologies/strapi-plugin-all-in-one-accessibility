@@ -1,5 +1,5 @@
 {
-  "version": "1.0.36",
+  "version": "1.1.0",
   "keywords": [
     "All in One Accessibility",
     "ADA",
@@ -19,6 +19,12 @@
       "import": "./dist/admin/index.mjs",
       "require": "./dist/admin/index.js",
       "default": "./dist/admin/index.js"
+    },
+    "./strapi-server": {
+      "source": "./server/src/index.js",
+      "import": "./dist/server/index.mjs",
+      "require": "./dist/server/index.js",
+      "default": "./dist/server/index.js"
     }
   },
   "files": [
@@ -32,7 +38,7 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@strapi/strapi": "^5.55.1",
+    "@strapi/strapi": "^5.62.0",
     "@strapi/sdk-plugin": "^6.1.1",
     "prettier": "^3.9.9",
     "@strapi/design-system": "^2.2.4",

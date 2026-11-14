@@ -1,6 +1,6 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef } from 'react';
 
-import { PLUGIN_ID } from "../pluginId";
+import { PLUGIN_ID } from '../pluginId';
 
 /**
  * @type {import('react').FC<{ setPlugin: (id: string) => void }>}

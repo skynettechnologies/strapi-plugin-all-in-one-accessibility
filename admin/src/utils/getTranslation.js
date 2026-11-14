@@ -1,4 +1,4 @@
-import { PLUGIN_ID } from "../pluginId";
+import { PLUGIN_ID } from '../pluginId';
 
 const getTranslation = (id) => `${PLUGIN_ID}.${id}`;
 
