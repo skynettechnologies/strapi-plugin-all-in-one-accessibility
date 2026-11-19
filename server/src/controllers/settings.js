@@ -21,10 +21,19 @@ export default ({ strapi }) => {
   const websiteFor = (ctx) => configuredDomain() || field(ctx.request.body, 'url');
 
   return {
-    /** The configured website (the page falls back to its own hostname when empty) */
+    /**
+     * The configured website (the page falls back to its own hostname when empty), and the
+     * signed-in admin's first name, last name and email for the "Upgrade to Paid Plan" links.
+     */
     async getConfig(ctx) {
       const websiteUrl = configuredDomain();
-      ctx.body = { websiteUrl, valid: websiteUrl === '' || isValidDomain(websiteUrl) };
+      const user = ctx.state.user || {};
+      const text = (value) => (typeof value === 'string' ? value.trim() : '');
+      ctx.body = {
+        websiteUrl,
+        valid: websiteUrl === '' || isValidDomain(websiteUrl),
+        admin: { firstname: text(user.firstname), lastname: text(user.lastname), email: text(user.email) },
+      };
     },
 
     async fetchWidgetSettings(ctx) {

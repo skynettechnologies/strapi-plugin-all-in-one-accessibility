@@ -1,5 +1,28 @@
 # Changelog
 
+## 1.1.1
+
+Synced with the latest All in One Accessibility reference.
+
+### Added
+
+- Save checks every field before it stops: color, exact position, exact icon size and, on a paid
+  plan, the Paid Features fields are all marked in red at the same time. The page goes to the first
+  problem (Appearance Design first) and shows one toast: the problem's own, or "Check the fields
+  marked in red" listing them all.
+- Exact icon size: empty or outside 20 - 150 px shows "Enter an exact icon size from 20 to 150 px."
+  in red under the field.
+- "Upgrade to Paid Plan" links (banner and the paid tab locks) carry the website, the signed-in
+  admin's email (only a valid one) and first / last name, so the trial form is filled in.
+
+### Changed
+
+- Registration sends the widget icon defaults for a new website: icon type 1, Medium icon size on
+  desktop and mobile (`aioa_icon_type`, `aioa_icon_size`, `aioa_icon_size_mb`).
+- The `/config` admin route also returns the signed-in admin's first name, last name and email
+  (used only for the "Upgrade to Paid Plan" links).
+- Save validation now checks the exact position before the exact icon size, as in the reference.
+
 ## 1.1.0
 
 Rebuilt the settings page from the new All in One Accessibility reference (README Version 26.10.27).

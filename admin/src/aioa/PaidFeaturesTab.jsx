@@ -210,7 +210,7 @@ const LinkField = ({ link, paid, update, onLinkBlur }) => {
   );
 };
 
-export const PaidFeaturesTab = ({ locked, paid, update, onLinkBlur, preview }) => {
+export const PaidFeaturesTab = ({ locked, paid, update, onLinkBlur, preview, upgradeHref }) => {
   const contentRef = useInert(locked);
   return (
     <div className={`aioa-lockable${locked ? ' is-locked' : ''}`}>
@@ -237,7 +237,7 @@ export const PaidFeaturesTab = ({ locked, paid, update, onLinkBlur, preview }) =
           ))}
         </div>
       </div>
-      {locked && <LockOverlay lockId="paid-lock" />}
+      {locked && <LockOverlay lockId="paid-lock" upgradeHref={upgradeHref} />}
     </div>
   );
 };

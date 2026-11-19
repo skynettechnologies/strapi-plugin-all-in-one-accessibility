@@ -99,7 +99,7 @@ const ScoreCard = ({ values, sample }) => (
   </section>
 );
 
-export const ScoreTab = ({ locked, score, onRetry }) => {
+export const ScoreTab = ({ locked, score, onRetry, upgradeHref }) => {
   const sampleRef = useInert(locked);
   return (
     <div className={`aioa-lockable${locked ? ' is-locked' : ''}`}>
@@ -140,7 +140,7 @@ export const ScoreTab = ({ locked, score, onRetry }) => {
         {score.view === 'card' && <ScoreCard values={cardValues(score.data)} />}
       </div>
 
-      {locked && <LockOverlay lockId="score-lock" center />}
+      {locked && <LockOverlay lockId="score-lock" center upgradeHref={upgradeHref} />}
     </div>
   );
 };

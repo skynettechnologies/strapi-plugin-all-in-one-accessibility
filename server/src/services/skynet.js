@@ -178,6 +178,8 @@ async function getScanDetails(req) {
  *   name            the admin's name, or the website when there is none
  *   email           the admin's email, or no-reply@<website> (without "www.")
  *   no_required_eu  '0' the admin is in the EU, '1' not in the EU
+ *   aioa_icon_type, aioa_icon_size, aioa_icon_size_mb
+ *                   the widget icon defaults for a new website: icon type 1, Medium size on desktop and mobile
  */
 function register(url, name, email, noRequiredEu) {
   name = String(name).trim();
@@ -206,6 +208,10 @@ function register(url, name, email, noRequiredEu) {
     transaction_id: '',
     subscr_id: '',
     payment_source: '',
+    // Widget icon defaults for a new website: icon type 1, Medium size on desktop and mobile
+    aioa_icon_type: 'aioa-icon-type-1',
+    aioa_icon_size: 'aioa-medium-icon',
+    aioa_icon_size_mb: 'aioa-medium-icon',
   });
 }
 

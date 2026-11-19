@@ -2,7 +2,7 @@
  * Header, plan banners, site line, tabs and save bar
  * (reference: views/partials/header, upgrade-banner, paid-banner, site-strip, tabs, settings/save-bar).
  */
-import { LOGO_PATH, TABS, UPGRADE_URL } from './constants';
+import { LOGO_PATH, TABS } from './constants';
 import { LockIcon, Logo, Spinner } from './Shared';
 
 export const Header = () => (
@@ -20,7 +20,7 @@ export const Header = () => (
 );
 
 /** Free plan: purple "Upgrade to Paid Plan" banner */
-export const UpgradeBanner = () => (
+export const UpgradeBanner = ({ upgradeHref }) => (
   <section id="free_plan_upgrade_block" className="aioa-upgrade" aria-labelledby="upgrade-title">
     <svg className="aioa-upgrade-watermark" viewBox="0 0 69 69" fill="#fff" aria-hidden="true" focusable="false">
       <path d={LOGO_PATH} />
@@ -42,7 +42,7 @@ export const UpgradeBanner = () => (
         </ul>
       </div>
       <div className="aioa-upgrade-cta">
-        <a href={UPGRADE_URL} target="_blank" rel="noopener noreferrer" className="aioa-btn-white">
+        <a href={upgradeHref} target="_blank" rel="noopener noreferrer" className="aioa-btn-white">
           Upgrade to Paid Plan
           <svg
             viewBox="0 0 24 24"

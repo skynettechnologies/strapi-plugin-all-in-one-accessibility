@@ -7,7 +7,7 @@
  */
 import { DEFAULT_COLOR, ICON_SIZES, OFFSET_MAX, PRESET_COLORS, SIZE_MAX, SIZE_MIN, WIDGET_SIZES } from './constants';
 import { ICON_TYPES, iconSrc } from './icons';
-import { X_LEFT, X_RIGHT, Y_BOTTOM, Y_TOP } from './formState';
+import { isValidIconSize, SIZE_MESSAGE, X_LEFT, X_RIGHT, Y_BOTTOM, Y_TOP } from './formState';
 import { NumberField, PositionGrid } from './Shared';
 import { parseHex, slug } from './utils';
 
@@ -292,7 +292,7 @@ const IconSizeSection = ({ form, update, preview }) => (
         id="custom-size-switcher"
         aria-controls="custom-size-controls select_icon_size"
         checked={form.customSize}
-        onChange={(e) => update({ customSize: e.target.checked })}
+        onChange={(e) => update(e.target.checked ? { customSize: true } : { customSize: false, sizeError: false })}
       />
       Set an exact size in pixels
     </label>
@@ -326,14 +326,21 @@ const IconSizeSection = ({ form, update, preview }) => (
       <label className="aioa-label" htmlFor="widget_icon_size_custom">
         Exact icon size
       </label>
-      <div className="aioa-affix aioa-size-input" data-for="widget_icon_size_custom">
+      <div
+        className={`aioa-affix aioa-size-input${form.sizeError ? ' is-invalid' : ''}`}
+        data-for="widget_icon_size_custom"
+      >
         <NumberField
           id="widget_icon_size_custom"
           name="widget_icon_size_custom"
           min={SIZE_MIN}
           value={form.sizeCustom}
-          onChange={(sizeCustom) => update({ sizeCustom })}
-          aria-describedby="size-range-hint"
+          // Once the message shows, the red mark follows what is typed (reference: requiredFields)
+          onChange={(sizeCustom) =>
+            update(form.sizeError ? { sizeCustom, sizeError: !isValidIconSize(sizeCustom) } : { sizeCustom })
+          }
+          aria-invalid={form.sizeError ? 'true' : 'false'}
+          aria-describedby="size-range-hint size-error"
         />
         <span className="aioa-affix-text" aria-hidden="true">
           px
@@ -341,6 +348,9 @@ const IconSizeSection = ({ form, update, preview }) => (
       </div>
       <p className="aioa-hint" id="size-range-hint">
         {SIZE_MIN} - {SIZE_MAX}px are permitted values
+      </p>
+      <p className="aioa-error" id="size-error" hidden={!form.sizeError}>
+        {form.sizeError ? SIZE_MESSAGE : ''}
       </p>
     </div>
   </section>

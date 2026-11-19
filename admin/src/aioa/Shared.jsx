@@ -3,7 +3,7 @@
  */
 import { useEffect, useRef } from 'react';
 
-import { LOGO_PATH, POSITIONS, UPGRADE_URL } from './constants';
+import { LOGO_PATH, POSITIONS } from './constants';
 import { slug, wholeNumber } from './utils';
 
 /** Spinner shown in busy buttons and while loading */
@@ -73,7 +73,7 @@ export const useInert = (locked) => {
 };
 
 /** Free plan overlay over a paid tab (reference: views/partials/lock.ejs) */
-export const LockOverlay = ({ lockId, center }) => (
+export const LockOverlay = ({ lockId, center, upgradeHref }) => (
   <div className={`aioa-lock${center ? ' is-center' : ''}`}>
     <div className="aioa-lock-card" role="group" aria-labelledby={`${lockId}-text`}>
       <span className="aioa-lock-icon" aria-hidden="true">
@@ -82,7 +82,7 @@ export const LockOverlay = ({ lockId, center }) => (
       <p className="aioa-lock-text" id={`${lockId}-text`}>
         Try a 10-day free trial to view all 90+ features.
       </p>
-      <a href={UPGRADE_URL} target="_blank" rel="noopener noreferrer" className="aioa-btn aioa-btn-primary">
+      <a href={upgradeHref} target="_blank" rel="noopener noreferrer" className="aioa-btn aioa-btn-primary">
         Upgrade to Paid Plan
         <span className="visually-hidden">(opens in a new tab)</span>
       </a>

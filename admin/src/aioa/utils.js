@@ -104,3 +104,27 @@ export const formatDate = (value) => {
 
 /** Element id slug: "top_left" -> "top-left", "aioa-extra-small-icon" -> "extra-small" */
 export const slug = (value) => value.replaceAll('aioa-', '').replaceAll('-icon', '').replaceAll('_', '-');
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+/**
+ * "Upgrade to Paid Plan" link with what the trial form can fill in (reference: upgradeLinks in
+ * assets/js/plan.js), for example
+ *   …/trial-subscription?website=example.com&email=dev@example.com&first_name=Jane&last_name=Doe
+ * email only when valid; first_name / last_name are the Strapi admin's first and last name.
+ * Empty values are left out; with nothing to add, the plain link is returned.
+ */
+export const upgradeUrl = (base, { website, email, firstname, lastname } = {}) => {
+  const text = (value) => String(value || '').trim();
+  const mail = text(email);
+  const query = [
+    ['website', text(website)],
+    ['email', EMAIL_RE.test(mail) ? mail : ''],
+    ['first_name', text(firstname)],
+    ['last_name', text(lastname)],
+  ]
+    .filter((pair) => pair[1] !== '')
+    .map((pair) => pair[0] + '=' + encodeURIComponent(pair[1]).replace(/%40/g, '@'))
+    .join('&');
+  return query ? base + (base.includes('?') ? '&' : '?') + query : base;
+};

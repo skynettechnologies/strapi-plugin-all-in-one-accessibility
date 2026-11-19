@@ -54,6 +54,7 @@ export const appearanceDefaults = () => ({
   yDir: Y_BOTTOM,
   xError: false,
   yError: false,
+  sizeError: false,
   iconType: 'aioa-icon-type-1',
   iconSize: 'aioa-default-icon',
   customSize: false,
@@ -99,6 +100,7 @@ export const appearanceFrom = (result) => {
     yDir,
     xError: false,
     yError: false,
+    sizeError: false,
     iconType: oneOf(r.widget_icon_type || 'aioa-icon-type-1', ICON_TYPE_VALUES, 'aioa-icon-type-1'),
     iconSize: oneOf(r.widget_icon_size || 'aioa-default-icon', ICON_SIZE_VALUES, 'aioa-default-icon'),
     customSize: Number(r.is_widget_custom_size) === 1,
@@ -106,59 +108,77 @@ export const appearanceFrom = (result) => {
   };
 };
 
+/** Exact icon size rule: a whole number from SIZE_MIN to SIZE_MAX */
+export const isValidIconSize = (value) => {
+  const size = wholeNumber(value, null);
+  return size !== null && size >= SIZE_MIN && size <= SIZE_MAX;
+};
+
+/** Exact position rule: "0" is a value, an empty field is not */
+export const isFilled = (value) => String(value ?? '').trim() !== '';
+
+export const SIZE_MESSAGE = `Enter an exact icon size from ${SIZE_MIN} to ${SIZE_MAX} px.`;
+
 /**
- * Validate the Appearance Design form and build its save parameters.
- * @returns {{params}} | {{error: {focus, title, message, colorError?}}}
+ * Check the Appearance Design form before saving (reference: AIOA.form.validate).
+ * Every check runs, so every invalid field is marked at the same time.
+ * @returns {{marks, problems}}
+ *   marks     error flags to apply to the form (only for the checks that ran)
+ *   problems  in page order: {focus, tab, name, title, text} (title / text: the toast when it is the only problem)
  */
-export const collectAppearance = (form, domain) => {
-  const hex = parseHex(form.colorText);
-  if (!hex) {
-    return {
-      error: {
-        focus: 'colorcode',
-        title: 'Invalid color',
-        message: 'Enter a valid hex color code, for example FF5733.',
-        colorError: true,
-      },
-    };
+export const validateAppearance = (form) => {
+  const marks = {};
+  const problems = [];
+
+  marks.colorError = !parseHex(form.colorText);
+  if (marks.colorError) {
+    problems.push({
+      focus: 'colorcode',
+      tab: 'appearance',
+      name: 'Widget color',
+      title: 'Invalid color',
+      text: 'Enter a valid hex color code, for example FF5733.',
+    });
   }
+
+  // Exact position: an empty field is never saved as 0
+  if (form.customPosition) {
+    marks.xError = !isFilled(form.x);
+    marks.yError = !isFilled(form.y);
+    if (marks.xError || marks.yError) {
+      problems.push({
+        focus: marks.xError ? 'custom_position_x_value' : 'custom_position_y_value',
+        tab: 'appearance',
+        name: 'Widget position',
+        title: 'Position missing',
+        text: 'Enter the exact position (0 - 250 px), or turn off "Set an exact position in pixels".',
+      });
+    }
+  }
+
+  // Exact icon size: a whole number from 20 to 150 px
+  if (form.customSize) {
+    marks.sizeError = !isValidIconSize(form.sizeCustom);
+    if (marks.sizeError) {
+      problems.push({
+        focus: 'widget_icon_size_custom',
+        tab: 'appearance',
+        name: 'Icon size for desktop',
+        title: 'Invalid icon size',
+        text: SIZE_MESSAGE,
+      });
+    }
+  }
+
+  return { marks, problems };
+};
+
+/** Save parameters of the Appearance Design form (after validateAppearance found no problems) */
+export const appearanceParams = (form, domain) => {
+  const hex = parseHex(form.colorText);
 
   // Whole pixels only
   const sizeCustom = String(wholeNumber(form.sizeCustom, ''));
-  if (form.customSize && (sizeCustom === '' || Number(sizeCustom) < SIZE_MIN)) {
-    return {
-      error: {
-        focus: 'widget_icon_size_custom',
-        title: 'Invalid icon size',
-        message: `Enter an exact icon size of at least ${SIZE_MIN} px.`,
-      },
-    };
-  }
-  if (form.customSize && Number(sizeCustom) > SIZE_MAX) {
-    return {
-      error: {
-        focus: 'widget_icon_size_custom',
-        title: 'Invalid icon size',
-        message: `Enter an exact icon size of ${SIZE_MAX} px or less.`,
-      },
-    };
-  }
-
-  // Exact position: an empty field is never saved as 0 ("0" is a value, an empty field is not)
-  if (form.customPosition) {
-    const xError = wholeNumber(form.x, null) === null;
-    const yError = wholeNumber(form.y, null) === null;
-    if (xError || yError) {
-      return {
-        error: {
-          focus: xError ? 'custom_position_x_value' : 'custom_position_y_value',
-          title: 'Position missing',
-          message: 'Enter the exact position (0 - 250 px), or turn off "Set an exact position in pixels".',
-          offsetErrors: { xError, yError },
-        },
-      };
-    }
-  }
 
   // Exact offsets: only the chosen direction of each axis is sent
   // (empty only while the exact position is off: then 0, as before)
@@ -166,21 +186,19 @@ export const collectAppearance = (form, domain) => {
   const y = wholeNumber(form.y, 0);
 
   return {
-    params: {
-      u: domain,
-      widget_position: form.position,
-      is_widget_custom_position: form.customPosition ? 1 : 0,
-      is_widget_custom_size: form.customSize ? 1 : 0,
-      widget_color_code: '#' + hex,
-      widget_icon_type: form.iconType,
-      widget_icon_size: form.iconSize,
-      widget_size: form.widgetSize,
-      widget_icon_size_custom: sizeCustom,
-      widget_position_right: form.xDir === X_RIGHT ? x : null,
-      widget_position_left: form.xDir === X_LEFT ? x : null,
-      widget_position_top: form.yDir === Y_TOP ? y : null,
-      widget_position_bottom: form.yDir === Y_BOTTOM ? y : null,
-    },
+    u: domain,
+    widget_position: form.position,
+    is_widget_custom_position: form.customPosition ? 1 : 0,
+    is_widget_custom_size: form.customSize ? 1 : 0,
+    widget_color_code: '#' + hex,
+    widget_icon_type: form.iconType,
+    widget_icon_size: form.iconSize,
+    widget_size: form.widgetSize,
+    widget_icon_size_custom: sizeCustom,
+    widget_position_right: form.xDir === X_RIGHT ? x : null,
+    widget_position_left: form.xDir === X_LEFT ? x : null,
+    widget_position_top: form.yDir === Y_TOP ? y : null,
+    widget_position_bottom: form.yDir === Y_BOTTOM ? y : null,
   };
 };
 
@@ -258,62 +276,87 @@ export const checkLink = (name, value) => {
   return { value: fixed, error };
 };
 
+const LINK_NAMES = {
+  statement_link: 'Accessibility statement link',
+  report_problem_link: 'Report a problem link',
+};
+
 /**
- * Validate the Paid Features form and build its save parameters (paid plans only).
- * @returns {{paid, params}} | {{paid, error: {focus, title, message}}}  paid: the form with fixed links and errors
+ * Check the Paid Features form before saving, paid plans only (reference: AIOA.paid.validate).
+ * Every invalid field is marked at the same time; the links also get https:// when it is missing.
+ * @returns {{paid, problems}}  paid: the form with fixed links and error marks; problems: in page order
  */
-export const collectPaid = (form) => {
+export const validatePaid = (form) => {
   const paid = { ...form, errors: { ...form.errors } };
-  const invalid = [];
-  LINKS.forEach(({ name }) => {
-    const { value, error } = checkLink(name, paid[name]);
-    paid[name] = value;
-    paid.errors[name] = error;
-    if (error) invalid.push(name);
-  });
-  if (invalid.length) {
-    return {
-      paid,
-      error: { focus: invalid[0], title: 'Invalid link', message: 'Check the links on the Paid Features tab.' },
-    };
-  }
+  const problems = [];
 
   // Exact mobile position: an empty field is never saved as 0
   paid.mxError = false;
   paid.myError = false;
   if (paid.is_mobile_position && paid.customMobile) {
-    paid.mxError = wholeNumber(paid.mx, null) === null;
-    paid.myError = wholeNumber(paid.my, null) === null;
+    paid.mxError = !isFilled(paid.mx);
+    paid.myError = !isFilled(paid.my);
     if (paid.mxError || paid.myError) {
-      return {
-        paid,
-        error: {
-          focus: paid.mxError ? 'mobile_x_value' : 'mobile_y_value',
-          title: 'Mobile position missing',
-          message: 'Enter the exact mobile position (0 - 250 px) on the Paid Features tab.',
-        },
-      };
+      problems.push({
+        focus: paid.mxError ? 'mobile_x_value' : 'mobile_y_value',
+        tab: 'paid',
+        name: 'Widget position for mobile (Paid Features)',
+        title: 'Mobile position missing',
+        text: 'Enter the exact mobile position (0 - 250 px) on the Paid Features tab.',
+      });
     }
   }
 
-  const offset = (dir, value, want) => (dir === want ? n(value) : '');
+  LINKS.forEach(({ name }) => {
+    const { value, error } = checkLink(name, paid[name]);
+    paid[name] = value;
+    paid.errors[name] = error;
+    if (error) {
+      problems.push({
+        focus: name,
+        tab: 'paid',
+        name: LINK_NAMES[name] + ' (Paid Features)',
+        title: 'Invalid link',
+        text: 'Check the links on the Paid Features tab.',
+      });
+    }
+  });
 
+  return { paid, problems };
+};
+
+/** Save parameters of the Paid Features form (after validatePaid found no problems) */
+export const paidParams = (paid) => {
+  const offset = (dir, value, want) => (dir === want ? n(value) : '');
   return {
-    paid,
-    params: {
-      statement_link: paid.statement_link,
-      report_problem_link: paid.report_problem_link,
-      widget_leave_page: paid.widget_leave_page ? 1 : 0,
-      is_sound_disabled: paid.is_sound_disabled ? 1 : 0,
-      is_mobile_position: paid.is_mobile_position ? 1 : 0,
-      is_widget_custom_position_mobile: paid.customMobile ? 1 : 0,
-      widget_position_mobile: paid.positionMobile,
-      widget_position_right_mobile: offset(paid.mxDir, paid.mx, 'right'),
-      widget_position_left_mobile: offset(paid.mxDir, paid.mx, 'left'),
-      widget_position_horizontal_center_offset_mobile: offset(paid.mxDir, paid.mx, 'center'),
-      widget_position_bottom_mobile: offset(paid.myDir, paid.my, 'bottom'),
-      widget_position_top_mobile: offset(paid.myDir, paid.my, 'top'),
-      widget_position_vertical_center_offset_mobile: '', // no vertical center option: always cleared
-    },
+    statement_link: paid.statement_link,
+    report_problem_link: paid.report_problem_link,
+    widget_leave_page: paid.widget_leave_page ? 1 : 0,
+    is_sound_disabled: paid.is_sound_disabled ? 1 : 0,
+    is_mobile_position: paid.is_mobile_position ? 1 : 0,
+    is_widget_custom_position_mobile: paid.customMobile ? 1 : 0,
+    widget_position_mobile: paid.positionMobile,
+    widget_position_right_mobile: offset(paid.mxDir, paid.mx, 'right'),
+    widget_position_left_mobile: offset(paid.mxDir, paid.mx, 'left'),
+    widget_position_horizontal_center_offset_mobile: offset(paid.mxDir, paid.mx, 'center'),
+    widget_position_bottom_mobile: offset(paid.myDir, paid.my, 'bottom'),
+    widget_position_top_mobile: offset(paid.myDir, paid.my, 'top'),
+    widget_position_vertical_center_offset_mobile: '', // no vertical center option: always cleared
   };
 };
+
+/** "A", "A and B", "A, B and C" */
+const joinNames = (names) =>
+  names.length > 1 ? names.slice(0, -1).join(', ') + ' and ' + names[names.length - 1] : names[0];
+
+/**
+ * The toast for the problems (reference: AIOA.form report): a single problem's own toast, or
+ * "Check the fields marked in red" listing them all.
+ */
+export const problemsToast = (problems) =>
+  problems.length === 1
+    ? { title: problems[0].title, message: problems[0].text }
+    : {
+        title: 'Check the fields marked in red',
+        message: joinNames(problems.map((p) => p.name)) + ' need a fix before you can save.',
+      };

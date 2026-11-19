@@ -27,13 +27,16 @@ import {
   appearanceDefaults,
   appearanceFrom,
   checkLink,
-  collectAppearance,
-  collectPaid,
+  appearanceParams,
+  paidParams,
+  problemsToast,
+  validateAppearance,
+  validatePaid,
   paidDefaults,
   paidFrom,
 } from './formState';
-import { REGISTER_AGAIN_AFTER, STORAGE_REGISTERED, STORAGE_TAB, TAB_ORDER, TABS } from './constants';
-import { DOMAIN_RE, normalizeDomain, storage } from './utils';
+import { REGISTER_AGAIN_AFTER, STORAGE_REGISTERED, STORAGE_TAB, TAB_ORDER, TABS, UPGRADE_URL } from './constants';
+import { DOMAIN_RE, normalizeDomain, storage, upgradeUrl } from './utils';
 
 const NO_DOMAIN_MESSAGE =
   'No valid website domain was found. Set websiteUrl for strapi-plugin-all-in-one-accessibility in config/plugins.js (or the AIOA_WEBSITE_URL environment variable) to your website domain, or open the admin panel on your website domain or on localhost (not an IP address).';
@@ -49,6 +52,7 @@ export const SettingsPage = () => {
   const [view, setView] = useState('load'); // load | error | settings
   const [error, setError] = useState({ title: '', message: '', retry: true });
   const [domain, setDomain] = useState(null); // null until resolved; '' = none found
+  const [admin, setAdmin] = useState({}); // signed-in admin's first / last name and email (Upgrade links)
   const [isPaid, setIsPaid] = useState(false);
   const [form, setForm] = useState(appearanceDefaults);
   const [paid, setPaid] = useState(paidDefaults);
@@ -251,6 +255,7 @@ export const SettingsPage = () => {
         // An invalid configured website never falls back to the hostname
         const candidate = configured || normalizeDomain(window.location.hostname);
         const website = DOMAIN_RE.test(candidate) ? candidate : '';
+        setAdmin(config.admin || {});
         setDomain(website);
         loadSettings(website);
       })
@@ -326,30 +331,32 @@ export const SettingsPage = () => {
   const onSave = async () => {
     if (saving) return;
 
-    const appearance = collectAppearance(form, domain);
-    if (appearance.error) {
-      const { focus, title, message, colorError, offsetErrors } = appearance.error;
-      if (colorError) updateForm({ colorError: true }, false);
-      if (offsetErrors) updateForm(offsetErrors, false);
-      if (tab !== 'appearance') selectTab('appearance');
-      focusLater(focus);
+    // Check every field first, so every problem is marked in red at the same time
+    // (reference: AIOA.form.validate / report). Appearance Design comes first.
+    const appearance = validateAppearance(form);
+    updateForm(appearance.marks, false);
+    const problems = [...appearance.problems];
+
+    // Paid Features: paid plans only
+    let checkedPaid = paid;
+    if (isPaid) {
+      const result = validatePaid(paid);
+      checkedPaid = result.paid;
+      setPaid(result.paid);
+      problems.push(...result.problems);
+    }
+
+    if (problems.length) {
+      // Go to the first problem (its tab and field); one toast for all of them
+      const first = problems[0];
+      if (tab !== first.tab) selectTab(first.tab);
+      focusLater(first.focus);
+      const { title, message } = problemsToast(problems);
       toast('error', title, message);
       return;
     }
-    const params = { ...appearance.params };
 
-    // Paid Features: paid plans only
-    if (isPaid) {
-      const result = collectPaid(paid);
-      setPaid(result.paid);
-      if (result.error) {
-        selectTab('paid');
-        focusLater(result.error.focus);
-        toast('error', result.error.title, result.error.message);
-        return;
-      }
-      Object.assign(params, result.params);
-    }
+    const params = { ...appearanceParams(form, domain), ...(isPaid ? paidParams(checkedPaid) : {}) };
 
     setSaving(true);
     try {
@@ -373,6 +380,8 @@ export const SettingsPage = () => {
   const order = isPaid ? TAB_ORDER.paid : TAB_ORDER.free;
   const showSave = tab === 'appearance' || (tab === 'paid' && isPaid);
   const preview = iconSrc(form.iconType);
+  // "Upgrade to Paid Plan": the trial form gets the website, email and name
+  const upgradeHref = upgradeUrl(UPGRADE_URL, { website: domain, ...admin });
 
   return (
     <div className={`aioa-plugin${isDark ? ' aioa-dark' : ''}`} style={{ '--widget-color': '#' + form.color }}>
@@ -404,7 +413,11 @@ export const SettingsPage = () => {
 
           {view === 'settings' && (
             <div id="settings_block">
-              {isPaid ? <PaidBanner onDashboard={openDashboard} busy={dashboardBusy} /> : <UpgradeBanner />}
+              {isPaid ? (
+                <PaidBanner onDashboard={openDashboard} busy={dashboardBusy} />
+              ) : (
+                <UpgradeBanner upgradeHref={upgradeHref} />
+              )}
               <SiteLine domain={domain} />
 
               <Tabs order={order} current={tab} locked={!isPaid} onSelect={selectTab} />
@@ -441,6 +454,7 @@ export const SettingsPage = () => {
                     update={updatePaid}
                     onLinkBlur={onLinkBlur}
                     preview={preview}
+                    upgradeHref={upgradeHref}
                   />
                 </div>
 
@@ -452,7 +466,7 @@ export const SettingsPage = () => {
                   tabIndex={0}
                   hidden={tab !== 'score'}
                 >
-                  <ScoreTab locked={!isPaid} score={score} onRetry={() => loadScore(true)} />
+                  <ScoreTab locked={!isPaid} score={score} onRetry={() => loadScore(true)} upgradeHref={upgradeHref} />
                 </div>
 
                 {/* Save bar: Appearance Design, and Paid Features on a paid plan */}
