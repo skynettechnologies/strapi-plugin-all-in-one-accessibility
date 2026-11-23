@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.1.2
+
+### Fixed
+
+- Installing the plugin in a Strapi 5 project failed with `ERESOLVE unable to resolve dependency tree`:
+  the plugin required React 19 and React Router 7, but Strapi 5 uses React 18 and React Router 6.
+  `peerDependencies` now list only what the plugin imports, with Strapi's ranges:
+  `@strapi/strapi` `^5.55.1`, `react` `^18.0.0`, `react-router-dom` `^6.0.0`, `styled-components` `^6.0.0`.
+  `@strapi/design-system`, `@strapi/icons`, `react-dom` and `react-intl` are no longer peers (never imported).
+- The plugin is now built and tested against React 18.3 and React Router 6.30 (`devDependencies`),
+  the versions Strapi installs, instead of React 19 and React Router 7.
+
 ## 1.1.1
 
 Synced with the latest All in One Accessibility reference.
