@@ -7,7 +7,7 @@
  */
 import { DEFAULT_COLOR, ICON_SIZES, OFFSET_MAX, PRESET_COLORS, SIZE_MAX, SIZE_MIN, WIDGET_SIZES } from './constants';
 import { ICON_TYPES, iconSrc } from './icons';
-import { isValidIconSize, SIZE_MESSAGE, X_LEFT, X_RIGHT, Y_BOTTOM, Y_TOP } from './formState';
+import { isValidIconSize, POSITION_FIELD_MESSAGE, SIZE_MESSAGE, X_LEFT, X_RIGHT, Y_BOTTOM, Y_TOP } from './formState';
 import { NumberField, PositionGrid } from './Shared';
 import { parseHex, slug } from './utils';
 
@@ -244,7 +244,7 @@ const PositionSection = ({ form, update, preview }) => (
         0 - {OFFSET_MAX}px are permitted values
       </p>
       <p className="aioa-error" id="pos-error" hidden={!form.xError && !form.yError}>
-        Enter a horizontal and a vertical position from 0 to 250 px.
+        {POSITION_FIELD_MESSAGE}
       </p>
     </div>
   </section>

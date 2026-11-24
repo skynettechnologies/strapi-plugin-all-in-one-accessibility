@@ -8,7 +8,7 @@
  * onLinkBlur(name)  adds https:// and shows the error of one link
  */
 import { OFFSET_MAX } from './constants';
-import { LINKS, SWITCHES } from './formState';
+import { LINKS, POSITION_FIELD_MESSAGE, SWITCHES } from './formState';
 import { LockOverlay, NumberField, PositionGrid, useInert } from './Shared';
 
 const LINK_ICONS = {
@@ -148,7 +148,7 @@ const MobilePosition = ({ paid, update, preview }) => (
           0 - {OFFSET_MAX}px are permitted values
         </p>
         <p className="aioa-error" id="mobile-pos-error" hidden={!paid.mxError && !paid.myError}>
-          Enter a horizontal and a vertical position from 0 to 250 px.
+          {POSITION_FIELD_MESSAGE}
         </p>
       </div>
     </div>

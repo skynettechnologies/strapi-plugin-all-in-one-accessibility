@@ -39,7 +39,7 @@ Businesses, developers, agencies, content teams, ecommerce brands, educational i
 - Free support from our team for installation and queries.
 - Core features at no cost.
 
-## Free vs Pro
+## Free vs Paid
 
 See the full [free widget vs paid app comparison](https://www.skynettechnologies.com/installation-guide/free-vs-paid-accessibility-widget-comparison-video).
 
@@ -65,7 +65,7 @@ Yes. It supports 190+ languages.
 
 **Which languages do the screen reader, virtual keyboard, and other advanced features support?**
 
-In the paid app, Screen Reader, Talk & Type, and Live Site Translation support 50+ languages; the Virtual Keyboard supports 40+ languages; Voice Navigation and Dictionary Search support 15+ languages. [See language support details](https://www.skynettechnologies.com/all-in-one-accessibility/languages).
+The widget interface supports 190+ languages. In the paid app, Screen Reader supports 100+, Voice Navigation 50+, Talk & Type 50+, Virtual Keyboard 40+, Dictionary Search 20+, and Live Site Translation 160+. [See language support details](https://www.skynettechnologies.com/all-in-one-accessibility/languages).
 
 **How can I upgrade from the free widget to the paid app?**
 
@@ -73,11 +73,11 @@ Upgrade to a paid subscription with 100+ advanced features. Check out the [upgra
 
 **What additional features are available in the paid version?**
 
-The paid app includes a screen reader, voice navigation, talk & type, virtual keyboard, dictionary search, 12 accessibility profiles tailored for different disability groups, Libras (Brazilian Sign Language), automated compliance accessibility reports, AI-based remediation guidelines, and more. Explore the [paid accessibility app](https://www.skynettechnologies.com/all-in-one-accessibility) and buy now.
+The paid app includes a screen reader, voice navigation, talk & type, virtual keyboard, dictionary search, 12 accessibility profiles tailored for different disability groups, Libras (Brazilian Sign Language), American Sign Language, automated compliance accessibility reports, AI-based remediation guidelines, and more. Explore the [paid accessibility app](https://www.skynettechnologies.com/all-in-one-accessibility) and buy now.
 
-**Can I try Pro before buying?**
+**Can I try the paid app before buying?**
 
-Yes. Pro comes with a [10-day free trial](https://ada.skynettechnologies.us/trial-subscription) that includes all features.
+Yes. The paid app comes with a [10-day free trial](https://ada.skynettechnologies.us/trial-subscription) that includes all features.
 
 **Which frontends are supported?**
 
@@ -322,7 +322,7 @@ Remove the Skynet Technologies logo and all footer links, popups, the "report a 
 
 [**Instant Live Site Translations**](https://www.skynettechnologies.com/all-in-one-accessibility/addons#accessibility-widget-add-ons)
 
-Translate your website into over 190 languages instantly to enhance accessibility for non-native speakers, individuals with language acquisition difficulties, and those with learning disabilities.
+Translate your website into 160+ languages instantly to enhance accessibility for non-native speakers, individuals with language acquisition difficulties, and those with learning disabilities.
 
 [**Modify Accessibility Menu**](https://www.skynettechnologies.com/all-in-one-accessibility/addons#accessibility-widget-add-ons)
 

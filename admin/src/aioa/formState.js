@@ -119,6 +119,8 @@ export const isFilled = (value) => String(value ?? '').trim() !== '';
 
 export const SIZE_MESSAGE = `Enter an exact icon size from ${SIZE_MIN} to ${SIZE_MAX} px.`;
 
+export const POSITION_FIELD_MESSAGE = `Enter a horizontal and a vertical position from 0 to ${OFFSET_MAX} px.`;
+
 /**
  * Check the Appearance Design form before saving (reference: AIOA.form.validate).
  * Every check runs, so every invalid field is marked at the same time.
@@ -151,12 +153,12 @@ export const validateAppearance = (form) => {
         tab: 'appearance',
         name: 'Widget position',
         title: 'Position missing',
-        text: 'Enter the exact position (0 - 250 px), or turn off "Set an exact position in pixels".',
+        text: `Enter the exact position (0 - ${OFFSET_MAX} px), or turn off "Set an exact position in pixels".`,
       });
     }
   }
 
-  // Exact icon size: a whole number from 20 to 150 px
+  // Exact icon size: a whole number from SIZE_MIN to SIZE_MAX px
   if (form.customSize) {
     marks.sizeError = !isValidIconSize(form.sizeCustom);
     if (marks.sizeError) {
@@ -302,7 +304,7 @@ export const validatePaid = (form) => {
         tab: 'paid',
         name: 'Widget position for mobile (Paid Features)',
         title: 'Mobile position missing',
-        text: 'Enter the exact mobile position (0 - 250 px) on the Paid Features tab.',
+        text: `Enter the exact mobile position (0 - ${OFFSET_MAX} px) on the Paid Features tab.`,
       });
     }
   }
@@ -360,3 +362,4 @@ export const problemsToast = (problems) =>
         title: 'Check the fields marked in red',
         message: joinNames(problems.map((p) => p.name)) + ' need a fix before you can save.',
       };
+      

@@ -62,8 +62,8 @@ export const PRESET_COLORS = [
 ];
 
 // Ranges enforced by the page
-export const OFFSET_MAX = 250;
-export const SIZE_MIN = 20;
+export const OFFSET_MAX = 500;
+export const SIZE_MIN = 24;
 export const SIZE_MAX = 150;
 
 // Tab order per plan (reference: ORDER in assets/js/tabs.js)

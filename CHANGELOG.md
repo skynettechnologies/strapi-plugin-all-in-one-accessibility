@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.1.3
+
+### Changed
+
+- Exact position (desktop and mobile): 0 - 500 px (was 0 - 250 px). The fields, the
+  "permitted values" hints and the validation messages all follow the new range.
+- Exact icon size: 24 - 150 px (was 20 - 150 px).
+- README updated to the latest Free master README template (v26.10.27): "Free vs Paid" instead of
+  "Free vs Pro", updated paid-app language counts, American Sign Language added to the paid features,
+  Instant Live Site Translations: 160+ languages.
+
 ## 1.1.2
 
 ### Fixed
